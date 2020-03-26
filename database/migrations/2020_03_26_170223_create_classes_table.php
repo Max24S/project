@@ -8,7 +8,7 @@ class CreateClassesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *gg
      * @return void
      */
     public function up()
