@@ -18,17 +18,21 @@ class CreateTimetablesTable extends Migration
             $table->string('day',['Понедельние','Вторник','Среда','Четверг','Пятница','Суббота']);
             $table->unsignedBigInteger('class_id');
             $table->unsignedBigInteger('teach_id');
-            $table->unsignedBigInteger('classroom');
+            $table->unsignedBigInteger('classroom_id');
             $table->enum('semester',['1','2']);
             $table->timestamps();
         });
         Schema::table('teach',function (Blueprint $table){
-            $table->foreign('subject_id')
-                ->references('id')->on('subjects')
+            $table->foreign('class_id')
+                ->references('id')->on('classes')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('staff_id')
-                ->references('id')->on('staff')
+            $table->foreign('teach_id')
+                ->references('id')->on('teach')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('classroom_id')
+                ->references('id')->on('classrooms')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
