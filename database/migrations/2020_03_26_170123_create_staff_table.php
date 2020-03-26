@@ -15,6 +15,14 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
+            $table->string('name','50');
+            $table->string('surname','50');
+            $table->string('patronymic','50');
+            $table->string('email');
+            $table->string('password');
+            $table->enum('sex',['Мужчина','Женщина']);
+            $table->enum('role',['Директор','Админ','Завуч','Учитель']);
+            $table->string('description');
             $table->timestamps();
         });
     }
