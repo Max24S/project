@@ -22,6 +22,16 @@ class CreateTimetablesTable extends Migration
             $table->enum('semester',['1','2']);
             $table->timestamps();
         });
+        Schema::table('teach',function (Blueprint $table){
+            $table->foreign('subject_id')
+                ->references('id')->on('subjects')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('staff_id')
+                ->references('id')->on('staff')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**
