@@ -11,7 +11,6 @@ class CreateClassesTable extends Migration
      *
      * @return void
      */
-    public function  df(){}
     public function up()
     {
         Schema::create('classes', function (Blueprint $table) {
