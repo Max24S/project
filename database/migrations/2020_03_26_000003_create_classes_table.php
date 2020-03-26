@@ -21,16 +21,16 @@ class CreateClassesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::table('classes', function (Blueprint $table) {
             $table->foreign('staff_id')
                 ->references('id')
-                ->on('classes')
+                ->on('staff')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
             $table->foreign('classroom_id')
                 ->references('id')
-                ->on('classes')
+                ->on('classrooms')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
