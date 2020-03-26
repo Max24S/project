@@ -15,29 +15,4 @@ class CreateTeachTable extends Migration
     {
         Schema::create('teach', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('subject_id');
-            $table->unsignedBigInteger('staff_id');
-            $table->timestamps();
-        });
-        Schema::table('teach',function (Blueprint $table)
-        {
-            $table->foreign('subject_id')
-                ->references('id')->on('subjects')
-                ->onDelete('cascade');
-            $table->foreign('personal_id')
-                ->references('id')->on('staff')
-                ->onDelete('cascade');
-        });
-    }
-
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('teach');
-    }
-}
+        
