@@ -15,18 +15,9 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name',4);
-            $table->unsignedBigInteger('staff_id');
+
             $table->timestamps();
         });
-
-        Schema::create('classes', function (Blueprint $table) {
-            $table->foreign('staff_id')
-                ->references('id')
-                ->on('staff')
-                ->onDelete('cascade');
-        });
-
     }
 
     /**
