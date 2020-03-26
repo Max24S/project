@@ -30,6 +30,7 @@ class CreateStudentsTable extends Migration
             $table->foreign('class_id')
                 ->references('id')
                 ->on('classes')
+                ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
     }
