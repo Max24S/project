@@ -21,7 +21,7 @@ class CreateTeachTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     *f
      * @return void
      */
     public function down()
