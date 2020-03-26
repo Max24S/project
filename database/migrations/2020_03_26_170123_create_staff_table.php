@@ -18,15 +18,16 @@ class CreateStaffTable extends Migration
             $table->string('name','50');
             $table->string('surname','50');
             $table->string('patronymic','50');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
+            $table->string('birthday');
             $table->enum('sex',['Мужчина','Женщина']);
             $table->enum('role',['Директор','Админ','Завуч','Учитель']);
             $table->string('description');
             $table->timestamps();
         });
-    }
 
+    }
     /**
      * Reverse the migrations.
      *
