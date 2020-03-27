@@ -16,15 +16,15 @@ class CreateTimetablesTable extends Migration
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
             $table->enum('day',['Понедельние','Вторник','Среда','Четверг','Пятница','Суббота']);
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('grade_id');
             $table->unsignedBigInteger('teach_id');
             $table->unsignedBigInteger('classroom_id');
             $table->enum('semester',['1','2']);
             $table->timestamps();
         });
         Schema::table('timetables',function (Blueprint $table){
-            $table->foreign('class_id')
-                ->references('id')->on('classes')
+            $table->foreign('grade_id')
+                ->references('id')->on('grades')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreign('teach_id')
