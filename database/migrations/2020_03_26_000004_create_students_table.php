@@ -20,6 +20,8 @@ class CreateStudentsTable extends Migration
             $table->string('patronymic','50');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('number',20)->nullable();
+            $table->string('address');
             $table->timestamp('birthday');
             $table->unsignedBigInteger('grade_id');
             $table->enum('sex',['Мужчина','Женщина']);

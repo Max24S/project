@@ -20,6 +20,8 @@ class CreateStaffTable extends Migration
             $table->string('patronymic','50');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('number',20)->nullable();
+            $table->string('address');
             $table->string('birthday');
             $table->enum('sex',['Мужчина','Женщина']);
             $table->enum('role',['Директор','Админ','Завуч','Учитель']);
