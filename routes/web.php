@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('journal.create-user');
+        return view('admin.index');
 });
+
+//Route::get('/create-user/{role}', 'UserController@create');
+//Route::get('/create-subject', 'SubjectController@create');
+//Route::get('/create-grade', 'GradeController@create');
+//Route::get('/create-classroom', 'ClassroomController@create');
