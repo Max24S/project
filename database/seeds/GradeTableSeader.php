@@ -11,6 +11,6 @@ class GradeTableSeader extends Seeder
      */
     public function run()
     {
-        //
+        factory(\App\Models\Grade::class,200)->create();
     }
 }
