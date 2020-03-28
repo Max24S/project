@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-        return view('admin.user.create');
+        return view('admin.super.user.create');
 });
 //Route::prefix('Admin')->group(function () {
 //
