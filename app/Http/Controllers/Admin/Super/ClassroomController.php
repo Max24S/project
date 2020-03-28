@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Subject;
+namespace App\Http\Controllers\Super\Admin;
 
+use App\Classroom;
 use App\Http\Controllers\Controller;
-use App\Subject;
 use Illuminate\Http\Request;
 
-class SubjectController extends Controller
+class ClassroomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class SubjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Subject  $subject
+     * @param  \App\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Classroom $classroom)
     {
         //
     }
@@ -53,10 +53,10 @@ class SubjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Subject  $subject
+     * @param  \App\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subject $subject)
+    public function edit(Classroom $classroom)
     {
         //
     }
@@ -65,10 +65,10 @@ class SubjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Subject  $subject
+     * @param  \App\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, Classroom $classroom)
     {
         //
     }
@@ -76,10 +76,10 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Subject  $subject
+     * @param  \App\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy(Classroom $classroom)
     {
         //
     }

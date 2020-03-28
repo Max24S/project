@@ -14,8 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-        return view('admin.index');
+        return view('admin.user.create');
 });
+//Route::prefix('Admin')->group(function () {
+//
+//    Route::resources('/','UserController')
+//        ->namespace('Admin')
+//        ->name('user');
+//
+//})
 
 //Route::get('/create-user/{role}', 'UserController@create');
 //Route::get('/create-subject', 'SubjectController@create');

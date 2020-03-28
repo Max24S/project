@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin\Super\Grade;
 
+use App\Grade;
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class GradeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Grade $grade)
     {
         //
     }
@@ -53,10 +53,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Grade $grade)
     {
         //
     }
@@ -65,10 +65,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Grade $grade)
     {
         //
     }
@@ -76,10 +76,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Grade $grade)
     {
         //
     }
