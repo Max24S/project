@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('admin.super.layouts.admin')
 @section('form')
 <div class="container">
     <form class="form-horizontal" role="form">
