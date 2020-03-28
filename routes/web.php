@@ -16,14 +16,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
         return view('admin.super.user.create');
 });
-
+Route::get('/headteacher', function () {
+    return view('admin.teacher.head-teacher.timetable.create');
+});
+Route::get('/teacher', function () {
+    return view('admin.teacher.homework.create');
+});
 Route::prefix('Admin')
     ->namespace('Admin\Super')
     ->name('user')
     ->group(function () {
-
     Route::resource('/', 'UserController');
-
 });
 
 

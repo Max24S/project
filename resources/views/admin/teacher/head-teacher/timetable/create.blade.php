@@ -1,33 +1,46 @@
 @extends('admin.teacher.head-teacher.layouts.head')
 @section('form')
-<form>
-    <div class="form-group">
-        <label for="exampleFormControlInput1">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">Example select</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    </div>
-</form>
+    <form action="">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Предмет</th>
+                <th scope="col">Преподователь</th>
+                <th scope="col">
+                    <select name="" id="">
+                        <option >Выберите день недели</option>
+                        <option value="day">Понедельник</option>
+                    </select>
+                </th>
+                <th scope="col">
+                    <select name="" id="">
+                        <option>Выберите класс</option>
+                        <option value="day">1-А</option>
+                    </select>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @for($i=1;$i<9;$i++)
+                <tr>
+                    <th scope="row">{{$i}}</th>
+                    <td>
+                    <select name="" id="">
+                        <option value="day">-</option>
+                        <option value="day">Математика</option>
+                    </select>
+                    </td>
+                    <td>
+                        <select name="" id="">
+                            <option value="day">-</option>
+                            <option value="day">Полох И.В.</option>
+                        </select>
+                    </td>
+                </tr>
+            @endfor
+            </tbody>
+        </table>
+        <button type="submit">Cохранить</button>
+    </form>
 @endsection
