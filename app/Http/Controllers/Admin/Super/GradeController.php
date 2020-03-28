@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Super\Grade;
 
-use App\Grade;
+use App\Models\Grade;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
