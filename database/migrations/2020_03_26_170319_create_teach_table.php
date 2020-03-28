@@ -29,6 +29,7 @@ class CreateTeachTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
+
     }
 
     /**
