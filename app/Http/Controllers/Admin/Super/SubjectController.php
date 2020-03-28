@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Super\Subject;
 
 use App\Http\Controllers\Controller;
-use App\Subject;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
