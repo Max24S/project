@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('admin.super.layouts.admin')
 @section('form')
     @php($role='staff')
 <div class="container">
