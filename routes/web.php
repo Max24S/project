@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-        return view('admin.super.user.create');
+        return view('admin.super.user.staff.create');
 });
 Route::get('/headteacher', function () {
-    return view('admin.teacher.head-teacher.timetable.create');
+    return view('admin.staff.head-staff.timetable.create');
 });
-Route::get('/teacher', function () {
-    return view('admin.teacher.homework.create');
+Route::get('/staff', function () {
+    return view('admin.staff.homework.create');
 });
 Route::prefix('Admin')
     ->namespace('Admin\Super')

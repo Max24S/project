@@ -1,15 +1,9 @@
 @extends('admin.super.layouts.admin')
 @section('form')
-    @php($role='staff')
 <div class="container">
     <form class="form-horizontal" role="form">
-        <h2>
-            @if($role=='student')
-                Добавление ученика
-            @elseif($role=='staff')
-                Добавление персонала
-            @endif
-        </h2>
+        @yield('title')
+
         <div class="form-group">
             <label for="firstName" class="col-sm-3 control-label">Фамилия</label>
             <div class="col-sm-9 ">
@@ -52,14 +46,9 @@
                 <input type="date" id="birthDate" class="form-control">
             </div>
         </div>
-        @if($role=='student')
-        <div class="form-group col-md-6">
-            <select id="inputState" class="form-control">
-                <option selected>Класс</option>
-                <option>1</option>
-            </select>
-        </div>
-        @endif
+
+        @yield('grade')
+
         <div class="form-group">
             <label for="phoneNumber" class="col-sm-3 control-label">Phone number </label>
             <div class="col-sm-9">
@@ -89,24 +78,8 @@
                     </div>
                 </div>
             </div>
-            @if($role=='staff')
-            <div class="form-group col-md-6">
-                <select id="inputState" class="form-control">
-                    <option selected>Роль</option>
-                    <option>Директор</option>
-                    <option>Завуч</option>
-                    <option>Учитель</option>
-                    <option>Админ</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="address">Address</label>
-                <div class="col-md-4">
-                    <textarea class="form-control" id="description" name="address">default text</textarea>
-                </div>
-            </div>
-             @endif
         </div> <!-- /.form-group -->
+            @yield('staff')
         <button type="submit" class="btn btn-primary btn-block">Register</button>
     </form> <!-- /form -->
 </div> <!-- ./container -->

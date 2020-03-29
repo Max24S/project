@@ -1,57 +1,51 @@
 <style>
-    ul {
-        list-style: none;
-        color:#fff;
-        font-size: 16px;
-        padding: 0;
-        margin:0;
-    }
-    ul li:hover> ul{
+    ul li:hover> div{
         display: block;
+        z-index: 2000;
     }
-    ul li li {
-        padding: 15px 10px;
-        border: 1px #fff solid;
-    }
-
-    ul ul   {
-        background-color: #1b1e21;
-        position: absolute;
-        display: none;
-
+    .dropdown-menu {
+        top: 35px;
+        left: -40px;
     }
 </style>
-<nav>
-    <ul class="d-flex justify-content-between position-relative">
-        <li>
-            Пользователи
-            <ul>
-                <li>Добавить сотрудника</li>
-                <li>Редактировать список учеников</li>
-                <li>Добавить ученика</li>
-                <li>Редактировать список учеников</li>
+<div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark" >
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav mr-auto d-flex justify-content-around w-100">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пользователи</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="#">Добавить сотрудника</a>
+                        <a class="dropdown-item" href="#">Редактировать список сотрудников</a>
+                        <a class="dropdown-item" href="#">Добавить ученика</a>
+                        <a class="dropdown-item" href="#">Редактировать список учеников</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Предметы</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="#">Добавить предмет</a>
+                        <a class="dropdown-item" href="#">Редактировать предметы</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Классы</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="#">Добавить класс</a>
+                        <a class="dropdown-item" href="#">Редактировать классы</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кабинеты</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" href="#">Добавить кабинет</a>
+                        <a class="dropdown-item" href="#">Редактировать кабинеты</a>
+                    </div>
+                </li>
             </ul>
-        </li>
-        <li>
-            Предметы
-            <ul>
-                <li>Добавить предмет</li>
-                <li>Редактировать предметы</li>
-            </ul>
-        </li>
-        <li >
-            Классы
-            <ul>
-                <li>Добавить класс</li>
-                <li>Редактировать классы</li>
-            </ul>
-        </li>
-        <li>
-            Кабинеты
-            <ul>
-                <li>Добавить кабинет</li>
-                <li>Редактировать кабинеты</li>
-            </ul>
-        </li>
-    </ul>
-</nav>
+        </div>
+    </nav>
+</div>
