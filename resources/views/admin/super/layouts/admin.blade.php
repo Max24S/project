@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <style>
         header {
-            background-color: #1b1e21;
-            padding: 20px 0;
             position: fixed;
             width: 100%;
             z-index: 1;
@@ -19,16 +17,21 @@
         body {
             padding-top: 100px;
         }
+        .formContainer {
+            max-width: 500px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            @include('admin.super.layouts.blocks.nav.index')
-        </div>
+    <header class="bg-dark">
+        @include('admin.super.layouts.blocks.nav.index')
     </header>
-
-        @yield('form')
+    <div class="container">
+        <div class="formContainer">
+            @yield('form')
+        </div>
+    </div>
 
 <script src="{{mix('js/app.js')}}"></script>
 </body>
