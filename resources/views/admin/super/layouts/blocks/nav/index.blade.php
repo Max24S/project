@@ -23,9 +23,9 @@
 </style>
 <nav>
     <ul class="d-flex justify-content-between position-relative">
-        <li class="dropdown-toggle">
+        <li>
             Пользователи
-            <ul class="dropdown-menu">
+            <ul>
                 <li>Добавить сотрудника</li>
                 <li>Редактировать список учеников</li>
                 <li>Добавить ученика</li>
