@@ -12,9 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
+Route::get('/8', function () {
+    return view('admin.super.index');
+});
+Route::get('/1', function () {
         return view('admin.super.user.staff.create');
+});
+Route::get('/2', function () {
+    return view('admin.super.user.student.create');
+});
+Route::get('/3', function () {
+    return view('admin.super.subject.create');
+});
+Route::get('/4', function () {
+    return view('admin.super.grade.create');
+});
+Route::get('/5', function () {
+    return view('admin.super.classroom.create');
 });
 Route::get('/headteacher', function () {
     return view('admin.staff.head-staff.timetable.create');

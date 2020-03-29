@@ -5,10 +5,18 @@
 @endsection
 
 @section('grade')
-    <div class="form-group col-md-6">
-        <select id="inputState" class="form-control">
-            <option selected>Класс</option>
-            <option>1</option>
-        </select>
+    <div class="row">
+        <div class="col-sm-4">
+            <label>Укажите класс</label>
+        </div>
+        <div class="form-group col-sm-6">
+            <select id="selectGrade" class="form-control">
+                <option selected></option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+        </div>
     </div>
 @endsection

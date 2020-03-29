@@ -17,16 +17,21 @@
         body {
             padding-top: 100px;
         }
+        .formContainer {
+            max-width: 500px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
     <header class="bg-dark">
-
-            @include('admin.super.layouts.blocks.nav.index')
-
+        @include('admin.super.layouts.blocks.nav.index')
     </header>
-
-        @yield('form')
+    <div class="container">
+        <div class="formContainer">
+            @yield('form')
+        </div>
+    </div>
 
 <script src="{{mix('js/app.js')}}"></script>
 </body>
