@@ -1,6 +1,6 @@
 @extends('admin.super.layouts.admin')
 @section('form')
-    <form class="form-horizontal" method="POST" action="{{route('admin.super.classroom.store')}}}">
+    <form class="form-horizontal" method="POST" action="{{route('admin.super.classroom.store')}}">
     @csrf
         <h2>Добавление кабинета</h2>
         <div class="form-group">
