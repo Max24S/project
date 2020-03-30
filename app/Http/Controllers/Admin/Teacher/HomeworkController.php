@@ -36,7 +36,8 @@ class HomeworkController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        Homework::create($request->all());
+        return redirect()->route('admin teacher.index');
     }
 
     /**
