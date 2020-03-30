@@ -25,11 +25,11 @@ Route::name('admin.')
             ->group(function () {
                 Route::resource('homework', 'HomeworkController');
                 Route::prefix('head-teacher')
-                ->namespace('HeadTeacher')
-                ->name('head-teacher.')
-                ->group(function () {
-                    Route::resource('timetable', 'TimetableController');
-                });
+                    ->namespace('HeadTeacher')
+                    ->name('head-teacher.')
+                    ->group(function () {
+                        Route::resource('timetable', 'TimetableController');
+                    });
             });
     });
 

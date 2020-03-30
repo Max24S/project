@@ -18,30 +18,30 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пользователи</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="#">Добавить сотрудника</a>
+                        <a class="dropdown-item" href="{{route('admin.super.staff.create')}}">Добавить сотрудника</a>
                         <a class="dropdown-item" href="#">Редактировать список сотрудников</a>
-                        <a class="dropdown-item" href="#">Добавить ученика</a>
+                        <a class="dropdown-item" href="{{route('admin.super.student.create')}}">Добавить ученика</a>
                         <a class="dropdown-item" href="#">Редактировать список учеников</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Предметы</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="#">Добавить предмет</a>
+                        <a class="dropdown-item" href="{{route('admin.super.subject.create')}}">Добавить предмет</a>
                         <a class="dropdown-item" href="#">Редактировать предметы</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Классы</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="#">Добавить класс</a>
+                        <a class="dropdown-item" href="{{route('admin.super.grade.create')}}">Добавить класс</a>
                         <a class="dropdown-item" href="#">Редактировать классы</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кабинеты</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="#">Добавить кабинет</a>
+                        <a class="dropdown-item" href="{{route('admin.super.classroom.create')}}">Добавить кабинет</a>
                         <a class="dropdown-item" href="#">Редактировать кабинеты</a>
                     </div>
                 </li>
