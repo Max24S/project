@@ -12,6 +12,7 @@ Route::name('admin.')
             ->name('super.')
             ->namespace('Super')
             ->group(function () {
+                Route::view('/','admin.super.index');
                 Route::resource('classroom', 'ClassroomController');
                 Route::resource('grade', 'GradeController');
                 Route::resource('subject', 'SubjectController');
