@@ -45,33 +45,40 @@ Route::get('/staff', function () {
 //    ->group(function () {
 //    Route::resource('/', 'UserController');
 //});
-Route::name('dashboard.')
-    ->namespace('Dashboard')
-    ->prefix('dashboard')
+Route::view('/', 'index')->name('index');
+Route::name('admin.')
+    ->namespace('Admin')
+    ->prefix('admin')
     ->group(function () {
 
-        Route::view('/', 'dashboard.index');
+        Route::view('/', 'admin.teacher.index');
 
-        Route::prefix('cities')
-            ->name('cities.')
-            ->namespace('Cities')
+//        Route::prefix('super')
+//            ->name('super.')
+//            ->namespace('Super')
+//            ->group(function () {
+//                Route::resource('/', 'ClassroomController');
+//            });
+
+        Route::prefix('teacher')
+            ->name('teacher.')
+            ->namespace('Teacher')
             ->group(function () {
-                Route::resource('/', 'CityController');
+                Route::resource('homework', 'HomeworkController');
+                Route::prefix('head-teacher')
+                ->namespace('HeadTeacher')
+                ->name('head-teacher.')
+                ->group(function () {
+                    Route::resource('/', 'TimetableController');
+                });
             });
 
-        Route::prefix('countries')
-            ->name('countries.')
-            ->namespace('Countries')
-            ->group(function () {
-                Route::resource('/', 'CountryController');
-            });
-
-        Route::prefix('products')
-            ->namespace('Products')
-            ->name('products.')
-            ->group(function () {
-                Route::resource('/', 'ProductController');
-            });
+//        Route::prefix('head-teacher')
+//            ->namespace('HeadTeacher')
+//            ->name('head-teacher.')
+//            ->group(function () {
+//                Route::resource('/', 'TimetableController');
+//            });
     });
 
 //Route::get('/create-user/{role}', 'UserController@create');
