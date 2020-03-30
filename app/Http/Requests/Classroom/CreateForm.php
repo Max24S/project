@@ -23,6 +23,7 @@ class CreateForm extends FormRequest
      */
     public function rules()
     {
+
         return [
             //
         ];
