@@ -16,7 +16,7 @@
 <body>
 <header>
     <div class="container">
-        @include('admin.teacher.layouts.blocks.nav.index')
+        @yield('nav')
     </div>
 </header>
 <main role="main">

@@ -1,4 +1,8 @@
 @extends('admin.teacher.layouts.teacher')
+@section('nav')
+    @include('admin.teacher.layouts.blocks.nav.index')
+@endsection
+
 @section('form')
     @php
         $class='10-A';

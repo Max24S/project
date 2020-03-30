@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -10,6 +11,7 @@
                     </div>
                 </div>
             </li>
+            @yield('nav-head')
         </ul>
     </div>
 </nav>
