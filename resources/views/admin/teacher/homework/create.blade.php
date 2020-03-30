@@ -12,15 +12,16 @@
         @csrf
        <div class="information">
            Класс
-           <select name="class" id="">
-               <option value="class1">10-A</option>
-           </select>
-           Дата домашней работы
-           <select name="date" id="">
-               <option value="date1">10-A-{{$class}}</option>
-           </select>
+{{--           <select name="class" id="">--}}
+{{--               <option value="class1">10-A</option>--}}
+{{--           </select>--}}
+    {{--           Дата домашней работы--}}
+    {{--           <select name="date" id="">--}}
+    {{--               <option value="date1">10-A-{{$class}}</option>--}}
+    {{--           </select>--}}
        </div>
         <div>
+            <input  type="text" name="teach_id" id="" >
             Задание
             <input  type="text" name="name" id="" >
             Комментарии

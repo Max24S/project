@@ -24,6 +24,7 @@ Route::name('admin.')
             ->name('teacher.')
             ->namespace('Teacher')
             ->group(function () {
+                Route::view('/','admin.teacher.index');
                 Route::resource('homework', 'HomeworkController');
                 Route::prefix('head-teacher')
                     ->namespace('HeadTeacher')
