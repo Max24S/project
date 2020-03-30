@@ -31,18 +31,48 @@ Route::get('/5', function () {
     return view('admin.super.classroom.create');
 });
 Route::get('/headteacher', function () {
-    return view('admin.staff.head-staff.timetable.create');
+    return view('admin.teacher.head-teacher.timetable.create');
+});
+Route::get('/teacher', function () {
+    return view('admin.teacher.homework.create');
 });
 Route::get('/staff', function () {
     return view('admin.staff.homework.create');
 });
-Route::prefix('Admin')
-    ->namespace('Admin\Super')
-    ->name('user')
+//Route::prefix('Admin')
+//    ->namespace('Admin\Super')
+//    ->name('user')
+//    ->group(function () {
+//    Route::resource('/', 'UserController');
+//});
+Route::name('dashboard.')
+    ->namespace('Dashboard')
+    ->prefix('dashboard')
     ->group(function () {
-    Route::resource('/', 'UserController');
-});
 
+        Route::view('/', 'dashboard.index');
+
+        Route::prefix('cities')
+            ->name('cities.')
+            ->namespace('Cities')
+            ->group(function () {
+                Route::resource('/', 'CityController');
+            });
+
+        Route::prefix('countries')
+            ->name('countries.')
+            ->namespace('Countries')
+            ->group(function () {
+                Route::resource('/', 'CountryController');
+            });
+
+        Route::prefix('products')
+            ->namespace('Products')
+            ->name('products.')
+            ->group(function () {
+                Route::resource('/', 'ProductController');
+            });
+    });
 
 //Route::get('/create-user/{role}', 'UserController@create');
 //Route::get('/create-subject', 'SubjectController@create');

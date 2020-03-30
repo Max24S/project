@@ -20,6 +20,7 @@
                </option>
                <option value="">10-A-{{$class}}</option>
            </select>
+           <button value="edit" type="submit">Изменить</button>
        </div>
         <div>
             Задание
@@ -32,9 +33,9 @@
             </select>
         </div>
 
-        <button value="edit" type="submit">Изменить</button>
         <button value="save" type="submit">Cохранить</button>
     </form>
+
     <style>
         textarea {
             resize: none !important; /* Запрещаем изменять размер */
