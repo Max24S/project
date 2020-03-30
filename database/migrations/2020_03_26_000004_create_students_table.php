@@ -15,16 +15,8 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('name','50');
-            $table->string('surname','50');
-            $table->string('patronymic','50');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('number',20)->nullable();
-            $table->string('address');
-            $table->timestamp('birthday');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('grade_id');
-            $table->enum('sex',['Мужчина','Женщина']);
             $table->timestamps();
         });
 
@@ -32,6 +24,11 @@ class CreateStudentsTable extends Migration
             $table->foreign('grade_id')
                 ->references('id')
                 ->on('grades')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
