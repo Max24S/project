@@ -21,16 +21,17 @@ class CreateStudentsTable extends Migration
         });
 
         Schema::table('students', function (Blueprint $table) {
-            $table->foreign('grade_id')
-                ->references('id')
-                ->on('grades')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreign('grade_id')
+                ->references('id')
+                ->on('grades')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
         });
     }
 

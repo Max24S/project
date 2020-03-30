@@ -16,15 +16,15 @@ class CreateGradesTable extends Migration
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
             $table->string('name',4);
-            $table->unsignedBigInteger('staff_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('classroom_id');
             $table->timestamps();
         });
 
         Schema::table('grades', function (Blueprint $table) {
-            $table->foreign('staff_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('staff')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 

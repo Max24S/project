@@ -16,7 +16,7 @@ class CreateTeachTable extends Migration
         Schema::create('teach', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subject_id');
-            $table->unsignedBigInteger('staff_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
         Schema::table('teach',function (Blueprint $table){
@@ -24,8 +24,8 @@ class CreateTeachTable extends Migration
                 ->references('id')->on('subjects')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('staff_id')
-                ->references('id')->on('staff')
+            $table->foreign('user_id')
+                ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
