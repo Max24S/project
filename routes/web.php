@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//ebaniy git
-//soglasen
-asdasdadada
+
 Route::view('/', 'admin.teacher.head-teacher.index')->name('welcome');
 Route::name('admin.')
     ->namespace('Admin')
