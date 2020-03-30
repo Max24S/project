@@ -25,7 +25,7 @@ class GradeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.super.grade.create');
     }
 
     /**

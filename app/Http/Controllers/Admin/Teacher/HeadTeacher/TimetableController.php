@@ -25,7 +25,7 @@ class TimetableController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.teacher.head-teacher.timetable.create');
     }
 
     /**
