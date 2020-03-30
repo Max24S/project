@@ -51,6 +51,19 @@ Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
 
+        Route::prefix('super')
+            ->name('super.')
+            ->namespace('Super')
+            ->group(function () {
+                Route::resource('classroom', 'ClassroomController');
+                Route::resource('grade', 'GradeController');
+                Route::resource('subject', 'SubjectController');
+                Route::resource('student', 'StudentController');
+                Route::resource('staff', 'StaffController');
+                
+            });
+
+
         Route::view('/', 'admin.teacher.index');
 
 //        Route::prefix('super')
