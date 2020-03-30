@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-цуй
 Route::view('/', 'admin.teacher.head-teacher.index')->name('welcome');
 Route::name('admin.')
     ->namespace('Admin')
