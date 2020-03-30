@@ -25,7 +25,7 @@ class HomeworkController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.teacher.homework.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class HomeworkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**

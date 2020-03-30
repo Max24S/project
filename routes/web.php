@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::view('/', 'admin.teacher.head-teacher.timetable.create')->name('welcome');
+Route::view('/', 'admin.teacher.head-teacher.index')->name('welcome');
 Route::name('admin.')
     ->namespace('Admin')
     ->prefix('admin')

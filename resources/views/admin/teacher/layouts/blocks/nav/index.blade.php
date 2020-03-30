@@ -6,7 +6,7 @@
                 <div class="btn-group">
                     <button type="button" class="btn btn-1  dropdown-toggle text-white" data-toggle="dropdown" >Домашнее задание</button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Создать</a>
+                        <a class="dropdown-item" href="{{route('admin.teacher.homework.create')}}">Создать</a>
                         <a class="dropdown-item" href="#">Редактировать</a>
                     </div>
                 </div>
