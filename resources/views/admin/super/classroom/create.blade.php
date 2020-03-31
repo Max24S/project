@@ -13,4 +13,7 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Добавить</button>
     </form>
+    @error('name')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 @endsection

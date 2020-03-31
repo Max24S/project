@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Super;
 use App\Models\Classroom;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Classroom\CreateForm;
 
 class ClassroomController extends Controller
 {
@@ -34,7 +35,7 @@ class ClassroomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateForm $request)
     {
            Classroom::create($request->all());
     }

@@ -13,7 +13,7 @@ class CreateForm extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class CreateForm extends FormRequest
     {
 
         return [
-            //
+            'name' => 'required|string|min:4|unique:classrooms,name',
         ];
     }
 }
