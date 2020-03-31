@@ -1,9 +1,11 @@
 @extends('admin.super.user.create')
-@section('title')
+@section('route')
+    action="{{route('admin.super.staff.store')}}"
+    @endsection
 @section('title')
     <h2>Добавление сотрудника</h2>
 @endsection
-@endsection
+
 @section('staff')
     <div class="row">
         <div class="col-sm-4">

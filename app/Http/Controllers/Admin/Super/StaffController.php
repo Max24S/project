@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Super;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use App\Http\Requests\User\StoreRequest;
 
 class StaffController extends Controller
 {
@@ -34,9 +35,12 @@ class StaffController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $userController = new UserController();
+        $userController->store($request);
+
+        //redirect()->route('admin.user')
     }
 
     /**

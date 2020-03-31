@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Super;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\User\StoreRequest;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -34,9 +35,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
 
+        User::create($request->all());
     }
 
     /**
