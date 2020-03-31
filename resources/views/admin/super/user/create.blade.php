@@ -44,7 +44,7 @@
                     <div class="row">
                         <label for="birthDate" class="col-sm-4 control-label">Дата рождения</label>
                         <div class="col-sm-8">
-                            <input name="" type="date" id="birthDate" class="form-control">
+                            <input name="birthday" type="date" id="birthDate" class="form-control">
                         </div>
                     </div>
                 </div>
