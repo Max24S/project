@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Timetable;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\Timetable\StoreRequest;
 class TimetableController extends Controller
 {
     /**
@@ -34,9 +35,12 @@ class TimetableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+
+
+            dd($request->all());
+
     }
 
     /**
