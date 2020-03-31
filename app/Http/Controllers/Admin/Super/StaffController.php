@@ -38,7 +38,7 @@ class StaffController extends Controller
     public function store(StoreRequest $request)
     {
         $userController = new UserController();
-        $userController->store($request);
+        $userController->store($request->all());
 
         //redirect()->route('admin.user')
     }
