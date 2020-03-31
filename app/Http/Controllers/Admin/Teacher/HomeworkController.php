@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Homework;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\Homework\StoreRequest;
+
 class HomeworkController extends Controller
 {
     /**
@@ -34,8 +36,9 @@ class HomeworkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+
         Homework::create($request->all());
         return redirect()->route('admin.teacher.');
     }
