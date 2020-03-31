@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|min:3|max:20',
             'surname' => 'required|min:3|max:20',
             'patronymic' => 'required|max:20',
@@ -34,5 +34,10 @@ class StoreRequest extends FormRequest
             'sex' => 'required',
             'role' => 'required',
         ];
+        if($this['role']=='Ученик'){
+            
+            $rules['grade']="required";
+        }
+        return $rules;
     }
 }
