@@ -29,8 +29,10 @@ class StoreRequest extends FormRequest
             'patronymic' => 'required|max:20',
             'email' => 'required|email',
             'birthday' => 'required',
-            'birthday' => 'required',
-            'number' => 'required|min:9|max:13'
+            'number' => 'required|min:9|max:13',
+            'address' => 'required',
+            'sex' => 'required',
+            'role' => 'required',
         ];
     }
 }

@@ -6,7 +6,8 @@
     }
 </style>
 @section('form')
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" @yield('route') method="post">
+                @csrf
                 @yield('title')
                 <div class="form-group">
                     <div class="row">
@@ -69,18 +70,27 @@
                         <label class="control-label col-sm-4">Укажите пол</label>
                             <div class="col-sm-8">
                                 <label class="radio-inline mr-5">
-                                    <input name='sex' type="radio" id="femaleRadio" value="Female">Женский
+                                    <input name='sex' type="radio" id="femaleRadio" value="Женщина">Женский
                                 </label>
                                 <label class="radio-inline">
-                                    <input name='sex' type="radio" id="maleRadio" value="Male">Мужской
+                                    <input name='sex' type="radio" id="maleRadio" value="Мужчина">Мужской
                                 </label>
                             </div>
                     </div>
                 </div> <!-- /.form-group -->
-
+                <input  type="hidden" name="password" id="maleRadio" value="12345678">Мужской
                 @yield('grade')
 
                 @yield('staff')
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <button type="submit" class="btn btn-primary btn-block">Добавить</button>
             </form> <!-- /form -->
