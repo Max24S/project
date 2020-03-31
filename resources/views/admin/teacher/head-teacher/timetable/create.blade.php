@@ -46,20 +46,20 @@
                 <tr>
                     <th scope="row">{{$i}}</th>
                     <td>
-                    <select name="ddd" id="">
+                    <select name="subject{{$i}}" id="">
                         <option value="default">Выберите предмет</option>
                         <option>Математика</option>
-                        @error('ddd')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
                     </select>
+                    @error("subject".$i)
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                     </td>
                     <td>
-                        <select name="teach_id" id="">
+                        <select name="teach_id{{$i}}" id="">
                             <option value="default">Выберите преподователя</option>
                             <option value="day">Полох И.В.</option>
                         </select>
-                        @error('teach_id')
+                        @error("teach_id".$i)
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </td>
