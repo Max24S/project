@@ -10,7 +10,7 @@
             <label>Укажите класс</label>
         </div>
         <div class="form-group col-sm-6">
-            <select id="selectGrade" class="form-control">
+            <select name="grade" id="selectGrade" class="form-control">
                 <option selected></option>
                 <option>1</option>
                 <option>2</option>
