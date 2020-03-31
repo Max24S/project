@@ -10,7 +10,7 @@
             <label>Укажите роль</label>
         </div>
         <div class="form-group col-sm-6">
-            <select id="inputState" class="form-control">
+            <select name="role" id="inputState" class="form-control">
                 <option selected></option>
                 <option>Директор</option>
                 <option>Завуч</option>

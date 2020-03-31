@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Classroom;
+namespace App\Http\Requests\User\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +23,6 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             //
         ];
