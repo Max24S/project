@@ -35,7 +35,7 @@ class StoreRequest extends FormRequest
             'role' => 'required',
         ];
         if($this['role']=='Ученик'){
-            
+
             $rules['grade']="required";
         }
         return $rules;

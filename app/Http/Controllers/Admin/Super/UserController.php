@@ -35,10 +35,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store($request)
     {
 
-        User::create($request->all());
+        User::create($request);
     }
 
     /**
