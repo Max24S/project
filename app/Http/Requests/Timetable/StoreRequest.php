@@ -25,6 +25,10 @@ class StoreRequest extends FormRequest
     {
         return [
           'day'=>'required|not_in:default',
+          'grade_id'=>'required|not_in:default',
+           'semester'=>'required|not_in:default',
+           'ddd'=>'required|not_in:default',
+           'teach_id'=>'required|not_in:default',
         ];
     }
 }

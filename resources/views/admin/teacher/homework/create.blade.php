@@ -22,14 +22,26 @@
        </div>
         <div>
             <input  type="text" name="teach_id" id="" >
+            @error('teach_id')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             Задание
             <input  type="text" name="name" id="" >
+            @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             Комментарии
             <textarea name="description" id="" cols="30" rows="10" ></textarea>
+            @error('description')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             Статус
-            <select name="`status" id="">
-                <option value="status_1">Выдано</option>
+            <select name="status" id="">
+                <option >Выдано</option>
             </select>
+            @error('status')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <button value="save" type="submit">Cохранить</button>
     </form>
