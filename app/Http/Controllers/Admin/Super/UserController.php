@@ -37,7 +37,8 @@ class UserController extends Controller
      */
     public function store($request)
     {
-
+        $request['password'] = bcrypt($request['password']);
+        
         User::create($request);
     }
 

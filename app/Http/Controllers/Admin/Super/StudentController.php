@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Super;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\User\StoreRequest;
 class StudentController extends Controller
 {
     /**
@@ -34,7 +34,7 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         //
     }
