@@ -36,7 +36,10 @@ class StudentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        //
+        $userController = new UserController();
+        $userController->store($request->all());
+        $student = new Student();
+        $student->prepareFromCreate($request['grade_id'],$request['email']);
     }
 
     /**
