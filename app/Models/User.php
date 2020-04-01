@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -37,4 +38,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function  prepareFromCreate($user)
+
+    {
+        Mail::send('emails.test', [], function ($message) {
+            $m->from('sender@test.com', 'Sender');
+            $m->to('receiver@test.com', 'Receiver')->subject('Тестовое письмо с HTML');
+            $m->cc('copy@test.com', '');
+        });
+        $user['password'] = bcrypt(Str::random(12));
+
+        User::create($user);
+    }
 }

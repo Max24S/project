@@ -78,7 +78,6 @@
                             </div>
                     </div>
                 </div> <!-- /.form-group -->
-                <input  type="hidden" name="password" id="maleRadio" value="12345678">Мужской
                 @yield('grade')
 
                 @yield('staff')
