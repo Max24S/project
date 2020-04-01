@@ -35,11 +35,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($request)
+    public function store($user)
     {
-        $request['password'] = bcrypt($request['password']);
-
-        User::create($request);
+        $userModel = new User();
+        $userModel->prepareFromCreate($user);
     }
 
     /**
