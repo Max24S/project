@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/1', 'Mail\MailController@send');
 Route::view('/', 'admin.teacher.head-teacher.index')->name('welcome');
 Route::name('admin.')
     ->namespace('Admin')
