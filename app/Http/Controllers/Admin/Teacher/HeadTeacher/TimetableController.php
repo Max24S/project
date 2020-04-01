@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin\Teacher\HeadTeacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subject;
+use App\Models\Teach;
 use App\Models\Timetable;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\Timetable\StoreRequest;
@@ -16,17 +19,33 @@ class TimetableController extends Controller
      */
     public function index()
     {
-        //
+        $timetable=new Timetable();
+//        dd($timetable->getSubjects());
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return view('admin.teacher.head-teacher.timetable.create');
+//        $timetable=new Timetable();
+//        $user=new User();
+       $subjects=Subject::all();
+        $teachers=User::with('subjects')->get();
+        dd($teachers);
+////        $teachers=$user->teaches()->find(1);
+//        return $subjects->find(1)->id;
+//        $user_id= $user
+//            ->map(function ($user) {
+//                return $user->id;
+//            })->get(0);
+//        $teachers= $timetable->getTeachers();
+//        dd($teachers->id);
+
+//       return view('admin.teacher.head-teacher.timetable.create',compact('cities'));
+
     }
 
     /**

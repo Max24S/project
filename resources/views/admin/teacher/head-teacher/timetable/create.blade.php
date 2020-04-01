@@ -68,5 +68,6 @@
             </tbody>
         </table>
         <button type="submit">Cохранить</button>
+
     </form>
 @endsection

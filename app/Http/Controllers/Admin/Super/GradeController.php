@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Super;
 
+use App\Models\Classroom;
 use App\Models\Grade;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use function GuzzleHttp\Promise\all;
 
 class GradeController extends Controller
 {
@@ -15,7 +17,7 @@ class GradeController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -25,6 +27,16 @@ class GradeController extends Controller
      */
     public function create()
     {
+
+//        $classrooms=Grade::with('classes')->get();
+////        $country= Grade::find(1);
+////        $user = $country->classes;
+//        dd($classrooms);
+////        $class_id= $classrooms
+////            ->map(function ($classrooms) {
+////                return $classrooms;
+////            });
+
         return view('admin.super.grade.create');
     }
 

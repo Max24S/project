@@ -33,5 +33,6 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Добавить</button>
     </form>
+
 </div>
 @endsection
