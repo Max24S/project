@@ -10,7 +10,7 @@ Route::name('admin.')
 
         Route::prefix('super')
             ->name('super.')
-            ->namespace('Super')
+            ->namespace('Super')->middleware(['auth','role:Админ'])
             ->group(function () {
                 Route::view('/','admin.super.index');
                 Route::resource('classroom', 'ClassroomController');
@@ -34,7 +34,6 @@ Route::name('admin.')
                     });
             });
     });
-
 
 Auth::routes();
 
