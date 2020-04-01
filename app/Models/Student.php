@@ -8,12 +8,15 @@ class Student extends Model
 {
     protected $fillable = ['grade_id','user_id'];
 
-    public  function prepareFromCreate($grade,$email)
+    public  function prepareFromCreate($grade_id,$email)
     {
+        $user = User::where('email', $email)->get('id');
+        $user_id= $user
+            ->map(function ($user) {
+                return $user->id;
+            })->get(0);
 
-        $grade_id = Grade::where('grade', $grade)->get();
-        $user_id = Grade::where('email', $email)->get();
 
-
+        Student::create(['grade_id'=>$grade_id,'user_id'=>$user_id]);
     }
 }
