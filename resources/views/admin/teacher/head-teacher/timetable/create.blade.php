@@ -8,7 +8,7 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Урок</th>
                 <th scope="col">Предмет</th>
                 <th scope="col">Преподователь</th>
                 <th scope="col">
@@ -23,7 +23,16 @@
                 <th scope="col">
                     <select name="grade_id" id="">
                         <option value="default">Выберите класс</option>
-                        <option >1-А</option>
+                        <option value="1">1-А</option>
+                    </select>
+                    @error('grade_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </th>
+                <th scope="col">
+                    <select name="classroom_id" id="">
+                        <option value="default">Выберите класс</option>
+                        <option value="1">1-А</option>
                     </select>
                     @error('grade_id')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -44,11 +53,14 @@
             <tbody>
             @for($i=1;$i<9;$i++)
                 <tr>
-                    <th scope="row">{{$i}}</th>
+                    <th scope="row">
+                        <div name="lesson{{$i}}">{{$i}}</div>
+                        <input type="hidden" name="lesson{{$i}}" value="{{$i}}" id="">
+                    </th>
                     <td>
                     <select name="subject{{$i}}" id="">
                         <option value="default">Выберите предмет</option>
-                        <option>Математика</option>
+                        <option value="1">Математика</option>
                     </select>
                     @error("subject".$i)
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -57,7 +69,7 @@
                     <td>
                         <select name="teach_id{{$i}}" id="">
                             <option value="default">Выберите преподователя</option>
-                            <option value="day">Полох И.В.</option>
+                            <option value="1">Полох И.В.</option>
                         </select>
                         @error("teach_id".$i)
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -68,6 +80,6 @@
             </tbody>
         </table>
         <button type="submit">Cохранить</button>
-
+        {{dd($res[0]->day)}}
     </form>
 @endsection

@@ -16,6 +16,7 @@ class CreateHomeworksTable extends Migration
         Schema::create('homeworks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('teach_id');
+            $table->unsignedBigInteger('grade_id');
             $table->string('name');
             $table->string('description');
             $table->enum('status',['Выдано','Проверено']);
@@ -25,6 +26,11 @@ class CreateHomeworksTable extends Migration
             $table->foreign('teach_id')
                 ->references('id')
                 ->on('teach')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('grade_id')
+                ->references('id')
+                ->on('grades')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

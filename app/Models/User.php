@@ -42,11 +42,7 @@ class User extends Authenticatable
     public function  prepareFromCreate($user)
 
     {
-        Mail::send('emails.test', [], function ($message) {
-            $m->from('sender@test.com', 'Sender');
-            $m->to('receiver@test.com', 'Receiver')->subject('Тестовое письмо с HTML');
-            $m->cc('copy@test.com', '');
-        });
+
         $user['password'] = bcrypt(Str::random(12));
 
         User::create($user);

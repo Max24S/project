@@ -21,8 +21,13 @@
            {{--           </select>--}}
        </div>
         <div>
+
             <input  type="text" name="teach_id" id="" >
             @error('teach_id')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <input  type="text" name="grade_id" id="" >
+            @error('grade_id')
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             Задание
@@ -37,6 +42,7 @@
             @enderror
             Статус
             <select name="status" id="">
+                <option value="default">Выьерите статус дз</option>
                 <option >Выдано</option>
             </select>
             @error('status')

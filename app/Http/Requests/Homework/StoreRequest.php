@@ -25,9 +25,10 @@ class StoreRequest extends FormRequest
     {
         return [
             'teach_id'=>'required',
+            'grade_id'=>'required',
             'name' => 'required',
             'description'=>'required',
-            'status'=>'required'
+            'status'=>'not_in:default'
         ];
     }
 }
