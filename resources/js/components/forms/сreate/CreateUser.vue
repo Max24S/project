@@ -54,7 +54,7 @@
                 <div class="row">
                     <label class="col-md-4 control-label" for="address">Адресс</label>
                     <div class="col-md-8">
-                        <textarea :value="role" name="address" class="form-control" id="address" placeholder="Адресс"></textarea>
+                        <textarea name="address" class="form-control" id="address" placeholder="Адресс"></textarea>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                     <label>Укажите роль</label>
                 </div>
                 <div class="form-group col-sm-6">
-                    <select name="role" id="inputState" class="form-control" :value="role">
+                    <select name="role" id="inputState" class="form-control" v-model="role">
                         <option selected></option>
                         <option>Директор</option>
                         <option>Завуч</option>
@@ -85,7 +85,7 @@
                     </select>
                 </div>
             </div>
-            {{role}}
+
             <div class="row" v-if="role=='Ученик'">
                 <div class="col-sm-4">
                     <label>Укажите класс</label>
@@ -108,8 +108,8 @@
 <script>
     export default {
         name: "CreateUser",
-        data:{
-            return:{
+        data(){
+            return {
                role:''
             }
         }
