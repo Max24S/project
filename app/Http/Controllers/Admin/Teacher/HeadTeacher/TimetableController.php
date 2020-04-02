@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\Timetable\StoreRequest;
+use mysql_xdevapi\Result;
+
 class TimetableController extends Controller
 {
     /**
@@ -32,9 +34,9 @@ class TimetableController extends Controller
     {
 //        $timetable=new Timetable();
 //        $user=new User();
-       $subjects=Subject::all();
-        $teachers=User::with('subjects')->get();
-        dd($teachers);
+//       $subjects=Subject::all();
+//        $teachers=User::with('subjects')->get();
+//        dd($teachers);
 ////        $teachers=$user->teaches()->find(1);
 //        return $subjects->find(1)->id;
 //        $user_id= $user
@@ -43,8 +45,8 @@ class TimetableController extends Controller
 //            })->get(0);
 //        $teachers= $timetable->getTeachers();
 //        dd($teachers->id);
-
-//       return view('admin.teacher.head-teacher.timetable.create',compact('cities'));
+        $result=(new Timetable())->show()->get();
+       return view('admin.teacher.head-teacher.timetable.create',compact('result'));
 
     }
 
@@ -56,9 +58,9 @@ class TimetableController extends Controller
      */
     public function store(StoreRequest $request)
     {
-
-
-            dd($request->all());
+//        dd($request->all());
+//        Timetable::create($request->all());
+//        return redirect()->route('admin.teacher');
 
     }
 
