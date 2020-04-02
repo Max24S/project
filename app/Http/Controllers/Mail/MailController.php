@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Mail\DemoEmail;
 use Illuminate\Support\Facades\Mail;
+
 class MailController extends Controller
 {
     public function send()
@@ -16,6 +17,7 @@ class MailController extends Controller
         $objDemo->sender = 'SenderUserName';
         $objDemo->receiver = 'ReceiverUserName';
 
-        Mail::to("ivan.polokh.98@gmail.com")->send(new DemoEmail($objDemo));
+        Mail::to("lolmaksimlol@mail.ru")->send(new DemoEmail($objDemo));
     }
+
 }

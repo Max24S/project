@@ -6,6 +6,12 @@
     }
 </style>
 @section('form')
+
+    <div id="app">
+        <create-user></create-user>
+    </div>
+
+
             <form class="form-horizontal" role="form" @yield('route') method="post">
                 @csrf
                 @yield('title')
