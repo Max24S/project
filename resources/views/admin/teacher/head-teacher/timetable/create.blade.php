@@ -80,6 +80,6 @@
             </tbody>
         </table>
         <button type="submit">Cохранить</button>
-        {{dd($res[0]->day)}}
+        {{dd($result)}}
     </form>
 @endsection
