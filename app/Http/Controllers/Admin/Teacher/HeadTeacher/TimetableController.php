@@ -45,7 +45,7 @@ class TimetableController extends Controller
 //            })->get(0);
 //        $teachers= $timetable->getTeachers();
 //        dd($teachers->id);
-        $result=(new Timetable())->show()->get();
+        $result=(new Timetable())->getTeachersAndSubjects()->get();
        return view('admin.teacher.head-teacher.timetable.create',compact('result'));
 
     }
