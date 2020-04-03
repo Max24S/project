@@ -12,7 +12,7 @@
                 <th scope="col">Предмет</th>
                 <th scope="col">Преподователь</th>
                 <th scope="col">
-                    <select name="day" id="">
+                    <select name="day">
                         <option value="default">Выберите день недели</option>
                         <option>Понедельник</option>
                     </select>
@@ -58,13 +58,13 @@
                         <input type="hidden" name="lesson{{$i}}" value="{{$i}}" id="">
                     </th>
                     <td>
-                    <select name="subject{{$i}}" id="">
-                        <option value="default">Выберите предмет</option>
-                        <option value="1">Математика</option>
-                    </select>
-                    @error("subject".$i)
-                    <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                        <select name="subject{{$i}}" id="">
+                            <option value="default">Выберите предмет</option>
+                            <option value="1">Математика</option>
+                        </select>
+                        @error("subject".$i)
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </td>
                     <td>
                         <select name="teach_id{{$i}}" id="">
@@ -80,6 +80,9 @@
             </tbody>
         </table>
         <button type="submit">Cохранить</button>
-        {{dd($result)}}
+
     </form>
+    <div id="app">
+        <create-timetable :result={{json_encode($result)}}></create-timetable>
+    </div>
 @endsection

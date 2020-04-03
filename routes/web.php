@@ -11,7 +11,8 @@ Route::name('admin.')
 
         Route::prefix('super')
             ->name('super.')
-            ->namespace('Super')->middleware(['auth','role:Админ'])
+            ->namespace('Super')
+//            ->middleware(['auth','role:Админ'])
             ->group(function () {
                 Route::view('/','admin.super.index');
                 Route::resource('classroom', 'ClassroomController');
