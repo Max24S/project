@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form class="form-horizontal" role="form" id="form" @submit.prevent="sendUser">
+        <form class="form-horizontal" role="form" id="form" @submit.prevent="sendUser" method="post">
             <h2>Добавление пользователя</h2>
             <div class="form-group">
                 <div class="row">
@@ -170,14 +170,18 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
+        <a :href="classroomCreate">link</a>
     </div>
 </template>
 
 <script>
+    import {AxiosInstance as axios} from "axios";
+
     export default {
         name: "CreateUser",
         data(){
             return {
+                classroomCreate:window.routes['admin.super.classroom.create'],
                 user:{
                     name:'',
                     surname:'',
@@ -194,12 +198,12 @@
         },
         methods: {
             sendUser(){
-           
+
                 let form = '#form';
                 axios.post(window.routes['admin.super.user.store'],this.user)
                     .then((response)=>{
 
-                        $('#success').html(response.data.message)
+                        console.log(response);
 
                     })
             }
