@@ -18,6 +18,7 @@ Route::name('admin.')
                 Route::resource('classroom', 'ClassroomController');
                 Route::resource('grade', 'GradeController');
                 Route::resource('subject', 'SubjectController');
+                Route::resource('user', 'StudentController');
                 Route::resource('student', 'StudentController');
                 Route::resource('staff', 'StaffController');
 

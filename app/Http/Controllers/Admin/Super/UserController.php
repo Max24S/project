@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.super.user.create');
     }
 
     /**
@@ -37,6 +37,10 @@ class UserController extends Controller
      */
     public function store($user)
     {
+
+
+            return ['y'=>21];
+
         $userModel = new User();
         $userModel->prepareFromCreate($user);
     }

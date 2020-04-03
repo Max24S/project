@@ -1,12 +1,19 @@
 <template>
     <div>
-        <form class="form-horizontal" role="form" action="" method="post">
+        <form class="form-horizontal" role="form" id="form" @submit.prevent="sendUser">
             <h2>Добавление пользователя</h2>
             <div class="form-group">
                 <div class="row">
                     <label for="firstName" class="col-sm-4 control-label">Фамилия</label>
                     <div class="col-sm-8 ">
-                        <input name="surname" type="text" id="firstName" placeholder="Фамилия" class="form-control" autofocus>
+                        <input
+                            name="surname"
+                            type="text"
+                            id="firstName"
+                            placeholder="Фамилия"
+                            class="form-control"
+                            v-model="user.surname"
+                        >
                     </div>
                 </div>
             </div>
@@ -14,7 +21,13 @@
                 <div class="row">
                     <label for="middleName" class="col-sm-4 control-label">Имя</label>
                     <div class="col-sm-8">
-                        <input name="name" type="text" id="middleName" placeholder="Имя" class="form-control" autofocus>
+                        <input name="name"
+                               type="text"
+                               id="middleName"
+                               placeholder="Имя"
+                               class="form-control"
+                               v-model="user.name"
+                        >
                     </div>
                 </div>
             </div>
@@ -22,7 +35,13 @@
                 <div class="row">
                     <label for="lastName" class="col-sm-4 control-label">Отчество</label>
                     <div class="col-sm-8">
-                        <input name="patronymic" type="text" id="lastName" placeholder="Отчество" class="form-control" autofocus>
+                        <input name="patronymic"
+                               type="text"
+                               id="lastName"
+                               placeholder="Отчество"
+                               class="form-control"
+                               v-model="user.patronymic"
+                        >
                     </div>
                 </div>
             </div>
@@ -30,7 +49,13 @@
                 <div class="row">
                     <label for="email" class="col-sm-4 control-label">Email </label>
                     <div class="col-sm-8">
-                        <input name="email" type="email" id="email" placeholder="Email" class="form-control">
+                        <input name="email"
+                               type="email"
+                               id="email"
+                               placeholder="Email"
+                               class="form-control"
+                               v-model="user.email"
+                        >
                     </div>
                 </div>
             </div>
@@ -38,7 +63,12 @@
                 <div class="row">
                     <label for="birthDate" class="col-sm-4 control-label">Дата рождения</label>
                     <div class="col-sm-8">
-                        <input name="birthday" type="date" id="birthDate" class="form-control">
+                        <input name="birthday"
+                               type="date"
+                               id="birthDate"
+                               class="form-control"
+                               v-model="user.birthday"
+                        >
                     </div>
                 </div>
             </div>
@@ -46,7 +76,14 @@
                 <div class="row">
                     <label for="phoneNumber" class="col-sm-4 control-label">Номер телефона</label>
                     <div class="col-sm-8">
-                        <input name="number" type="phoneNumber" id="phoneNumber" placeholder="Номер телефона" class="form-control">
+                        <input
+                            name="number"
+                            type="phoneNumber"
+                            id="phoneNumber"
+                            placeholder="Номер телефона"
+                            class="form-control"
+                            v-model="user.number"
+                        >
                     </div>
                 </div>
             </div>
@@ -54,7 +91,14 @@
                 <div class="row">
                     <label class="col-md-4 control-label" for="address">Адресс</label>
                     <div class="col-md-8">
-                        <textarea name="address" class="form-control" id="address" placeholder="Адресс"></textarea>
+                        <textarea
+                            name="address"
+                            class="form-control"
+                            id="address"
+                            placeholder="Адресс"
+                            v-model="user.address"
+                        >
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -63,20 +107,39 @@
                     <label class="control-label col-sm-4">Укажите пол</label>
                     <div class="col-sm-8">
                         <label class="radio-inline mr-5">
-                            <input name='sex' type="radio" id="femaleRadio" value="Женщина">Женский
+                            <input
+                                name='sex'
+                                type="radio"
+                                id="femaleRadio"
+                                value="Женщина"
+                                v-model="user.sex"
+                            >
+                            Женский
                         </label>
                         <label class="radio-inline">
-                            <input name='sex' type="radio" id="maleRadio" value="Мужчина">Мужской
+                            <input
+                                name='sex'
+                                type="radio"
+                                id="maleRadio"
+                                value="Мужчина"
+                                v-model="user.sex"
+                            >
+                            Мужской
                         </label>
                     </div>
                 </div>
-            </div> <!-- /.form-group -->
+            </div>
             <div class="row">
                 <div class="col-sm-4">
                     <label>Укажите роль</label>
                 </div>
                 <div class="form-group col-sm-6">
-                    <select name="role" id="inputState" class="form-control" v-model="role">
+                    <select
+                        name="role"
+                        id="inputState"
+                        class="form-control"
+                        v-model="user.role"
+                    >
                         <option selected></option>
                         <option>Директор</option>
                         <option>Завуч</option>
@@ -86,12 +149,17 @@
                 </div>
             </div>
 
-            <div class="row" v-if="role=='Ученик'">
+            <div class="row" v-if="user.role=='Ученик'">
                 <div class="col-sm-4">
                     <label>Укажите класс</label>
                 </div>
                 <div class="form-group col-sm-6">
-                    <select name="grade_id" id="selectGrade" class="form-control">
+                    <select
+                        name="grade_id"
+                        id="selectGrade"
+                        class="form-control"
+                        v-model="user.grade"
+                    >
                         <option selected></option>
                         <option value="1">11-a</option>
                         <option value="2">10-a</option>
@@ -110,7 +178,30 @@
         name: "CreateUser",
         data(){
             return {
-               role:''
+                user:{
+                    name:'',
+                    surname:'',
+                    patronymic:'',
+                    email:'',
+                    birthday:'',
+                    number:'',
+                    address:'',
+                    sex:'',
+                    role:'',
+                    grade:''
+                },
+            }
+        },
+        methods: {
+            sendUser(){
+           
+                let form = '#form';
+                axios.post(window.routes['admin.super.user.store'],this.user)
+                    .then((response)=>{
+
+                        $('#success').html(response.data.message)
+
+                    })
             }
         }
     }
