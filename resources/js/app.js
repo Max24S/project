@@ -12,6 +12,10 @@ import Vue from 'vue';
 import VeeValidate from 'vee-validate';
 import { Validator } from 'vee-validate';
 import ru from 'vee-validate/dist/locale/ru';
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 Vue.use(VeeValidate, {
     locale: 'ru',
     dictionary: {
