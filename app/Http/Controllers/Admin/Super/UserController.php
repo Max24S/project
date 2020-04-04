@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         $userModel=(new User())->prepareFromCreate($request->all());
 
-        return ['status'=>'OK'];
+        return $userModel;
     }
 
     /**

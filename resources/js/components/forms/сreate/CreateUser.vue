@@ -235,12 +235,20 @@
         },
         methods: {
             sendUser(){
-                console.log()
+                console.log(this.user);
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         axios.post(window.routes['admin.super.user.store'],this.user)
                             .then((response)=>{
+                                if(response.data.response == 'created'){
 
+                                }
+                                else if(response.data.response == 'emailDuplicate'){
+
+                                }
+                                else{
+
+                                }
                                 console.log(response);
                                 this.$toaster.success('Пользователь успешно добавлен');
                             })

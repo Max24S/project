@@ -42,15 +42,36 @@ class User extends Authenticatable
     public function  prepareFromCreate($user)
 
     {
+        if($this->uniqueEmail($user['email']))
+        {
+            $user['password'] = bcrypt(Str::random(12));
 
-        $user['password'] = bcrypt(Str::random(12));
+            $dbUser = User::create($user);
 
-        $dbUser = User::create($user);
+            if($dbUser->role=='Ученик'){
 
-        if($dbUser->role=='Ученик'){
+                $student = ['user_id'=>$dbUser->id,'grade_id'=>$user['grade_id']];
+                Student::create($student);
+            }
 
-            $student = ['user_id'=>$dbUser->id,'grade_id'=>$user['grade_id']];
-            Student::create($student);
+            return ['response'=>'created'];
         }
+        else {
+
+            return ['response'=>'emailDuplicate'];
+        }
+
+    }
+
+    public function uniqueEmail($email)
+    {
+        $check = User::where('email',$email)->first();
+
+        if($check){
+
+            return false;
+        }
+
+        return true;
     }
 }
