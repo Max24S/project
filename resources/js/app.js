@@ -15,9 +15,20 @@ import ru from 'vee-validate/dist/locale/ru';
 Vue.use(VeeValidate, {
     locale: 'ru',
     dictionary: {
-        ru: {attributes:{
-            surname:" "
-            } }
+        ru: {
+            attributes:{
+                surname:" ",
+                name:" ",
+                patronymic:" ",
+                email:' ',
+                birthday:' ',
+                address:" ",
+                role:" ",
+                grade:" ",
+                sex:" ",
+                number:" "
+            }
+        }
     }
 });
 Validator.localize('ru', ru);

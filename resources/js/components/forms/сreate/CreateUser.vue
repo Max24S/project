@@ -24,13 +24,17 @@
                 <div class="row">
                     <label for="middleName" class="col-sm-4 control-label">Имя</label>
                     <div class="col-sm-8">
-                        <input name="name"
-                               type="text"
-                               id="middleName"
-                               placeholder="Имя"
-                               class="form-control"
-                               v-model="user.name"
+                        <input
+                            v-validate="'required|alpha'"
+                            :class="{'input': true, 'alert-danger':errors.has('name')}"
+                            name="name"
+                            type="text"
+                            id="middleName"
+                            placeholder="Имя"
+                            class="form-control"
+                            v-model="user.name"
                         >
+                        <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
                     </div>
                 </div>
             </div>
@@ -38,13 +42,17 @@
                 <div class="row">
                     <label for="lastName" class="col-sm-4 control-label">Отчество</label>
                     <div class="col-sm-8">
-                        <input name="patronymic"
-                               type="text"
-                               id="lastName"
-                               placeholder="Отчество"
-                               class="form-control"
-                               v-model="user.patronymic"
+                        <input
+                            v-validate="'required|alpha'"
+                            :class="{'input': true, 'alert-danger':errors.has('patronymic')}"
+                            name="patronymic"
+                            type="text"
+                            id="lastName"
+                            placeholder="Отчество"
+                            class="form-control"
+                            v-model="user.patronymic"
                         >
+                        <span v-show="errors.has('patronymic')" class="help is-danger">{{ errors.first('patronymic') }}</span>
                     </div>
                 </div>
             </div>
@@ -52,26 +60,35 @@
                 <div class="row">
                     <label for="email" class="col-sm-4 control-label">Email </label>
                     <div class="col-sm-8">
-                        <input name="email"
-                               type="email"
-                               id="email"
-                               placeholder="Email"
-                               class="form-control"
-                               v-model="user.email"
+                        <input
+                            v-validate="'required|'"
+                            :class="{'input': true, 'alert-danger':errors.has('number')}"
+                            name="email"
+                            type="email"
+                            id="email"
+                            placeholder="Email"
+                            class="form-control"
+                            v-model="user.email"
                         >
+                        <span v-show="errors.has('number')" class="help is-danger">{{ errors.first('number') }}</span>
                     </div>
+
                 </div>
             </div>
             <div class="form-group">
                 <div class="row">
                     <label for="birthDate" class="col-sm-4 control-label">Дата рождения</label>
                     <div class="col-sm-8">
-                        <input name="birthday"
-                               type="date"
-                               id="birthDate"
-                               class="form-control"
-                               v-model="user.birthday"
+                        <input
+                            v-validate="'required'"
+                            :class="{'input': true, 'alert-danger':errors.has('birthday')}"
+                            name="birthday"
+                            type="date"
+                            id="birthDate"
+                            class="form-control"
+                            v-model="user.birthday"
                         >
+                        <span v-show="errors.has('birthday')" class="help is-danger">Поле обязательно для заполнения</span>
                     </div>
                 </div>
             </div>
@@ -80,6 +97,8 @@
                     <label for="phoneNumber" class="col-sm-4 control-label">Номер телефона</label>
                     <div class="col-sm-8">
                         <input
+                            v-validate="'required'"
+                            :class="{'input': true, 'alert-danger':errors.has('birthday')}"
                             name="number"
                             type="phoneNumber"
                             id="phoneNumber"
