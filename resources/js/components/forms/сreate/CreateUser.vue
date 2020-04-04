@@ -7,14 +7,16 @@
                     <label for="firstName" class="col-sm-4 control-label">Фамилия</label>
                     <div class="col-sm-8 ">
                         <input
+                            v-validate="'required|alpha'"
+                            :class="{'input': true, 'alert-danger':errors.has('surname')}"
                             name="surname"
                             type="text"
                             id="firstName"
                             placeholder="Фамилия"
                             class="form-control"
                             v-model="user.surname"
-                            v-validate="'required'"
                         >
+                        <span v-show="errors.has('surname')" class="help is-danger">{{ errors.first('surname') }}</span>
                     </div>
                 </div>
             </div>
@@ -46,20 +48,20 @@
                     </div>
                 </div>
             </div>
-<!--            <div class="form-group">-->
-<!--                <div class="row">-->
-<!--                    <label for="email" class="col-sm-4 control-label">Email </label>-->
-<!--                    <div class="col-sm-8">-->
-<!--                        <input name="email"-->
-<!--                               type="email"-->
-<!--                               id="email"-->
-<!--                               placeholder="Email"-->
-<!--                               class="form-control"-->
-<!--                               v-model="user.email"-->
-<!--                        >-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="form-group">
+                <div class="row">
+                    <label for="email" class="col-sm-4 control-label">Email </label>
+                    <div class="col-sm-8">
+                        <input name="email"
+                               type="email"
+                               id="email"
+                               placeholder="Email"
+                               class="form-control"
+                               v-model="user.email"
+                        >
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="row">
                     <label for="birthDate" class="col-sm-4 control-label">Дата рождения</label>
@@ -199,7 +201,7 @@
                     grade:''
                 },
                 email: '',
-                displayField: true
+
             }
         },
         methods: {
@@ -218,5 +220,10 @@
 </script>
 
 <style scoped>
-
+ .is-danger {
+     color: red;
+ }
+.alert-danger{
+    border:2px solid red!important;
+}
 </style>

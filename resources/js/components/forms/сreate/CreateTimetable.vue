@@ -53,10 +53,10 @@
                  <input type="hidden" :name="'lesson'+n" :value="n" id="">
              </th>
              <td>
-                 <select v-model="timetableData.currentSubject[n]" name="subject" id="">
+                 <select v-model="timetableData['currentSubject'+n]" name="subject" id="">
                      <option value="none">Выберите предмет</option>
                      <option v-for="subject in teachersAndSubjects['subjects']"
-                             v-if="'timetableData.currentTeacher'+n==='none'|| 'timetableData.currentTeacher'+n==subject.id"
+                             v-if="timetableData['currentTeacher'+n]==='none'|| timetableData['currentTeacher'+n]==subject.id"
                              :value="subject.id">
                          {{subject.name}}
                      </option>
@@ -66,10 +66,10 @@
 <!--                 @enderror-->
              </td>
              <td>
-                 <select v-model="timetableData.currentTeacher [n]"  ref="select" name="teacher" id="">
+                 <select v-model="timetableData['currentTeacher'+n]"  ref="select" name="teacher" id="">
                      <option value="none">Выберите преподователя</option>
                      <option v-for="teacher in teachersAndSubjects['teachers']"
-                             v-if="'timetableData.currentSubject'+n==='none'|| 'timetableData.currentSubject'+n==teacher.subject_id"
+                             v-if="timetableData['currentSubject'+n]==='none'|| timetableData['currentSubject'+n]==teacher.subject_id"
                              :value="teacher.subject_id" :teacher-id="teacher.id">
                          {{teacher.teachers}}
                      </option>
@@ -89,25 +89,25 @@
         data(){
             return {
                 timetableData:
-                    {
-                        currentSubject1:'none1',
-                        currentTeacher1:'none1',
-                        currentSubject2:'none2',
-                        currentTeacher2:'none2',
-                        currentSubject3:'none',
-                        currentTeacher3:'none',
-                        currentSubject4:'none',
-                        currentTeacher4:'none',
-                        currentSubject5:'none',
-                        currentTeacher5:'none',
-                        currentSubject6:'none',
-                        currentTeacher6:'none',
-                        currentSubject7:'none',
-                        currentTeacher7:'none',
-                        currentSubject8:'none',
-                        currentTeacher8:'none',
-                    }
-                    ,
+                {
+                    currentSubject1:'none',
+                    currentTeacher1:'none',
+                    currentSubject2:'none',
+                    currentTeacher2:'none',
+                    currentSubject3:'none',
+                    currentTeacher3:'none',
+                    currentSubject4:'none',
+                    currentTeacher4:'none',
+                    currentSubject5:'none',
+                    currentTeacher5:'none',
+                    currentSubject6:'none',
+                    currentTeacher6:'none',
+                    currentSubject7:'none',
+                    currentTeacher7:'none',
+                    currentSubject8:'none',
+                    currentTeacher8:'none',
+                }
+                ,
                 days:['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота']
             }
         },
@@ -119,9 +119,6 @@
             }
         },
         created() {
-            for (let i=0;i>9;i++) {
-                console.log(this.timetableData.currentTeacher[i]);
-            }
         }
     }
 </script>
