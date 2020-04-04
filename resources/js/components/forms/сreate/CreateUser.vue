@@ -13,6 +13,7 @@
                             placeholder="Фамилия"
                             class="form-control"
                             v-model="user.surname"
+                            v-validate="'required'"
                         >
                     </div>
                 </div>
@@ -198,14 +199,14 @@
         },
         methods: {
             sendUser(){
-
-                let form = '#form';
-                axios.post(window.routes['admin.super.user.store'],this.user)
-                    .then((response)=>{
-
-                        console.log(response);
-
-                    })
+                //
+                // let form = '#form';
+                // axios.post(window.routes['admin.super.user.store'],this.user)
+                //     .then((response)=>{
+                //
+                //         console.log(response);
+                //
+                //     })
             }
         }
     }
