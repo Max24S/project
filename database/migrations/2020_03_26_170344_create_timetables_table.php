@@ -16,7 +16,7 @@ class CreateTimetablesTable extends Migration
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
             $table->string('lesson');
-            $table->enum('day',['Понедельние','Вторник','Среда','Четверг','Пятница','Суббота']);
+            $table->enum('day',['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота']);
             $table->unsignedBigInteger('grade_id');
             $table->unsignedBigInteger('subject_user_id');
             $table->unsignedBigInteger('classroom_id');

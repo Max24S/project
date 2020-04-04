@@ -51,7 +51,9 @@
         </div>
         <button value="save" type="submit">Cохранить</button>
     </form>
-
+    @php
+    dd($res);
+     @endphp
     <style>
         textarea {
             resize: none !important; /* Запрещаем изменять размер */

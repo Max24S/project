@@ -24,15 +24,14 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         $rules=[
-            'day'=>'required|not_in:default',
-            'grade_id'=>'required|not_in:default',
-            'semester'=>'required|not_in:default',
+            '*.day' => 'required|not_in:none',
+            '*.subject_user_id' => 'required|not_in:none',
+            '*.lesson' => 'required',
+            '*.grade_id' => 'required|not_in:none',
+            '*.classroom_id' => 'required|not_in:none',
+            '*.semester' => 'required|not_in:none'
         ];
-        for ($i=1;$i<=8;$i++)
-        {
-            $rules['subject'.$i]='not_in:default';
-            $rules['teach_id'.$i]='not_in:default';
-        }
+
         return $rules;
     }
 }

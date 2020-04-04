@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class Timetable extends Model
 {
-//    protected $table='timetables';
-    protected $fillable = ['lesson','teach_id','grade_id','classroom_id','name','description','status'];
+
+    protected $fillable = ['lesson','teach_id','grade_id','classroom_id','name','description','status','created_at','updated_at'];
 
 
 
@@ -54,6 +54,15 @@ class Timetable extends Model
     {
         return DB::table('classrooms')
             ->select('id','name');
+    }
+    public function  addTimeTable($request)
+    {
+        for ($i=1;$i<=count($request);$i++)
+        {
+            $request[$i]['created_at']=date('Y-m-d H:i:s');
+            $request[$i]['updated_at']=date('Y-m-d H:i:s');
+        }
+        DB::table('timetables')->insert($request);
     }
 }
 

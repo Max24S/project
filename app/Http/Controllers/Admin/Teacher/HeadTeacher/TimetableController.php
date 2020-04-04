@@ -44,12 +44,11 @@ class TimetableController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store( StoreRequest $request)
     {
-//        dd($request->all());
-//        Timetable::create($request->all());
-//        return redirect()->route('admin.teacher');
 
+        (new Timetable())->addTimeTable($request->all());
+        return ['result'=>'OK'];
     }
 
     /**
