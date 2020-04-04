@@ -46,20 +46,20 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="row">
-                    <label for="email" class="col-sm-4 control-label">Email </label>
-                    <div class="col-sm-8">
-                        <input name="email"
-                               type="email"
-                               id="email"
-                               placeholder="Email"
-                               class="form-control"
-                               v-model="user.email"
-                        >
-                    </div>
-                </div>
-            </div>
+<!--            <div class="form-group">-->
+<!--                <div class="row">-->
+<!--                    <label for="email" class="col-sm-4 control-label">Email </label>-->
+<!--                    <div class="col-sm-8">-->
+<!--                        <input name="email"-->
+<!--                               type="email"-->
+<!--                               id="email"-->
+<!--                               placeholder="Email"-->
+<!--                               class="form-control"-->
+<!--                               v-model="user.email"-->
+<!--                        >-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="form-group">
                 <div class="row">
                     <label for="birthDate" class="col-sm-4 control-label">Дата рождения</label>
@@ -171,6 +171,8 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
+        <input v-validate="'required|email'" name="email" type="text">
+        <span>{{ errors.first('email') }}</span>
         <a :href="classroomCreate">link</a>
     </div>
 </template>
@@ -180,6 +182,7 @@
 
     export default {
         name: "CreateUser",
+
         data(){
             return {
                 classroomCreate:window.routes['admin.super.classroom.create'],
@@ -195,6 +198,8 @@
                     role:'',
                     grade:''
                 },
+                email: '',
+                displayField: true
             }
         },
         methods: {

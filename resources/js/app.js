@@ -4,12 +4,14 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
- let VueResource = require('vue-resource');
- Vue.use(VueResource)
+ // let VueResource = require('vue-resource');
+ // Vue.use(VueResource);
+// let VeeValidate = require('vee-validate');
+// Vue.use(VeeValidate);
+import Vue from 'vue';
+import VeeValidate from 'vee-validate';
 
-let VeeValidate = require('vee-validate');
- Vue.use(VeeValidate);
-
+Vue.use(VeeValidate);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 

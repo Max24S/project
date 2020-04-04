@@ -32,24 +32,12 @@ class TimetableController extends Controller
      */
     public function create()
     {
-//        $timetable=new Timetable();
-//        $user=new User();
-//       $subjects=Subject::all();
-//        $teachers=User::with('subjects')->get();
-//        dd($teachers);
-////        $teachers=$user->teaches()->find(1);
-//        return $subjects->find(1)->id;
-//        $user_id= $user
-//            ->map(function ($user) {
-//                return $user->id;
-//            })->get(0);
-//        $teachers= $timetable->getTeachers();
-//        dd($teachers->id);
-        $result=(new Timetable())->getTeachersAndSubjects()->get();
-       return view('admin.teacher.head-teacher.timetable.create',compact('result'));
-
+        $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers()->get(),
+            "subjects"=>(new Timetable())->getSubjects()->get(),
+            "grades"=>(new Timetable())->getGrades()->get(),
+            'classrooms'=>(new Timetable())->getClassrooms()->get()]);
+       return view('admin.teacher.head-teacher.timetable.create',compact('teachersAndThemSubjects'));
     }
-
     /**
      * Store a newly created resource in storage.
      *

@@ -80,9 +80,8 @@
             </tbody>
         </table>
         <button type="submit">Cохранить</button>
-
     </form>
     <div id="app">
-        <create-timetable :result={{json_encode($result)}}></create-timetable>
+        <create-timetable :teachers-and-subjects="{{json_encode($teachersAndThemSubjects)}}"></create-timetable>
     </div>
 @endsection

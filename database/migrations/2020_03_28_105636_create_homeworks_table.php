@@ -15,7 +15,7 @@ class CreateHomeworksTable extends Migration
     {
         Schema::create('homeworks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teach_id');
+            $table->unsignedBigInteger('subject_user_id');
             $table->unsignedBigInteger('grade_id');
             $table->string('name');
             $table->string('description');
@@ -23,9 +23,9 @@ class CreateHomeworksTable extends Migration
             $table->timestamps();
         });
         Schema::table('homeworks', function (Blueprint $table) {
-            $table->foreign('teach_id')
+            $table->foreign('subject_user_id')
                 ->references('id')
-                ->on('teach')
+                ->on('subject_user')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreign('grade_id')

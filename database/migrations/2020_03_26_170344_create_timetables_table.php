@@ -18,7 +18,7 @@ class CreateTimetablesTable extends Migration
             $table->string('lesson');
             $table->enum('day',['Понедельние','Вторник','Среда','Четверг','Пятница','Суббота']);
             $table->unsignedBigInteger('grade_id');
-            $table->unsignedBigInteger('teach_id');
+            $table->unsignedBigInteger('subject_user_id');
             $table->unsignedBigInteger('classroom_id');
             $table->enum('semester',['1','2']);
             $table->timestamps();
@@ -28,8 +28,8 @@ class CreateTimetablesTable extends Migration
                 ->references('id')->on('grades')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('teach_id')
-                ->references('id')->on('teach')
+            $table->foreign('subject_user_id')
+                ->references('id')->on('subject_user')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreign('classroom_id')
