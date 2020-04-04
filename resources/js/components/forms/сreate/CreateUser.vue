@@ -61,8 +61,8 @@
                     <label for="email" class="col-sm-4 control-label">Email </label>
                     <div class="col-sm-8">
                         <input
-                            v-validate="'required|'"
-                            :class="{'input': true, 'alert-danger':errors.has('number')}"
+                            v-validate="'required|email'"
+                            :class="{'input': true, 'alert-danger':errors.has('email')}"
                             name="email"
                             type="email"
                             id="email"
@@ -70,7 +70,7 @@
                             class="form-control"
                             v-model="user.email"
                         >
-                        <span v-show="errors.has('number')" class="help is-danger">{{ errors.first('number') }}</span>
+                        <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
                     </div>
 
                 </div>
@@ -97,8 +97,8 @@
                     <label for="phoneNumber" class="col-sm-4 control-label">Номер телефона</label>
                     <div class="col-sm-8">
                         <input
-                            v-validate="'required'"
-                            :class="{'input': true, 'alert-danger':errors.has('birthday')}"
+                            v-validate="'required|numeric|min:9|max:12'"
+                            :class="{'input': true, 'alert-danger':errors.has('number')}"
                             name="number"
                             type="phoneNumber"
                             id="phoneNumber"
@@ -106,6 +106,7 @@
                             class="form-control"
                             v-model="user.number"
                         >
+                        <span v-show="errors.has('number')" class="help is-danger">{{ errors.first('number') }}</span>
                     </div>
                 </div>
             </div>
@@ -114,6 +115,8 @@
                     <label class="col-md-4 control-label" for="address">Адресс</label>
                     <div class="col-md-8">
                         <textarea
+                            v-validate="'required'"
+                            :class="{'input': true, 'alert-danger':errors.has('address')}"
                             name="address"
                             class="form-control"
                             id="address"
@@ -121,6 +124,7 @@
                             v-model="user.address"
                         >
                         </textarea>
+                        <span v-show="errors.has('address')" class="help is-danger">{{ errors.first('address') }}</span>
                     </div>
                 </div>
             </div>
@@ -130,6 +134,8 @@
                     <div class="col-sm-8">
                         <label class="radio-inline mr-5">
                             <input
+                                v-validate="'required'"
+                                :class="{'input': true, 'alert-danger':errors.has('sex')}"
                                 name='sex'
                                 type="radio"
                                 id="femaleRadio"
@@ -140,6 +146,8 @@
                         </label>
                         <label class="radio-inline">
                             <input
+                                v-validate="'required'"
+                                :class="{'input': true, 'alert-danger':errors.has('sex')}"
                                 name='sex'
                                 type="radio"
                                 id="maleRadio"
@@ -148,6 +156,7 @@
                             >
                             Мужской
                         </label>
+                        <span v-show="errors.has('address')" class="help is-danger">{{ errors.first('sex') }}</span>
                     </div>
                 </div>
             </div>
@@ -157,17 +166,20 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <select
+                        v-validate="'excluded:none'"
+                        :class="{'input': true, 'alert-danger':errors.has('role')}"
                         name="role"
                         id="inputState"
                         class="form-control"
                         v-model="user.role"
                     >
-                        <option selected></option>
+                        <option selected value="none"></option>
                         <option>Директор</option>
                         <option>Завуч</option>
                         <option>Учитель</option>
                         <option>Ученик</option>
                     </select>
+                    <span v-show="errors.has('role')" class="help is-danger">{{ errors.first('role') }}</span>
                 </div>
             </div>
 
@@ -177,24 +189,24 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <select
+                        v-validate="'excluded:none'"
+                        :class="{'input': true, 'alert-danger':errors.has('grade_id')}"
                         name="grade_id"
                         id="selectGrade"
                         class="form-control"
                         v-model="user.grade"
                     >
-                        <option selected></option>
+                        <option selected value="none"></option>
                         <option value="1">11-a</option>
                         <option value="2">10-a</option>
                         <option>3</option>
                         <option>4</option>
                     </select>
+                    <span v-show="errors.has('grade_id')" class="help is-danger">{{ errors.first('grade_id') }}</span>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
-        <input v-validate="'required|email'" name="email" type="text">
-        <span>{{ errors.first('email') }}</span>
-        <a :href="classroomCreate">link</a>
     </div>
 </template>
 
@@ -245,4 +257,8 @@
 .alert-danger{
     border:2px solid red!important;
 }
+ textarea {
+     height: 80px!important;
+     resize: none!important;
+ }
 </style>
