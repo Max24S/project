@@ -119,10 +119,10 @@
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         // eslint-disable-next-line
-                        alert('Form Submitted!');
+
                         return;
                     }
-                    alert('Correct them errors!');
+                    this.$toaster.success('Your toaster success message.');
                 })
             }
         },

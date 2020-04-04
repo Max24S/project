@@ -31,6 +31,7 @@ Route::name('admin.')
                     ->namespace('HeadTeacher')
                     ->name('head-teacher.')
                     ->group(function () {
+                        Route::view('/','admin.teacher.head-teacher.index');
                         Route::resource('timetable', 'TimetableController');
                     });
             });

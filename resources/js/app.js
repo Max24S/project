@@ -14,6 +14,13 @@ import { Validator } from 'vee-validate';
 import ru from 'vee-validate/dist/locale/ru';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+
+import Toaster from 'v-toaster'
+
+import 'v-toaster/dist/v-toaster.css'
+
+// optional set default imeout, the default is 10000 (10 seconds).
+Vue.use(Toaster, {timeout: 5000})
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VeeValidate, {
