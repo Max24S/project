@@ -241,16 +241,16 @@
                         axios.post(window.routes['admin.super.user.store'],this.user)
                             .then((response)=>{
                                 if(response.data.response == 'created'){
-
+                                    this.$toaster.success('Пользователь успешно добавлен');
                                 }
                                 else if(response.data.response == 'emailDuplicate'){
-
+                                    this.$toaster.warning('Пользователь с данным email уже существует');
                                 }
                                 else{
-
+                                    this.$toaster.error('Ошибка');
                                 }
                                 console.log(response);
-                                this.$toaster.success('Пользователь успешно добавлен');
+
                             })
                             .catch( e=>{
                                 this.$toaster.error(e.response.data.message);

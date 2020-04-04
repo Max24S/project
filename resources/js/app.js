@@ -54,6 +54,9 @@ Validator.localize('ru', ru);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('create-user', require('./components/forms/сreate/CreateUser.vue').default);
 Vue.component('create-timetable', require('./components/forms/сreate/CreateTimetable.vue').default);
+Vue.component('create-classroom', require('./components/forms/сreate/CreateClassroom.vue').default);
+Vue.component('create-grade', require('./components/forms/сreate/CreateGrade.vue').default);
+Vue.component('create-subject', require('./components/forms/сreate/CreateSubject.vue').default);
 
 const app = new Vue({
     el: '#app',
