@@ -18,10 +18,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Пользователи</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{{route('admin.super.staff.create')}}">Добавить сотрудника</a>
-                        <a class="dropdown-item" href="#">Редактировать список сотрудников</a>
-                        <a class="dropdown-item" href="{{route('admin.super.student.create')}}">Добавить ученика</a>
-                        <a class="dropdown-item" href="#">Редактировать список учеников</a>
+                        <a class="dropdown-item" href="{{route('admin.super.user.create')}}">Добавить пользователя</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

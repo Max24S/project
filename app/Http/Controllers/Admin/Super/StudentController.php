@@ -25,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.super.user.student.create');
+
     }
 
     /**
