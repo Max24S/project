@@ -211,11 +211,8 @@
 </template>
 
 <script>
-    import {AxiosInstance as axios} from "axios";
-
     export default {
         name: "CreateUser",
-
         data(){
             return {
                 classroomCreate:window.routes['admin.super.classroom.create'],
