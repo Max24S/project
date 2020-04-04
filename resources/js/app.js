@@ -30,7 +30,11 @@ Vue.use(VeeValidate, {
                 role:" ",
                 grade:" ",
                 sex:" ",
-                number:" "
+                number:" ",
+                day:" ",
+                grade_id:" ",
+                classroom_id:" ",
+                semester:" "
             }
         }
     }

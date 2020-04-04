@@ -225,14 +225,14 @@
         },
         methods: {
             sendUser(){
-                //
-                // let form = '#form';
-                // axios.post(window.routes['admin.super.user.store'],this.user)
-                //     .then((response)=>{
-                //
-                //         console.log(response);
-                //
-                //     })
+
+                let form = '#form';
+                axios.post(window.routes['admin.super.user.store'],this.user)
+                    .then((response)=>{
+
+                        console.log(response);
+
+                    })
             }
         }
     }
