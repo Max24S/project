@@ -34,12 +34,9 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store($request)
     {
-        $userController = new UserController();
-        $userController->store($request->all());
-        $student = new Student();
-        $student->prepareFromCreate($request['grade_id'],$request['email']);
+
     }
 
     /**

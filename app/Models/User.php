@@ -45,6 +45,12 @@ class User extends Authenticatable
 
         $user['password'] = bcrypt(Str::random(12));
 
-        User::create($user);
+        $dbUser = User::create($user);
+
+        if($dbUser->role=='Ученик'){
+
+            $student = ['user_id'=>$dbUser->id,'grade_id'=>$user['grade_id']];
+            Student::create($student);
+        }
     }
 }

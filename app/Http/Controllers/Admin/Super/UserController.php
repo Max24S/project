@@ -37,12 +37,9 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $userModel=(new User())->prepareFromCreate($request->all());
 
-
-            return ['y'=>21];
-
-        $userModel = new User();
-        $userModel->prepareFromCreate($user);
+        return ['status'=>'OK'];
     }
 
     /**

@@ -194,7 +194,7 @@
                         name="grade_id"
                         id="selectGrade"
                         class="form-control"
-                        v-model="user.grade"
+                        v-model="user.grade_id"
                     >
                         <option selected value="none"></option>
                         <option value="1">11-a</option>
@@ -207,13 +207,6 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
-        <div>
-            <b-button v-b-modal.modal-1>Launch demo modal</b-button>
-
-            <b-modal id="modal-1" title="BootstrapVue">
-                <p class="my-4">Hello from modal!</p>
-            </b-modal>
-        </div>
     </div>
 
 </template>
@@ -234,7 +227,7 @@
                     address:'',
                     sex:'',
                     role:'',
-                    grade:''
+                    grade_id:''
                 },
                 email: '',
 
@@ -242,19 +235,25 @@
         },
         methods: {
             sendUser(){
+                console.log()
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        axios.post(window.routes['admin.super.user.store'],this.user)
+                            .then((response)=>{
 
-                let form = '#form';
-                axios.post(window.routes['admin.super.user.store'],this.user)
-                    .then((response)=>{
+                                console.log(response);
+                                this.$toaster.success('Пользователь успешно добавлен');
+                            })
+                            .catch( e=>{
+                                this.$toaster.error(e.response.data.message);
+                            })
 
-                        console.log(response);
-
-                    })
-                .catch( e=>{
-                    // this.errors.push(e);
-                    console.log(e.response.data.message);
-
+                    }
+                    else {
+                        this.$toaster.warning("Заполните все поля!");
+                    }
                 })
+
             }
         }
     }
