@@ -13,7 +13,10 @@ import VeeValidate from 'vee-validate';
 import { Validator } from 'vee-validate';
 import ru from 'vee-validate/dist/locale/ru';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 
+Vue.component("v-select", vSelect);
 
 import Toaster from 'v-toaster'
 
@@ -57,6 +60,7 @@ Vue.component('create-timetable', require('./components/forms/сreate/CreateTime
 Vue.component('create-classroom', require('./components/forms/сreate/CreateClassroom.vue').default);
 Vue.component('create-grade', require('./components/forms/сreate/CreateGrade.vue').default);
 Vue.component('create-subject', require('./components/forms/сreate/CreateSubject.vue').default);
+
 
 const app = new Vue({
     el: '#app',
