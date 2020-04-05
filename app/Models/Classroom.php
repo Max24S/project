@@ -17,7 +17,7 @@ class Classroom extends Model
 
     public function getAll(){
 
-        DB::table('classrooms')->select('id','name')->get();
+        return DB::table('classrooms')->select('id','name')->get();
     }
 
     public function prepareFromCreate($classroom)

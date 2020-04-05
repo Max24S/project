@@ -53,6 +53,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form>
+
     </div>
 
 </template>
@@ -65,7 +66,7 @@
         name: "CreateGrade",
         data(){
             return {
-                props:['val'],
+                props:['chmod'],
                 routes:{
                     gradeStore: window.routes['admin.super.grade.store']
                 },
@@ -90,6 +91,9 @@
                     { name: 'Steve' ,id:14},
                 ],
             }
+        },
+        created(){
+            console.log(this.chmod);
         },
         methods: {
             sendGrade() {

@@ -1,7 +1,8 @@
 @extends('admin.super.layouts.admin')
 @section('form')
+
 <div id="app">
-    <create-grade ></create-grade>
+    <create-grade :chmod="{{json_encode($classrooms)}}"></create-grade>
 </div>
 @endsection
 

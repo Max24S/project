@@ -29,7 +29,7 @@ class GradeController extends Controller
     {
         $classrooms = (new Classroom())->getAll();
 
-        return view('admin.super.grade.create');
+        return view('admin.super.grade.create',compact('classrooms'));
     }
 
     /**
