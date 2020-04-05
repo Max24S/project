@@ -54,6 +54,7 @@
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form>
     </div>
+
 </template>
 
 
@@ -64,6 +65,7 @@
         name: "CreateGrade",
         data(){
             return {
+                props:['val'],
                 routes:{
                     gradeStore: window.routes['admin.super.grade.store']
                 },
