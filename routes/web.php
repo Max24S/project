@@ -19,7 +19,6 @@ Route::name('admin.')
                 Route::resource('grade', 'GradeController');
                 Route::resource('subject', 'SubjectController');
                 Route::resource('user', 'UserController');
-
             });
         Route::prefix('teacher')
             ->name('teacher.')
@@ -32,6 +31,7 @@ Route::name('admin.')
                     ->name('head-teacher.')
                     ->group(function () {
                         Route::view('/','admin.teacher.head-teacher.index');
+                        Route::post('/timetable/indexTimetable','TimetableController@indexTimetable')->name('timetable.indexTimetable');
                         Route::resource('timetable', 'TimetableController');
                     });
             });

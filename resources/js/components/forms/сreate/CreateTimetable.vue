@@ -33,7 +33,7 @@
          </tr>
          </thead>
          <tbody>
-         <tr v-for="n in 8">
+         <tr v-if="n<=counter" v-for="n in 8">
              <th scope="row">
                  <div :name="'lesson'+n">{{n}}</div>
                  <input type="hidden" :name="'lesson'+n":value="n" id="">
@@ -52,6 +52,7 @@
                  </select>
                  <span v-show="errors.has('subject'+n)" class="help is-danger">Поле обязательно для заполнения</span>
              </td>
+             <template v-if="timetableData['currentSubject'+n]!='-'">
              <td>
                  <select v-model="timetableData['currentTeacher'+n]"
                          ref="select" :name="'teacher'+n"
@@ -74,11 +75,13 @@
              </select>
              <span v-show="errors.has('classroom_id'+n)" class="help is-danger">{{ errors.first('classroom_id'+n) }}</span>
              </td>
+             </template>
          </tr>
          </tbody>
      </table>
      <input type="submit">
-
+     <div v-if="counter<8" @click="AddLesson">Добавить поле</div>
+     <div v-if="counter>1" @click="RemoveLesson">Убрать поле</div>
  </form>
 </template>
 
@@ -119,6 +122,7 @@
                     semestr:'none',
 
                 },
+                counter:1,
                 request:{}
                 ,
                 days:['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота']
@@ -126,19 +130,20 @@
         },
         methods: {
             SendData() {
-                for ( let i=1;i<=8;i++)
-                {
-                    let subject_user_id=this.$refs.select[i-1].options[this.$refs.select[i-1].selectedIndex].getAttribute('teacher-id');
-                    let lesson={ 'lesson':i,'day':this.timetableData.day,
-                                'grade_id':this.timetableData.grade_id,
-                                'subject_user_id':subject_user_id,
-                                'classroom_id':this.timetableData['classroom_id'+i],
-                                'semester':this.timetableData.semestr
-                    };
-                    this.request[i]=lesson;
-                }
                 this.$validator.validateAll().then((result) => {
                     if (result) {
+                        for ( let i=1;i<=this.counter;i++) {
+                            let subject_user_id = this.$refs.select[i - 1].options[this.$refs.select[i - 1].selectedIndex].getAttribute('teacher-id');
+                            let lesson = {
+                                'lesson': i, 'day': this.timetableData.day,
+                                'grade_id': this.timetableData.grade_id,
+                                'subject_user_id': subject_user_id,
+                                'classroom_id': this.timetableData['classroom_id' + i],
+                                'semester': this.timetableData.semestr
+                            };
+                            this.request[i] = lesson;
+                        }
+
                         axios.post(window.routes['admin.teacher.head-teacher.timetable.store'], this.request)
                             .then((response) => {
                                 if (response.data.result=='OK') {
@@ -153,8 +158,14 @@
                     else{
                         this.$toaster.warning('Будьте внимательны при заполнении полей', {timeout: 5000})
                     }
-
                 })
+            }
+            ,
+            AddLesson() {
+                this.counter++;
+            },
+            RemoveLesson(){
+                this.counter--;
             }
         },
         created() {

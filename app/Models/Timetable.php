@@ -12,20 +12,17 @@ class Timetable extends Model
 
 
 
-    public function show()
+    public function show($grade,$semester)
     {
-        return  DB::table($this->table)
+        return DB::table('timetables')
             ->join ('subject_user','timetables.subject_user_id','=','subject_user.id')
             ->join('grades','timetables.grade_id','=','grades.id')
             ->join('subjects','subject_user.subject_id','=','subjects.id')
             ->join('users','subject_user.user_id','=','users.id')
             ->join('classrooms','timetables.classroom_id','=','classrooms.id')
+            ->where('timetables.grade_id','=',$grade)
+            ->where('timetables.semester','=',$semester)
             ->select('timetables.day',
-                            'classrooms.name',
-                            'users.name',
-                            'users.surname',
-                            'users.patronymic',
-                            'subjects.name',
                             'timetables.semester');
     }
 
