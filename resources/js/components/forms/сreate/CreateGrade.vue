@@ -42,7 +42,6 @@
             <ul>
                 <li v-for="item in selectetTeachers">{{item}}</li>
             </ul>
-            <input type="text" v-model="test">
             <table v-if="users.length" class="table">
                 <thead>
                 <tr>
