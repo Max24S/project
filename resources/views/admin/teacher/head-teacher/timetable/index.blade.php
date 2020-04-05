@@ -6,6 +6,9 @@
     <div id="app">
         <index-timetable :grades="{{json_encode($grades)}}"></index-timetable>
     </div>
+    <div id="app">
+
+    </div>
 @endsection
 <script>
     window.routes = {

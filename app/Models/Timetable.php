@@ -31,11 +31,12 @@ class Timetable extends Model
         return DB::table('subject_user')
             ->join('subjects','subject_user.subject_id','=','subjects.id')
             ->join('users','subject_user.user_id','=','users.id')
-            ->select('users.id as user_id',
-                            'subject_user.id',
-                            'users.name as teachers',
-                            'subjects.id as subject_id',
-                            'subjects.name as subjects');
+
+              ->get(['users.id as user_id',
+                'subject_user.id',
+                'users.name as teachers',
+                'subjects.id as subject_id',
+                'subjects.name as subjects']);
     }
     public function getSubjects()
     {
@@ -54,12 +55,13 @@ class Timetable extends Model
     }
     public function  addTimeTable($request)
     {
-        for ($i=1;$i<=count($request);$i++)
-        {
-            $request[$i]['created_at']=date('Y-m-d H:i:s');
-            $request[$i]['updated_at']=date('Y-m-d H:i:s');
+        $result=[];
+        foreach ($request as $item) {
+            $item['created_at'] = date('Y-m-d H:i:s');
+            $item['updated_at'] = date('Y-m-d H:i:s');
+            array_push($result,$item);
         }
-        DB::table('timetables')->insert($request);
+        DB::table('timetables')->insert($result);
     }
 }
 
