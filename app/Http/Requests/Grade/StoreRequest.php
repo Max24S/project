@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\User\Student;
+namespace App\Http\Requests\Grade;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -13,7 +13,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:4',
+            'user_id' => 'integer|nullable',
+            'classroom_id' => 'integer|nullable',
         ];
     }
 }

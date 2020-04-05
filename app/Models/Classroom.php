@@ -15,9 +15,11 @@ class Classroom extends Model
         return $this->hasOne(Grade::class);
     }
 
-    public function getAll(){
+    public function noClassroom(){
 
-        return DB::table('classrooms');
+        return DB::table('classrooms')
+            ->leftJoin('grades','users.id','=','grades.user_id')
+            ->where('grades.user_id',null);;
     }
 
     public function prepareFromCreate($classroom)

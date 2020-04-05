@@ -14,8 +14,10 @@
                             id="Name"
                             placeholder="Класс..."
                             class="form-control"
+                            v-model="grade.name"
                         >
                         <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                        <span v-if="nameDuplicate">Класс уже существует</span>
                     </div>
                 </div>
             </div>
@@ -32,6 +34,7 @@
                             label="name"
                         >
                         </v-select>
+
                     </div>
                 </div>
             </div>
@@ -65,6 +68,9 @@
     export default {
         name: "CreateGrade",
         props:['classrooms-and-teachers'],
+        created(){
+          console.log(this.classroomsAndTeachers)
+        },
         data(){
             return {
                 routes:{
@@ -75,25 +81,10 @@
                     user_id:'',
                     classroom_id:'',
                 },
-                selected:"",
-                options: [
-                    { id:1,name: 'Петров Степан Сидорович' },
-                    { name: 'Jane',id:5 },
-                    { name: 'Paul' ,id:6},
-                    { name: 'Kate' ,id:7},
-                    { name: 'Amanda',id:8 },
-                    { name: 'Steve' ,id:9},
-                    { id:15,name: 'Петров Степан Сидорович' },
-                    { name: 'Jane',id:10},
-                    { name: 'Paul' ,id:11},
-                    { name: 'Kate' ,id:12},
-                    { name: 'Amanda',id:13 },
-                    { name: 'Steve' ,id:14},
-                ],
+                nameDuplicate:null,
+                curatorDuplicate:null,
+                classroomDuplicate:null
             }
-        },
-        created(){
-            console.log(this.classroomsAndTeachers);
         },
         methods: {
             sendGrade() {
@@ -106,9 +97,13 @@
 
                                     this.$toaster.success('Класс успешно добавлен');
                                 }
-                                else if (response.data.response == 'emailDuplicate') {
+                                else if (response.data.response == 'duplicate') {
 
-                                    this.$toaster.warning('Пользователь с данным email уже существует');
+                                    this.nameDuplicate=response.data.name;
+                                    this.curatorDuplicate=response.data.user_id;
+                                    this.classroomDuplicate=response.data.classroom_id;
+
+                                    this.$toaster.warning('Дубликаты');
                                 }
                                 else {
 
@@ -118,7 +113,7 @@
 
                             })
                             .catch(e => {
-
+                                console.log(e);
                                 this.$toaster.error(e.response.data.message);
                             })
 
@@ -130,33 +125,6 @@
                 })
 
             }
-        },
-        computed: {
-            resultQuery(){
-                if(this.searchQuery){
-                    return this.users.filter((item)=>{
-                        return this.searchQuery.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
-                    })
-                }else{
-                    return this.users;
-                }
-            },
-            selectetTeacher(){
-                if(this.test1){
-
-                   this.searchQuery = this.test1;
-                }
-            }
-            // selectetTeachers(){
-            //
-            //
-            //     if(this.selected.indexOf(this.test1)==-1&&this.test1){
-            //
-            //         this.selected.push(this.test1);
-            //     }
-            //     console.log(this.selected.length)
-            //     return this.selected;
-            // }
         }
     }
 </script>

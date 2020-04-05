@@ -76,8 +76,10 @@ class User extends Authenticatable
         return true;
     }
 
-    public function getAll() {
+    public function noGrade() {
 
-        return DB::table('users');
+        return DB::table('users')
+            ->leftJoin('grades','users.id','=','grades.user_id')
+            ->where('grades.user_id',null);
     }
 }
