@@ -14,6 +14,11 @@ class Classroom extends Model
         return $this->hasOne(Grade::class);
     }
 
+    public function getAll(){
+
+        DB::table('classroom')->select('id','name');
+    }
+
     public function prepareFromCreate($classroom)
     {
         if($this->uniqueName($classroom['name']))

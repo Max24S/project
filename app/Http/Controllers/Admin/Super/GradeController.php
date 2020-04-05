@@ -27,15 +27,7 @@ class GradeController extends Controller
      */
     public function create()
     {
-
-//        $classrooms=Grade::with('classes')->get();
-////        $country= Grade::find(1);
-////        $user = $country->classes;
-//        dd($classrooms);
-////        $class_id= $classrooms
-////            ->map(function ($classrooms) {
-////                return $classrooms;
-////            });
+        
 
         return view('admin.super.grade.create');
     }
