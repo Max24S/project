@@ -57,6 +57,7 @@ Vue.component('create-timetable', require('./components/forms/сreate/CreateTime
 Vue.component('create-classroom', require('./components/forms/сreate/CreateClassroom.vue').default);
 Vue.component('create-grade', require('./components/forms/сreate/CreateGrade.vue').default);
 Vue.component('create-subject', require('./components/forms/сreate/CreateSubject.vue').default);
+Vue.component('index-timetable', require('./components/forms/index/IndexTimetable').default);
 
 const app = new Vue({
     el: '#app',
