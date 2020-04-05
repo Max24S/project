@@ -12,6 +12,7 @@
     <input type="submit">
         <ul>
             <li v-for="item in request">{{item.day}}</li>
+            e
         </ul>
     </form>
 </template>
