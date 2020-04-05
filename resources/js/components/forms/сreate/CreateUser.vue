@@ -216,7 +216,9 @@
         name: "CreateUser",
         data(){
             return {
-                classroomCreate:window.routes['admin.super.classroom.create'],
+                routes:{
+                    userStore: window.routes['admin.super.user.store']
+                },
                 user:{
                     name:'',
                     surname:'',
@@ -229,8 +231,6 @@
                     role:'',
                     grade_id:''
                 },
-                email: '',
-
             }
         },
         methods: {
@@ -238,26 +238,31 @@
                 console.log(this.user);
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        axios.post(window.routes['admin.super.user.store'],this.user)
+                        axios.post(this.routes.userStore,this.user)
                             .then((response)=>{
                                 if(response.data.response == 'created'){
+
                                     this.$toaster.success('Пользователь успешно добавлен');
                                 }
                                 else if(response.data.response == 'emailDuplicate'){
+
                                     this.$toaster.warning('Пользователь с данным email уже существует');
                                 }
                                 else{
+
                                     this.$toaster.error('Ошибка');
                                 }
                                 console.log(response);
 
                             })
                             .catch( e=>{
+
                                 this.$toaster.error(e.response.data.message);
                             })
 
                     }
                     else {
+
                         this.$toaster.warning("Заполните все поля!");
                     }
                 })

@@ -37,7 +37,10 @@ class ClassroomController extends Controller
      */
     public function store(StoreRequest $request)
     {
-           Classroom::create($request->all());
+        $response=(new Classroom())->prepareFromCreate($request->all());
+
+        return $response;
+
     }
 
     /**

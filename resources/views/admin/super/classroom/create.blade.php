@@ -4,3 +4,9 @@
         <create-classroom></create-classroom>
     </div>
 @endsection
+
+<script>
+    window.routes = {
+        'admin.super.classroom.store' : '{{ route('admin.super.classroom.store') }}',
+    }
+</script>

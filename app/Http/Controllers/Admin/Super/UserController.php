@@ -37,9 +37,9 @@ class UserController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $userModel=(new User())->prepareFromCreate($request->all());
+        $response=(new User())->prepareFromCreate($request->all());
 
-        return $userModel;
+        return $response;
     }
 
     /**
