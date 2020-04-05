@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Classroom extends Model
 {
@@ -12,6 +13,11 @@ class Classroom extends Model
     public function grade()
     {
         return $this->hasOne(Grade::class);
+    }
+
+    public function getAll(){
+
+        DB::table('classrooms')->select('id','name')->get();
     }
 
     public function prepareFromCreate($classroom)

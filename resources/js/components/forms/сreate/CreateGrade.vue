@@ -19,55 +19,42 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <label>Укажите руководителя</label>
-                </div>
-                <div class="form-group col-sm-6">
-
-                    <div class="row">
-                        <div class="search-wrapper panel-heading col-sm-12">
-                            <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
-                        </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Руководитель</label>
                     </div>
-                    <select  size="6" v-model="test1">
-                        <option v-for="item in resultQuery" :value="item">{{item.name}}</option>
-                    </select>
-                    <v-select></v-select>
-                    <select class="mdb-select md-form colorful-select dropdown-primary" multiple searchable="Search here..">
-                        <option value="" disabled selected>Choose your country</option>
-                        <option v-for="item in resultQuery" :value="item">{{item.name}}</option>
-
-                    </select>
-                    <table v-if="selectetTeacher" class="table">
-                        <thead>
-                        <tr>
-                            <th>Выбран</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{selectetTeacher.name}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="col-sm-8">
+                        <v-select
+                            v-model="grade.user_id"
+                            :options="options"
+                            :reduce="teacher => teacher.id"
+                            label="name"
+                        >
+                        </v-select>
+                    </div>
                 </div>
             </div>
-            <!--<div class="row">-->
-                <!--<div class="col-sm-4">-->
-                    <!--<label>Укажите кабинет</label>-->
-                <!--</div>-->
-                <!--<div class="form-group col-sm-6">-->
-                    <!--<select id="inputClassroom" class="form-control">-->
-                        <!--<option selected></option>-->
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;<button type="submit" class="btn btn-primary btn-block">Добавить</button>&ndash;&gt;-->
-
-            
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Укажите кабинет</label>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <v-select
+                            v-model="grade.classroom_id"
+                            :options="options"
+                            :reduce="teacher => teacher.id"
+                            label="name"
+                        >
+                        </v-select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form>
     </div>
+
 </template>
 
 
@@ -78,6 +65,7 @@
         name: "CreateGrade",
         data(){
             return {
+                props:['val'],
                 routes:{
                     gradeStore: window.routes['admin.super.grade.store']
                 },
@@ -86,24 +74,21 @@
                     user_id:'',
                     classroom_id:'',
                 },
-                words:['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'],
-                test:'',
-                test1:'',
-
-                users: [
-                    { name: 'Петров Степан Сидорович', age: 50,id:1 },
-                    { name: 'Петров Степан Сидорович', age: 50,id:2 },
-                    { name: 'Петров Степан Сидорович', age: 50,id:3 },
-                    { name: 'Петров Степан Сидорович', age: 50,id:4 },
-                    { name: 'Jane', age: 22 ,id:5 },
-                    { name: 'Paul', age: 34 ,id:6},
-                    { name: 'Kate', age: 15 ,id:7},
-                    { name: 'Amanda', age: 65,id:8 },
-                    { name: 'Steve', age: 38 ,id:9},
-
+                selected:"",
+                options: [
+                    { id:1,name: 'Петров Степан Сидорович' },
+                    { name: 'Jane',id:5 },
+                    { name: 'Paul' ,id:6},
+                    { name: 'Kate' ,id:7},
+                    { name: 'Amanda',id:8 },
+                    { name: 'Steve' ,id:9},
+                    { id:15,name: 'Петров Степан Сидорович' },
+                    { name: 'Jane',id:10},
+                    { name: 'Paul' ,id:11},
+                    { name: 'Kate' ,id:12},
+                    { name: 'Amanda',id:13 },
+                    { name: 'Steve' ,id:14},
                 ],
-                searchQuery: null,
-                selected:[]
             }
         },
         methods: {
