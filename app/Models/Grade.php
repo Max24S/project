@@ -23,10 +23,8 @@ class Grade extends Model
     public function prepareFromCreate($grade)
     {
         $uniqueName = $this->uniqueName($grade['name']);
-        $uniqueCurator = $this->uniqueCurator($grade['user_id']);
-        $uniqueClassroom = $this->uniqueClassroom($grade['classroom_id']);
 
-        if($uniqueName&&$uniqueCurator&&$uniqueClassroom){
+        if($uniqueName){
 
             Grade::create($grade);
 
@@ -45,44 +43,6 @@ class Grade extends Model
         if($check){
 
             $this->response['name']='duplicate';
-
-            return false;
-        }
-
-        return true;
-
-    }
-
-    public function uniqueCurator($user_id)
-    {
-        if($user_id==null){
-
-            return true;
-        }
-        $check = Grade::where('user_id',$user_id)->first();
-
-        if($check){
-
-            $this->response['user_id']='duplicate';
-
-            return false;
-        }
-
-        return true;
-
-    }
-
-    public function uniqueClassroom($classroom_id)
-    {
-        if($classroom_id==null){
-
-            return true;
-        }
-        $check = Grade::where('classroom_id',$classroom_id)->first();
-
-        if($check){
-
-            $this->response['classroom_id']='duplicate';
 
             return false;
         }

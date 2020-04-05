@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
         <form class="form-horizontal" role="form">
             <h2>Добавление предмета</h2>
             <div class="form-group">
@@ -10,17 +9,11 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <select id="inputState" class="form-control" >
-                    <option selected>Выбор преподавателей</option>
-                    <option>3</option>
-                    <option>1</option>
-                </select>
+            <div class="form-group">
+                <v-select></v-select>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form>
-    </div>
-
 </template>
 
 <script>

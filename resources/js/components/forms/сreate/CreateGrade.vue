@@ -17,7 +17,6 @@
                             v-model="grade.name"
                         >
                         <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
-                        <span v-if="nameDuplicate">Класс уже существует</span>
                     </div>
                 </div>
             </div>
@@ -32,6 +31,7 @@
                             :options="this.classroomsAndTeachers.users"
                             :reduce="teacher => teacher.id"
                             label="name"
+                            multiple
                         >
                         </v-select>
 
@@ -81,9 +81,6 @@
                     user_id:'',
                     classroom_id:'',
                 },
-                nameDuplicate:null,
-                curatorDuplicate:null,
-                classroomDuplicate:null
             }
         },
         methods: {
@@ -99,11 +96,7 @@
                                 }
                                 else if (response.data.response == 'duplicate') {
 
-                                    this.nameDuplicate=response.data.name;
-                                    this.curatorDuplicate=response.data.user_id;
-                                    this.classroomDuplicate=response.data.classroom_id;
-
-                                    this.$toaster.warning('Дубликаты');
+                                    this.$toaster.warning('Класс уже добавлен');
                                 }
                                 else {
 

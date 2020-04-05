@@ -18,8 +18,8 @@ class Classroom extends Model
     public function noClassroom(){
 
         return DB::table('classrooms')
-            ->leftJoin('grades','users.id','=','grades.user_id')
-            ->where('grades.user_id',null);;
+            ->leftJoin('grades','classrooms.id','=','grades.classroom_id')
+            ->where('grades.classroom_id',null);;
     }
 
     public function prepareFromCreate($classroom)

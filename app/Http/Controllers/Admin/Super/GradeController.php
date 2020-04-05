@@ -31,7 +31,7 @@ class GradeController extends Controller
     {
         $classrooms = (new Classroom())
             ->noClassroom()
-            ->get(['id','name']);
+            ->get(['classrooms.id','classrooms.name']);
 
         $users = (new User())
             ->noGrade()
