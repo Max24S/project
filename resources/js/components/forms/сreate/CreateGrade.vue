@@ -27,7 +27,7 @@
                     <div class="col-sm-8">
                         <v-select
                             v-model="grade.user_id"
-                            :options="options"
+                            :options="this.classroomsAndTeachers.users"
                             :reduce="teacher => teacher.id"
                             label="name"
                         >
@@ -43,7 +43,7 @@
                     <div class="form-group col-sm-8">
                         <v-select
                             v-model="grade.classroom_id"
-                            :options="options"
+                            :options="this.classroomsAndTeachers.classrooms"
                             :reduce="teacher => teacher.id"
                             label="name"
                         >
@@ -64,9 +64,9 @@
 
     export default {
         name: "CreateGrade",
+        props:['classrooms-and-teachers'],
         data(){
             return {
-                props:['chmod'],
                 routes:{
                     gradeStore: window.routes['admin.super.grade.store']
                 },
@@ -93,7 +93,7 @@
             }
         },
         created(){
-            console.log(this.chmod);
+            console.log(this.classroomsAndTeachers);
         },
         methods: {
             sendGrade() {

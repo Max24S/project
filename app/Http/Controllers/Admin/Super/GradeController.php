@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Super;
 use App\Models\Classroom;
 use App\Models\Grade;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 
@@ -27,9 +28,10 @@ class GradeController extends Controller
      */
     public function create()
     {
-        $classrooms = (new Classroom())->getAll();
-
-        return view('admin.super.grade.create',compact('classrooms'));
+        $classrooms = (new Classroom())->getAll()->select('id','name')->get();
+        $users = (new User())->getAll()->select('id','name','surname','patronymic')->get();
+        $dataFromSelect=['classrooms'=>$classrooms,'users'=>$users];
+        return view('admin.super.grade.create',compact('dataFromSelect'));
     }
 
     /**

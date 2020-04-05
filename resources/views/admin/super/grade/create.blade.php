@@ -2,7 +2,7 @@
 @section('form')
 
 <div id="app">
-    <create-grade :chmod="{{json_encode($classrooms)}}"></create-grade>
+    <create-grade :classrooms-and-teachers="{{json_encode($dataFromSelect)}}"></create-grade>
 </div>
 @endsection
 
