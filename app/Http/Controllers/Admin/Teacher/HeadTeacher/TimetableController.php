@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Teacher\HeadTeacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Timetable\IndexRequest;
 use App\Models\Subject;
-use App\Models\Teach;
 use App\Models\Timetable;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,10 +21,22 @@ class TimetableController extends Controller
      */
     public function index()
     {
-        $timetable=new Timetable();
-//        dd($timetable->getSubjects());
-    }
+        $grades=(new Timetable())->getGrades()->get();
 
+        return view('admin.teacher.head-teacher.timetable.index',compact('grades'));
+
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function indexTimetable(IndexRequest $request)
+    {
+        return ['result'=>'OK','timetable'=>(new Timetable())->show($request->grade_id,$request->semester)->get()];
+//        return (new Timetable())->show()->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,12 +44,13 @@ class TimetableController extends Controller
      */
     public function create()
     {
-        $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers()->get(),
+            $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
             "subjects"=>(new Timetable())->getSubjects()->get(),
             "grades"=>(new Timetable())->getGrades()->get(),
             'classrooms'=>(new Timetable())->getClassrooms()->get()]);
        return view('admin.teacher.head-teacher.timetable.create',compact('teachersAndThemSubjects'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -47,7 +60,7 @@ class TimetableController extends Controller
     public function store( StoreRequest $request)
     {
 
-        (new Timetable())->addTimeTable($request->all());
+       (new Timetable())->addTimeTable($request->all());
         return ['result'=>'OK'];
     }
 
