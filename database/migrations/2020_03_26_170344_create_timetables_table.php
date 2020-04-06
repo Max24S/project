@@ -17,9 +17,9 @@ class CreateTimetablesTable extends Migration
             $table->id();
             $table->string('lesson');
             $table->enum('day',['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота']);
-            $table->unsignedBigInteger('grade_id');
-            $table->unsignedBigInteger('subject_user_id');
-            $table->unsignedBigInteger('classroom_id');
+            $table->unsignedBigInteger('grade_id')->nullable();
+            $table->unsignedBigInteger('subject_user_id')->nullable();
+            $table->unsignedBigInteger('classroom_id')->nullable();
             $table->enum('semester',['1','2']);
             $table->timestamps();
         });

@@ -12,7 +12,6 @@
                 <charttitle> </charttitle>
             </header>
 
-
             <div id="chart_table">
                 <form id="chart_datas"  >
                     <div class="grid-container">

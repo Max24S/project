@@ -74,9 +74,9 @@
                      </td>
                      <td>
                      <select :name="'classroom_id'+n" v-model="timetableData['classroom_id'+n]"
-                             v-validate="'excluded:none'"id=""
+                             v-validate="'excluded:none'"
                              :class="{'input': true, 'alert-danger':errors.has('classroom_id'+n)}">
-                         <option value="none">Выберите кабинет</option>
+                         <option value='none'>Выберите кабинет</option>
                          <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom.id">{{classroom.name}}</option>
                      </select>
                      <span v-show="errors.has('classroom_id'+n)" class="help is-danger">Поле обязательно для заполнения</span>
@@ -117,17 +117,14 @@
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         for ( let i=1;i<=this.counter;i++) {
-                            if (this.timetableData['currentSubject'+i]!='-') {
-
                                 let lesson = {
                                     'lesson': i, 'day': this.timetableData.day,
                                     'grade_id': this.timetableData.grade_id,
-                                    'subject_user_id': this.timetableData['currentTeacher'+i].id,
-                                    'classroom_id': this.timetableData['classroom_id' + i],
+                                    'subject_user_id': this.timetableData['currentTeacher'+i].id??null,
+                                    'classroom_id':(this.timetableData['classroom_id' + i]=='none')?null:this.timetableData['classroom_id' + i],
                                     'semester': this.timetableData.semester
                                 };
                                 this.request[i] =lesson;
-                            }
                         }
 
                         console.log(this.request);
