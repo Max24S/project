@@ -44,7 +44,7 @@
                 <b-button  size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1 bg-primary">
                     Редактировать
                 </b-button>
-                <b-button size="sm" @click="row.toggleDetails" class="bg-danger">
+                <b-button size="sm" @click="" class="bg-danger">
                     Удалить
                 </b-button>
             </template>
@@ -154,11 +154,11 @@
                 this.infoModal.title = ''
                 this.infoModal.content = ''
             },
-            onFiltered(filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
-            }
+            // onFiltered(filteredItems) {
+            //     // Trigger pagination to update the number of buttons/pages due to filtering
+            //     this.totalRows = filteredItems.length
+            //     this.currentPage = 1
+            // }
         }
     }
 </script>
