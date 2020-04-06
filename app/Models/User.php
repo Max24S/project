@@ -90,4 +90,8 @@ class User extends Authenticatable
             ->where('users.role','<>','Ученик');
     }
 
+    public function getAll()
+    {
+        return DB::table('users');
+    }
 }

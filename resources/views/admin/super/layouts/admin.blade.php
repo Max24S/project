@@ -32,6 +32,8 @@
             @yield('form')
         </div>
     </div>
+
+    @yield('table')
 <script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

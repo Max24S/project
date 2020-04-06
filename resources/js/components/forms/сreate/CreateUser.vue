@@ -191,7 +191,7 @@
                     </div>
                     <div class="form-group col-sm-8">
                         <v-select
-                            v-validate="'excluded:none'"
+                            v-validate="'required'"
                             :class="{'input': true, 'alert-danger':errors.has('grade_id')}"
                             name="grade_id"
                             v-model="user.grade_id"
