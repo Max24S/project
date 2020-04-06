@@ -34,7 +34,7 @@ class TimetableController extends Controller
      */
     public function indexTimetable(IndexRequest $request)
     {
-        return ['result'=>'OK','timetable'=>(new Timetable())->show($request->grade_id,$request->semester)->get()];
+        return ['result'=>'OK','timetable'=>(new Timetable())->timetableFormation($request->grade_id,$request->semester)];
 //        return (new Timetable())->show()->get();
     }
     /**
@@ -48,7 +48,7 @@ class TimetableController extends Controller
             "subjects"=>(new Timetable())->getSubjects()->get(),
             "grades"=>(new Timetable())->getGrades()->get(),
             'classrooms'=>(new Timetable())->getClassrooms()->get()]);
-       return view('admin.teacher.head-teacher.timetable.create',compact('teachersAndThemSubjects'));
+             return view('admin.teacher.head-teacher.timetable.create',compact('teachersAndThemSubjects'));
     }
 
     /**
