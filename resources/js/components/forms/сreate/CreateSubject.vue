@@ -29,7 +29,7 @@
                             v-model="subject.teachers"
                             :options="this.teachers"
                             :reduce="teacher => teacher.id"
-                            label="name"
+                            label="fullName"
                             multiple
                         >
                         </v-select>
@@ -56,6 +56,9 @@
                    teachers:''
                }
             }
+        },
+        created(){
+            console.log(this.teachers);
         },
         methods: {
             sendSubject() {

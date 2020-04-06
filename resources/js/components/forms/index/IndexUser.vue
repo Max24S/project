@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <b-container fluid>
-        <!-- User Interface controls -->
+        <!-- Main table element -->
         <b-row>
             <b-col lg="6" class="my-1">
                 <b-form-group
@@ -24,8 +24,53 @@
                     </b-input-group>
                 </b-form-group>
             </b-col>
+        </b-row>
+        <b-table
+            show-empty
+            small
+            stacked="md"
+            :items="users"
+            :fields="fields"
+            :current-page="currentPage"
+            :per-page="perPage"
+            :filter="filter"
+            :filterIncludedFields="filterOn"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
+            :sort-direction="sortDirection"
+            @filtered="onFiltered"
+        >
+            <!--<template v-slot:cell(users)="row">-->
+                <!--{{ row.value.name }} {{ row.value.surname }}-->
+            <!--</template>-->
 
-          
+            <template v-slot:cell(actions)="row">
+                <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
+                    Info modal
+                </b-button>
+                <b-button size="sm" @click="row.toggleDetails">
+                    {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+                </b-button>
+            </template>
+
+            <template v-slot:row-details="row">
+                <b-card>
+                    <ul>
+                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+                    </ul>
+                </b-card>
+            </template>
+        </b-table>
+
+        <!-- Info modal -->
+        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
+            <pre>{{ infoModal.content }}</pre>
+        </b-modal>
+        <!-- User Interface controls -->
+        <b-row>
+
+
+
             <b-col sm="5" md="6" class="my-1">
                 <b-form-group
                     label="Per page"
@@ -58,97 +103,30 @@
             </b-col>
         </b-row>
 
-        <!-- Main table element -->
-        <b-table
-            show-empty
-            small
-            stacked="md"
-            :items="items"
-            :fields="fields"
-            :current-page="currentPage"
-            :per-page="perPage"
-            :filter="filter"
-            :filterIncludedFields="filterOn"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            @filtered="onFiltered"
-        >
-            <template v-slot:cell(name)="row">
-                {{ row.value.first }} {{ row.value.last }}
-            </template>
-
-            <template v-slot:cell(actions)="row">
-                <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-                    Info modal
-                </b-button>
-                <b-button size="sm" @click="row.toggleDetails">
-                    {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-                </b-button>
-            </template>
-
-            <template v-slot:row-details="row">
-                <b-card>
-                    <ul>
-                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                    </ul>
-                </b-card>
-            </template>
-        </b-table>
-
-        <!-- Info modal -->
-        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <pre>{{ infoModal.content }}</pre>
-        </b-modal>
     </b-container>
 </template>
 
 <script>
     export default {
+        props:['users'],
         data() {
             return {
-                items: [
-                    { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-                    { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-                    {
-                        isActive: false,
-                        age: 9,
-                        name: { first: 'Mini', last: 'Navarro' },
-                        _rowVariant: 'success'
-                    },
-                    { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-                    { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-                    { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-                    { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-                    {
-                        isActive: true,
-                        age: 87,
-                        name: { first: 'Larsen', last: 'Shaw' },
-                        _cellVariants: { age: 'danger', isActive: 'warning' }
-                    },
-                    { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-                    { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-                    { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-                    { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-                ],
                 fields: [
-                    { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-                    { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-                    {
-                        key: 'isActive',
-                        label: 'is Active',
-                        formatter: (value, key, item) => {
-                            return value ? 'Yes' : 'No'
-                        },
-                        sortable: true,
-                        sortByFormatted: true,
-                        filterByFormatted: true
-                    },
-                    { key: 'actions', label: 'Actions' }
+                    { key: 'id', label: 'id', sortable: true, class: 'text-center' },
+                    { key: 'name', label: 'name', sortable: true, class: 'text-center' },
+                    { key: 'surname', label: 'surname', sortable: true, sortDirection: 'desc' },
+                    { key: 'patronymic', label: 'patronymic', sortable: true, sortDirection: 'desc' },
+                    { key: 'email', label: 'email', sortable: true, sortDirection: 'desc' },
+                    { key: 'number', label: 'number', sortable: true, sortDirection: 'desc' },
+                    { key: 'address', label: 'address', sortable: true, sortDirection: 'desc' },
+                    { key: 'birthday', label: 'birthday', sortable: true, sortDirection: 'desc' },
+                    { key: 'sex', label: 'sex', sortable: true, sortDirection: 'desc' },
+                    { key: 'role', label: 'role', sortable: true, sortDirection: 'desc' },
+
                 ],
                 totalRows: 1,
                 currentPage: 1,
-                perPage: 5,
+                perPage: 10,
                 pageOptions: [5, 10, 15],
                 sortBy: '',
                 sortDesc: false,
@@ -167,7 +145,7 @@
         },
         mounted() {
             // Set the initial number of items
-            this.totalRows = this.items.length
+            this.totalRows = this.users.length
         },
         methods: {
             info(item, index, button) {

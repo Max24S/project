@@ -31,6 +31,8 @@ class SubjectController extends Controller
             ->getAllTeachers()
             ->get(['id','name','surname','patronymic']);
 
+        $teachers = (new User())->groupFullName($teachers);
+
         return view('admin.super.subject.create',compact('teachers'));
     }
 

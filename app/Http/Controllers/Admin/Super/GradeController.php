@@ -37,6 +37,8 @@ class GradeController extends Controller
             ->noGrade()
             ->get(['users.id','users.name','users.surname','users.patronymic']);
 
+        $users = (new User())->groupFullName($users);
+
         $dataFromSelect=['classrooms'=>$classrooms,'users'=>$users];
 
         return view('admin.super.grade.create',compact('dataFromSelect'));

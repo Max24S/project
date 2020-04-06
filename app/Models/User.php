@@ -94,4 +94,20 @@ class User extends Authenticatable
     {
         return DB::table('users');
     }
+
+    public function groupFullName($users)
+    {
+        $result=[];
+
+        foreach($users as $user)
+        {
+            $row=[];
+            $row['id'] =  $user->id;
+            $row['fullName'] = $user->surname.' '.$user->name." ".$user->patronymic;
+
+            array_push($result,$row);
+        }
+
+        return $result;
+    }
 }

@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <form class="form-horizontal" role="form" @submit.prevent = "sendGrade">
             <h2>Добавление класса</h2>
@@ -30,10 +30,9 @@
                             v-model="grade.user_id"
                             :options="this.classroomsAndTeachers.users"
                             :reduce="teacher => teacher.id"
-                            label="name"
+                            label="fullName"
                         >
                         </v-select>
-
                     </div>
                 </div>
             </div>
