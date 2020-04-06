@@ -27,6 +27,7 @@ Vue.use(Toaster, {timeout: 5000})
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(VeeValidate, {
+    fieldsBagName: 'veeFields',
     locale: 'ru',
     dictionary: {
         ru: {

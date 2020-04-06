@@ -2,33 +2,28 @@
     <b-container fluid>
         <!-- Main table element -->
         <b-row>
-            <b-col lg="6" class="my-1">
-                <b-form-group
-                    label="Filter"
-                    label-cols-sm="3"
-                    label-align-sm="right"
-                    label-size="sm"
-                    label-for="filterInput"
-                    class="mb-0"
-                >
+            <b-col md="8" lg="6" class="my-1">
+                <b-form-group class="mb-0">
                     <b-input-group size="sm">
                         <b-form-input
                             v-model="filter"
                             type="search"
                             id="filterInput"
-                            placeholder="Type to Search"
-                        ></b-form-input>
+                            placeholder="Поиск"
+                        >
+                        </b-form-input>
                         <b-input-group-append>
-                            <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                            <b-button :disabled="!filter" @click="filter = ''" class="bg-info">Очистить</b-button>
                         </b-input-group-append>
                     </b-input-group>
                 </b-form-group>
             </b-col>
         </b-row>
+
         <b-table
             show-empty
             small
-            stacked="md"
+            stacked="lg"
             :items="users"
             :fields="fields"
             :current-page="currentPage"
@@ -39,17 +34,18 @@
             :sort-desc.sync="sortDesc"
             :sort-direction="sortDirection"
             @filtered="onFiltered"
+            bordered
         >
             <!--<template v-slot:cell(users)="row">-->
                 <!--{{ row.value.name }} {{ row.value.surname }}-->
             <!--</template>-->
 
             <template v-slot:cell(actions)="row">
-                <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-                    Info modal
+                <b-button  size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1 bg-primary">
+                    Редактировать
                 </b-button>
-                <b-button size="sm" @click="row.toggleDetails">
-                    {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
+                <b-button size="sm" @click="row.toggleDetails" class="bg-danger">
+                    Удалить
                 </b-button>
             </template>
 
@@ -69,20 +65,20 @@
         <!-- User Interface controls -->
         <b-row>
 
-
-
-            <b-col sm="5" md="6" class="my-1">
+            <b-col sm="12" md="6" class="my-1">
                 <b-form-group
-                    label="Per page"
+                    label="Выводить по"
                     label-cols-sm="6"
                     label-cols-md="4"
                     label-cols-lg="3"
-                    label-align-sm="right"
+                    label-align-sm="left"
                     label-size="sm"
                     label-for="perPageSelect"
                     class="mb-0"
                 >
                     <b-form-select
+                        sm="6"
+                        text-align-sm="left"
                         v-model="perPage"
                         id="perPageSelect"
                         size="sm"
@@ -91,7 +87,7 @@
                 </b-form-group>
             </b-col>
 
-            <b-col sm="7" md="6" class="my-1">
+            <b-col sm="12" md="6" class="my-1">
                 <b-pagination
                     v-model="currentPage"
                     :total-rows="totalRows"
@@ -113,15 +109,16 @@
             return {
                 fields: [
                     { key: 'id', label: 'id', sortable: true, class: 'text-center' },
-                    { key: 'name', label: 'name', sortable: true, class: 'text-center' },
-                    { key: 'surname', label: 'surname', sortable: true, sortDirection: 'desc' },
-                    { key: 'patronymic', label: 'patronymic', sortable: true, sortDirection: 'desc' },
+                    { key: 'name', label: 'Имя', sortable: true, class: 'text-center' },
+                    { key: 'surname', label: 'фамилия', sortable: true, sortDirection: 'desc' },
+                    { key: 'patronymic', label: 'Отчество', sortable: true, sortDirection: 'desc' },
                     { key: 'email', label: 'email', sortable: true, sortDirection: 'desc' },
-                    { key: 'number', label: 'number', sortable: true, sortDirection: 'desc' },
-                    { key: 'address', label: 'address', sortable: true, sortDirection: 'desc' },
-                    { key: 'birthday', label: 'birthday', sortable: true, sortDirection: 'desc' },
-                    { key: 'sex', label: 'sex', sortable: true, sortDirection: 'desc' },
-                    { key: 'role', label: 'role', sortable: true, sortDirection: 'desc' },
+                    { key: 'number', label: 'Номер телефона', sortable: true, sortDirection: 'desc' },
+                    { key: 'address', label: 'Адресс', sortable: true, sortDirection: 'desc' },
+                    { key: 'birthday', label: 'Дата рождения', sortable: true, sortDirection: 'desc' },
+                    { key: 'sex', label: 'Пол', sortable: true, sortDirection: 'desc' },
+                    { key: 'role', label: 'Роль', sortable: true, sortDirection: 'desc' },
+                    { key: 'actions', label: 'Действия' }
 
                 ],
                 totalRows: 1,
