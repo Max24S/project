@@ -1,6 +1,5 @@
 <template>
      <div>
-
          <vue-virtual-table
              :config="tableConfig"
              :data="users"
@@ -16,13 +15,13 @@
 </template>
 
 <script>
-    import { DataTable } from 'v-datatable-light';
+
     import VueVirtualTable from 'vue-virtual-table'
 
 
     export default {
         components: {
-            DataTable,VueVirtualTable
+          VueVirtualTable
         },
         name: "IndexUser",
         props:['users'],
