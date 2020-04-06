@@ -3,7 +3,7 @@
 @section('form')
 
     <div id="app">
-        <create-user></create-user>
+        <create-user :grades="{{json_encode($grades)}}"></create-user>
     </div>
 
 @endsection

@@ -31,7 +31,6 @@
                             :options="this.classroomsAndTeachers.users"
                             :reduce="teacher => teacher.id"
                             label="name"
-                            multiple
                         >
                         </v-select>
 

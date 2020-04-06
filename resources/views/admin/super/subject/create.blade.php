@@ -1,21 +1,12 @@
 @extends('admin.super.layouts.admin')
 @section('form')
     <div id="app">
-        <create-subject></create-subject>
+        <create-subject :teachers="{{json_encode($teachers)}}"></create-subject>
     </div>
-
-    {{--<table v-if="selected.length" class="table">--}}
-        {{--<thead>--}}
-        {{--<tr>--}}
-            {{--<th>Выбран</th>--}}
-        {{--</tr>--}}
-        {{--</thead>--}}
-        {{--<tbody>--}}
-        {{--<tr v-for="item in selectetTeachers">--}}
-            {{--<td><a  target="_blank">{{item.name}}</a></td>--}}
-        {{--</tr>--}}
-        {{--</tbody>--}}
-    {{--</table>searchQuery: null,--}}
-
 @endsection
 
+<script>
+    window.routes = {
+        'admin.super.subject.store' : '{{ route('admin.super.subject.store') }}',
+    }
+</script>

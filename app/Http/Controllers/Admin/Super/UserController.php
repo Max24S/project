@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Controllers\Controller;
+use App\Models\Grade;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\StoreRequest;
@@ -26,7 +27,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.super.user.create');
+        $grades = (new Grade())
+            ->getAllGrades()
+            ->get(['id','name']);
+
+        return view('admin.super.user.create',compact('grades'));
     }
 
     /**

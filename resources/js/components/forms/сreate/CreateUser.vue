@@ -160,11 +160,12 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
             <div class="row">
                 <div class="col-sm-4">
                     <label>Укажите роль</label>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-8">
                     <select
                         v-validate="'excluded:none'"
                         :class="{'input': true, 'alert-danger':errors.has('role')}"
@@ -182,38 +183,36 @@
                     <span v-show="errors.has('role')" class="help is-danger">{{ errors.first('role') }}</span>
                 </div>
             </div>
-
-            <div class="row" v-if="user.role=='Ученик'">
-                <div class="col-sm-4">
-                    <label>Укажите класс</label>
-                </div>
-                <div class="form-group col-sm-6">
-                    <select
-                        v-validate="'excluded:none'"
-                        :class="{'input': true, 'alert-danger':errors.has('grade_id')}"
-                        name="grade_id"
-                        id="selectGrade"
-                        class="form-control"
-                        v-model="user.grade_id"
-                    >
-                        <option selected value="none"></option>
-                        <option value="1">11-a</option>
-                        <option value="2">10-a</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
-                    <span v-show="errors.has('grade_id')" class="help is-danger">{{ errors.first('grade_id') }}</span>
+            </div>
+            <div class="form-group">
+                <div class="row" v-if="user.role=='Ученик'">
+                    <div class="col-sm-4">
+                        <label>Укажите класс</label>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <v-select
+                            v-validate="'excluded:none'"
+                            :class="{'input': true, 'alert-danger':errors.has('grade_id')}"
+                            name="grade_id"
+                            v-model="user.grade_id"
+                            :options="this.grades"
+                            :reduce="grade => grade.id"
+                            label="name"
+                        >
+                        </v-select>
+                        <span v-show="errors.has('grade_id')" class="help is-danger">{{ errors.first('grade_id') }}</span>
+                    </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
     </div>
-
 </template>
 
 <script>
     export default {
         name: "CreateUser",
+        props:['grades'],
         data(){
             return {
                 routes:{

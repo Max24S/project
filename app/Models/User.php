@@ -80,6 +80,14 @@ class User extends Authenticatable
 
         return DB::table('users')
             ->leftJoin('grades','users.id','=','grades.user_id')
-            ->where('grades.user_id',null);
+            ->where('grades.user_id',null)
+            ->where('users.role','<>','Ученик');
     }
+
+    public function getAllTeachers() {
+
+        return DB::table('users')
+            ->where('users.role','<>','Ученик');
+    }
+
 }

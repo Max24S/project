@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Subject\StoreRequest;
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -25,7 +27,11 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        return view('admin.super.subject.create');
+        $teachers = (new User())
+            ->getAllTeachers()
+            ->get(['id','name','surname','patronymic']);
+
+        return view('admin.super.subject.create',compact('teachers'));
     }
 
     /**
@@ -34,9 +40,11 @@ class SubjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $response = (new Subject())->prepareFromCreate($request->all());
+
+        return $response;
     }
 
     /**
