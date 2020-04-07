@@ -1,5 +1,7 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
+    <div>
     <b-container fluid>
+        <form @submit.prevent="deleteUser" id="deleteForm"></form>
         <!-- Main table element -->
         <b-row>
             <b-col md="8" lg="6" class="my-1">
@@ -44,9 +46,11 @@
                 <b-button  size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1 bg-primary">
                     Редактировать
                 </b-button>
-                <b-button size="sm" @click="" class="bg-danger">
-                    Удалить
-                </b-button>
+
+                    <b-button  @click="showMsgBoxDelelete(row.item.id,row.index)" size="sm" class="bg-danger">
+                        Удалить{{users.id}}
+                    </b-button>
+
             </template>
 
             <template v-slot:row-details="row">
@@ -62,6 +66,7 @@
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
             <pre>{{ infoModal.content }}</pre>
         </b-modal>
+
         <!-- User Interface controls -->
         <b-row>
 
@@ -98,8 +103,12 @@
                 ></b-pagination>
             </b-col>
         </b-row>
-
     </b-container>
+    <b-modal :id="confirmDelete.id" :title="confirmDelete.title" ok cancel @hide="resetDeleteModal">
+        <pre>{{ confirmDelete.content }}</pre>
+    </b-modal>
+
+    </div>
 </template>
 
 <script>
@@ -107,6 +116,9 @@
         props:['users'],
         data() {
             return {
+                routes:{
+                    // userDelete: window.routes['admin.super.grade.destroy']
+                },
                 fields: [
                     { key: 'id', label: 'id', sortable: true, class: 'text-center' },
                     { key: 'name', label: 'Имя', sortable: true, class: 'text-center' },
@@ -134,7 +146,13 @@
                     id: 'info-modal',
                     title: '',
                     content: ''
-                }
+                },
+                confirmDelete: {
+                    id: 'delete-modal',
+                    title: 'Предупреждение',
+                    content: 'Вы действительно хотите удалить пользователя?'
+                },
+                boxTwo: ''
             }
         },
         computed: {
@@ -145,6 +163,43 @@
             this.totalRows = this.users.length
         },
         methods: {
+            showMsgBoxDelelete(id, index) {
+                this.boxTwo = ''
+                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить пользователя?', {
+                    size: 'sm',
+                    buttonSize: 'md',
+                    okVariant: 'danger',
+                    okTitle: 'Да',
+                    cancelTitle: 'Отмена',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                    .then(value => {
+
+                        if (value){
+
+                            axios.delete('admin/super/user/'+id,).then((response) =>{
+                                console.log(id)
+                                console.log(response);
+                            }).catch(e => {
+                                console.log(e);
+                                this.$toaster.error(e.response.data.message);
+                            });
+                        }
+                    })
+                    .catch(err => {
+
+                    })
+            },
+            deleteUser(id, index){
+                console.log(id)
+
+
+            },
+            resetDeleteModal(){
+
+            },
             info(item, index, button) {
                 this.infoModal.title = `Row index: ${index}`
                 this.infoModal.content = JSON.stringify(item, null, 2)
@@ -154,11 +209,11 @@
                 this.infoModal.title = ''
                 this.infoModal.content = ''
             },
-            // onFiltered(filteredItems) {
-            //     // Trigger pagination to update the number of buttons/pages due to filtering
-            //     this.totalRows = filteredItems.length
-            //     this.currentPage = 1
-            // }
+            onFiltered(filteredItems) {
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            }
         }
     }
 </script>
@@ -220,6 +275,8 @@
     <!--}-->
 <!--</script>-->
 
-<!--<style scoped>-->
-
-<!--</style>-->
+<style scoped>
+    form {
+        margin:0;
+    }
+</style>
