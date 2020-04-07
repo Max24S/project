@@ -63,6 +63,7 @@ Vue.component('create-grade', require('./components/forms/сreate/CreateGrade.vu
 Vue.component('create-subject', require('./components/forms/сreate/CreateSubject.vue').default);
 Vue.component('index-timetable', require('./components/forms/index/IndexTimetable').default);
 Vue.component('index-user', require('./components/forms/index/IndexUser').default);
+Vue.component('edit-user', require('./components/forms/edit/EditUser').default);
 
 
 const app = new Vue({

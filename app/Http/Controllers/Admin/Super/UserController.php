@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.super.users.edit', compact('user'));
     }
 
     /**

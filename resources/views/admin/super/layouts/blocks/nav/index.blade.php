@@ -15,11 +15,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav mr-auto d-flex justify-content-around w-100">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{{route('admin.super.user.index')}}"  >Пользователи</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{{route('admin.super.user.create')}}">Добавить пользователя</a>
-                    </div>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{route('admin.super.user.index')}}" >Пользователи</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Предметы</a>
