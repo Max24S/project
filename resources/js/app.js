@@ -64,7 +64,7 @@ Vue.component('create-subject', require('./components/forms/сreate/CreateSubjec
 Vue.component('index-timetable', require('./components/forms/index/IndexTimetable').default);
 Vue.component('index-user', require('./components/forms/index/IndexUser').default);
 Vue.component('edit-user', require('./components/forms/edit/EditUser').default);
-
+Vue.component('edit-timetable', require('./components/forms/edit/EditTimetable').default);
 
 const app = new Vue({
     el: '#app',

@@ -87,8 +87,23 @@
             :sort-direction="sortDirection"
             @filtered="onFiltered"
         >
-            <template v-slot:cell(Вторник)="row">
-            {{ row.value.subjects }}
+            <template v-slot:cell(monday)="row">
+                <a :href="'timetable/'+row.value.id+'/edit'">{{ row.value.subjects }}</a>
+            </template>
+            <template v-slot:cell(tuesday)="row">
+                {{ row.value.subjects }}
+            </template>
+            <template v-slot:cell(wednesday)="row">
+                {{ row.value.subjects }}
+            </template>
+            <template v-slot:cell(thursday)="row">
+                {{ row.value.subjects }}
+            </template>
+            <template v-slot:cell(friday)="row">
+                {{ row.value.subjects }}
+            </template>
+            <template v-slot:cell(saturday)="row">
+                {{ row.value.subjects }}
             </template>
             <template v-slot:cell(actions)="row">
                 <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
@@ -137,12 +152,12 @@
                 isVisible:"",
                 fields: [
                     { key: 'lesson', label: '№ урока' },
-                    { key: 'Понедельник', label: 'Понедельник' },
-                    { key: 'Вторник', label: 'Вторник' },
-                    { key: 'Среда', label: 'Среда' },
-                    { key: 'Четверг', label: 'Четверг' },
-                    { key: 'Пятница', label: 'Пятница' },
-                    { key: 'Суббота', label: 'Суббота' },
+                    { key: 'monday', label: 'Понедельник' },
+                    { key: 'tuesday', label: 'Вторник' },
+                    { key: 'wednesday', label: 'Среда' },
+                    { key: 'thursday', label: 'Четверг' },
+                    { key: 'friday', label: 'Пятница' },
+                    { key: 'saturday', label: 'Суббота' },
                 ],
                 totalRows: 1,
                 currentPage: 1,

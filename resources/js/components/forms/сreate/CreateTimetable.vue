@@ -69,8 +69,8 @@
                                  {{teacher.teachers}}
                              </option>
                          </select>
-                         {{timetableData['currentTeacher1'].subject_id}}
                          <span v-show="errors.has('teacher'+n)" class="help is-danger">Поле обязательно для заполнения</span>
+                         <span v-if="duplicateTeacher['lesson'+n]" class="help is-danger">У этого преподователя уже есть занятие на этом уроке</span>
                      </td>
                      <td>
                      <select :name="'classroom_id'+n" v-model="timetableData['classroom_id'+n]"
@@ -109,33 +109,71 @@
                 },
                 counter:1,
                 request:{},
-                days:['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота']
+                days:['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],
+                duplicateTeacher:{
+                    'lesson1':'',
+                    'lesson2':'',
+                    'lesson3':'',
+                    'lesson4':'',
+                    'lesson5':'',
+                    'lesson6':'',
+                    'lesson7':'',
+                    'lesson8':''
+                }
             }
         },
         methods: {
             SendData() {
+                for( let lesson in this.duplicateTeacher)
+                {
+                    this.duplicateTeacher[lesson]='';
+                }
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         for ( let i=1;i<=this.counter;i++) {
-                                let lesson = {
+                            let lesson={};
+                            if(this.timetableData['currentSubject' + i]!='-') {
+                                lesson = {
                                     'lesson': i, 'day': this.timetableData.day,
                                     'grade_id': this.timetableData.grade_id,
-                                    'subject_user_id': this.timetableData['currentTeacher'+i].id??null,
-                                    'classroom_id':(this.timetableData['classroom_id' + i]=='none')?null:this.timetableData['classroom_id' + i],
+                                    'subject_user_id': this.timetableData['currentTeacher' + i].id ,
+                                    'classroom_id': this.timetableData['classroom_id' + i],
                                     'semester': this.timetableData.semester
-                                };
+                                }
+                            }
+                            else if(this.timetableData['currentSubject' + i]=='-')
+                                    {
+                                         lesson = {
+                                            'lesson': i, 'day': this.timetableData.day,
+                                            'grade_id': this.timetableData.grade_id,
+                                            'subject_user_id': null,
+                                            'classroom_id': null,
+                                            'semester': this.timetableData.semester
+                                        }
+                                    }
                                 this.request[i] =lesson;
-                        }
-
-                        console.log(this.request);
-                        axios.post(window.routes['admin.teacher.head-teacher.timetable.store'], this.request)
+                                }
+                             axios.post(window.routes['admin.teacher.head-teacher.timetable.store'], this.request)
                             .then((response) => {
+                                console.log(response.data);
                                 if (response.data.result=='OK') {
-                                    this.$toaster.success('Пользователь успешно добавлен');
+                                    this.$toaster.success('Расписание успешно добавленно');
+                                }
+                                else if (response.data.result=='isset') {
+                                    this.$toaster.info('Расписание на этот день для этого класса уже есть,перейдите в раздел редактирования', {timeout: 5000})
+                                }
+                                else if (Object.keys(response.data.duplicate).length>0)
+                                {
+                                    this.$toaster.warning('Занят урок!', {timeout: 5000})
+                                    for( let i=1; i<=8;i++)
+                                    {
+                                        this.duplicateTeacher['lesson'+i]=response.data.duplicate['lesson'+i];
+
+                                    }
+                                    console.log(this.duplicateTeacher);
                                 }
                             })
                             .catch(e => {
-                                this.$toaster.error(e.response.data.message);
                             })
                     }
                     else{

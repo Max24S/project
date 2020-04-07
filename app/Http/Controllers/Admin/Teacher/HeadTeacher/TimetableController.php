@@ -22,7 +22,6 @@ class TimetableController extends Controller
     public function index()
     {
         $grades=(new Timetable())->getGrades()->get();
-
         return view('admin.teacher.head-teacher.timetable.index',compact('grades'));
 
     }
@@ -60,8 +59,8 @@ class TimetableController extends Controller
     public function store( StoreRequest $request)
     {
 
-       (new Timetable())->addTimeTable($request->all());
-        return ['result'=>'OK'];
+       $response=(new Timetable())->addTimeTable($request->all());
+        return $response;
     }
 
     /**
@@ -83,7 +82,11 @@ class TimetableController extends Controller
      */
     public function edit(Timetable $timetable)
     {
-        //
+        $Timetable=collect(
+            ["teachers"=>(new Timetable())->getTeachers(),
+            "subjects"=>(new Timetable())->getSubjects()->get(),
+            'classrooms'=>(new Timetable())->getClassrooms()->get()]);
+            return view('admin.teacher.head-teacher.timetable.edit',compact('Timetable','timetable'));
     }
 
     /**
