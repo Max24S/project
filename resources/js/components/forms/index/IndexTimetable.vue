@@ -88,25 +88,25 @@
             @filtered="onFiltered"
         >
             <template v-slot:cell(monday)="row">
-                <a :href="'timetable/'+row.value.id+'/edit'">{{ row.value}}</a>
+                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
             </template>
             <template v-slot:cell(tuesday)="row">
-                {{ row.value.subjects }}
+                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
             </template>
             <template v-slot:cell(wednesday)="row">
-                {{ row.value.subjects }}
+                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
             </template>
             <template v-slot:cell(thursday)="row">
-                {{ row.value.subjects }}
+                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
             </template>
             <template v-slot:cell(friday)="row">
-                {{ row.value.subjects }}
+                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
             </template>
             <template v-slot:cell(saturday)="row">
-                {{ row.value.subjects }}
+                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
             </template>
             <template v-slot:cell(actions)="row">
-                <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
+                <b-button  size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
                     Info modal
                 </b-button>
                 <b-button size="sm" @click="row.toggleDetails">
@@ -123,7 +123,6 @@
             </template>
         </b-table>
 
-        <!-- Info modal -->
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
             <pre>{{ infoModal.content }}</pre>
         </b-modal>
@@ -197,7 +196,39 @@
                     }
                 })
             },
+            deleleteLesson(id) {
+                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
+                    size: 'sm',
+                    buttonSize: 'md',
+                    okVariant: 'danger',
+                    okTitle: 'Да',
+                    cancelTitle: 'Отмена',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                    .then(value => {
 
+                        if (value){
+
+                            axios.delete('/admin/teacher/head-teacher/timetable/'+id).then((response) =>{
+                                console.log(response.data.response);
+                                if(response.data.response=='deleted')
+                                {
+                                    this.$toaster.success("Запись успешно удалена");
+
+                                }
+
+                            }).catch(e => {
+                                this.$toaster.error("Пользователь не найден");
+
+                            });
+                        }
+                    })
+                    .catch(err => {
+
+                    })
+            },
             info(item, index, button) {
                 this.infoModal.title = `Row index: ${index}`
                 this.infoModal.content = JSON.stringify(item, null, 2)
@@ -233,5 +264,8 @@
 <style scoped>
     form {
         margin-top:53px;
+    }
+    .btn .b-icon.bi{
+        font-size: 80%;
     }
 </style>

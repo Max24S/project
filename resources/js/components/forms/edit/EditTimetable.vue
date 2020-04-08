@@ -61,7 +61,7 @@
 
                 <input type="submit">
             </form>
-            <button @click="showMsgBoxDelelete(rec.id)">Удалить</button>
+            <button @click="">Удалить</button>
         </div>
 </template>
 
@@ -91,42 +91,7 @@
                 }
         },
         methods:{
-            showMsgBoxDelelete(id) {
-                console.log(id);
-                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
-                    size: 'sm',
-                    buttonSize: 'md',
-                    okVariant: 'danger',
-                    okTitle: 'Да',
-                    cancelTitle: 'Отмена',
-                    footerClass: 'p-2',
-                    hideHeaderClose: false,
-                    centered: true
-                })
-                    .then(value => {
 
-                        if (value){
-
-                            axios.delete('/admin/teacher/head-teacher/timetable/'+id).then((response) =>{
-                                console.log(this.routes.Delete+id);
-                                if(response.data.response=='deleted')
-                                {
-                                    // this.$refs.table.refresh();
-
-                                    this.$toaster.success("Запись успешно удалена");
-
-                                }
-
-                            }).catch(e => {
-                                // this.$toaster.error("Пользователь не найден");
-
-                            });
-                        }
-                    })
-                    .catch(err => {
-
-                    })
-            },
         },
         created() {
 

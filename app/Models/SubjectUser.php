@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class SubjectUser extends Model
 {
+    protected $table="subject_user";
     protected $fillable = [
         'subject_id','user_id'
     ];
