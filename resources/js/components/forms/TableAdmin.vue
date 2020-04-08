@@ -1,5 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
     <div>
+        <slot name="link"></slot>
         <b-container fluid>
             <b-row>
                 <b-col md="8" lg="6" class="my-1">
@@ -54,14 +55,15 @@
                         class="bg-danger">
                         Удалить
                     </b-button>
+
                 </template>
-                <template v-slot:row-details="row">
-                    <b-card>
-                        <ul>
-                            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                        </ul>
-                    </b-card>
-                </template>
+                <!--<template v-slot:row-details="row">-->
+                    <!--<b-card>-->
+                        <!--<ul>-->
+                            <!--<li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>-->
+                        <!--</ul>-->
+                    <!--</b-card>-->
+                <!--</template>-->
             </b-table>
             <b-row>
                 <b-col sm="12" md="6" class="my-1">
@@ -104,6 +106,7 @@
 
 <script>
     export default {
+        name:'TableAdmin',
         props:['routes','fields','items'],
         data() {
             return {

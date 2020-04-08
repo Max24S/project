@@ -17,8 +17,11 @@ class SubjectController extends Controller
      */
     public function index()
     {
+        $subjects = (new Subject())
+            ->getSubjects()
+            ->get(['id','name']);
 
-        return view('admin.super.subject.index');
+        return view('admin.super.subject.index',compact('subjects'));
     }
 
     /**
@@ -92,6 +95,8 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        $subject->delete();
+
+        return ['response'=>'deleted'];
     }
 }

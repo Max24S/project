@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Subject extends Model
 {
@@ -36,5 +37,10 @@ class Subject extends Model
         }
 
         return true;
+    }
+
+    public function getSubjects()
+    {
+        return DB::table('subjects');
     }
 }
