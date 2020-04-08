@@ -1,13 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
     <div>
-        <table-admin :items="subjects" :fields="fields" :routes="routes">
-            <template slot="link">
-<div>
-<h1>kll;lkj;k</h1>
-            </div>
-            </template>
-        </table-admin>
-
+        <table-admin :items="subjects" :fields="fields" :routes="routes" :action="action"></table-admin>
     </div>
 </template>
 
@@ -27,6 +20,10 @@
                     { key: 'name', label: 'Имя', sortable: true, class: 'text-center' },
                     { key: 'actions', label: 'Действия' }
                 ],
+                action: {
+                    route:'/admin/super/subject-user/index/',
+                    content:'Преподаватели'
+                }
             }
         },
     }

@@ -1,6 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
     <div>
-        <slot name="link"></slot>
         <b-container fluid>
             <b-row>
                 <b-col md="8" lg="6" class="my-1">
@@ -45,17 +44,20 @@
                 :sort-desc.sync="sortDesc"
                 :sort-direction="sortDirection"
                 @filtered="onFiltered"
+                ref="table"
                 bordered
             >
                 <template v-slot:cell(actions)="row">
-                    <a :href="routes.Edit+row.item.id+'/edit/'">Редактировать</a>
+                    <a :href="routes.Edit+row.item.id+'/edit'">Редактировать</a>
                     <b-button
                         @click="showMsgBoxDelelete(row.item.id,row.index)"
                         size="sm"
                         class="bg-danger">
                         Удалить
                     </b-button>
-
+                    <template v-if="action">
+                        <a :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
+                    </template>
                 </template>
                 <!--<template v-slot:row-details="row">-->
                     <!--<b-card>-->
@@ -107,7 +109,7 @@
 <script>
     export default {
         name:'TableAdmin',
-        props:['routes','fields','items'],
+        props:['routes','fields','items','action'],
         data() {
             return {
                 totalRows: 1,
@@ -123,6 +125,7 @@
         },
         mounted() {
             // Set the initial number of items
+            // this.$refs.table.refresh();
             this.totalRows = this.items.length
         },
         methods: {

@@ -243,7 +243,7 @@
             this.$validator.validateAll().then((result) => {
                 if (result) {
 
-                    axios.put('/admin/super/user/'+this.user.id,this.editUser)
+                    axios.post('/admin/super/user/'+this.user.id,this.editUser)
                         .then((response)=>{
                             if(response.data.response == 'created'){
 

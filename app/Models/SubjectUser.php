@@ -28,4 +28,13 @@ class SubjectUser extends Model
 
         DB::table('subject_user')->insert($dbData);
     }
+
+    public function getTeachers($subject_id)
+    {
+        return DB::table('subject_user')
+            ->join('users','users.id','=','subject_user.user_id')
+            ->join('subjects','subjects.id','=','subject_user.subject_id')
+            ->where('subjects.id',$subject_id)
+            ->get(['subject_user.id','users.surname','users.name','users.patronymic','subjects.name as subject']);
+    }
 }
