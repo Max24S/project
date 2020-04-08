@@ -1,12 +1,15 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
 
-    <table-admin :items="users" :fields="fields" :routes="routes"></table-admin>
+    <table-admin :items="teachers" :fields="fields" :routes="routes"></table-admin>
 
 </template>
 
 <script>
     export default {
-        props:['users'],
+        props:['teachers'],
+        created(){
+            console.log(this.teachers)
+        },
         data() {
             return {
                 routes:{
@@ -19,12 +22,7 @@
                     { key: 'name', label: 'Имя', sortable: true,sortDirection: 'desc', class: 'text-center' },
                     { key: 'surname', label: 'фамилия', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
                     { key: 'patronymic', label: 'Отчество', sortable: true, sortDirection: 'desc',class: 'text-center' },
-                    { key: 'email', label: 'email', sortable: true, sortDirection: 'desc',class: 'text-center' },
-                    { key: 'number', label: 'Номер телефона', sortable: true, sortDirection: 'desc',class: 'text-center' },
-                    { key: 'address', label: 'Адресс', sortable: true, sortDirection: 'desc',class: 'text-center' },
-                    { key: 'birthday', label: 'Дата рождения', sortable: true, sortDirection: 'desc',class: 'text-center' },
-                    { key: 'sex', label: 'Пол', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
-                    { key: 'role', label: 'Роль', sortable: true, sortDirection: 'desc',class: 'text-center' },
+                    { key: 'subject', label: 'Предмет', sortable: true, sortDirection: 'desc',class: 'text-center' },
                     { key: 'actions', label: 'Действия' }
 
                 ],

@@ -19,6 +19,9 @@ Route::name('admin.')
                 Route::resource('grade', 'GradeController');
                 Route::resource('subject', 'SubjectController');
                 Route::resource('user', 'UserController');
+                Route::resource('subject-user', 'SubjectUserController');
+                Route::get("subject-user/index/{id}/{name}",'SubjectUserController@TeachersForSubject');
+
             });
         Route::prefix('teacher')
             ->name('teacher.')

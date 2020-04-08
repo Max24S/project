@@ -15,7 +15,7 @@
                     Delete:'/admin/super/classroom/'
                 },
                 fields: [
-                    { key: 'id', label: 'id', sortable: true, class: 'text-center' },
+                    { key: 'id', label: 'id', sortable: true, class: 'text-center',sortDirection: 'desc' },
                     { key: 'name', label: 'Имя', sortable: true, class: 'text-center' },
                     { key: 'actions', label: 'Действия' }
 
