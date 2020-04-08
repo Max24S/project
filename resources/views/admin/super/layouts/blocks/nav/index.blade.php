@@ -19,25 +19,13 @@
                     <a class="nav-link" href="{{route('admin.super.user.index')}}" >Пользователи</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Предметы</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{{route('admin.super.subject.create')}}">Добавить предмет</a>
-                        <a class="dropdown-item" href="#">Редактировать предметы</a>
-                    </div>
+                    <a class="nav-link" href="{{route('admin.super.subject.index')}}"  aria-haspopup="true" aria-expanded="false">Предметы</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Классы</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{{route('admin.super.grade.create')}}">Добавить класс</a>
-                        <a class="dropdown-item" href="#">Редактировать классы</a>
-                    </div>
+                    <a class="nav-link" href="{{route('admin.super.grade.index')}}"  aria-haspopup="true" aria-expanded="false">Классы</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Кабинеты</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" href="{{route('admin.super.classroom.create')}}">Добавить кабинет</a>
-                        <a class="dropdown-item" href="#">Редактировать кабинеты</a>
-                    </div>
+                    <a class="nav-link" href="{{route('admin.super.classroom.index')}}"   aria-haspopup="true" aria-expanded="false">Кабинеты</a>
                 </li>
             </ul>
         </div>

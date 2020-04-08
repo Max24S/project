@@ -48,4 +48,9 @@ class Classroom extends Model
 
         return true;
     }
+
+    public function getAll()
+    {
+        return DB::table('classrooms');
+    }
 }

@@ -92,6 +92,7 @@ class User extends Authenticatable
 
     public function getAll()
     {
+
         return DB::table('users');
     }
 

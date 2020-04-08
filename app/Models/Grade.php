@@ -18,6 +18,14 @@ class Grade extends Model
         return DB::table('grades');
     }
 
+    public function getGrades()
+    {
+        return DB::table('grades')
+            ->leftjoin('users','users.id','=','grades.user_id')
+            ->leftjoin('classrooms','classrooms.id','=','grades.classroom_id')
+            ->get(['grades.id','grades.name as grade','users.name','users.surname','users.patronymic','classrooms.name as classroom']);
+    }
+
     public static function find(string $string)
     {
 

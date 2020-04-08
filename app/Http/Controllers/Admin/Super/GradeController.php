@@ -19,7 +19,9 @@ class GradeController extends Controller
      */
     public function index()
     {
+        $grades = collect((new Grade())->getGrades());
 
+        return view('admin.super.grade.index',compact('grades'));
     }
 
     /**
@@ -76,7 +78,8 @@ class GradeController extends Controller
      */
     public function edit(Grade $grade)
     {
-        //
+        
+        return view('admin.super.grade.edit');
     }
 
     /**
@@ -99,6 +102,8 @@ class GradeController extends Controller
      */
     public function destroy(Grade $grade)
     {
-        //
+        $grade->delete();
+
+        return ['response'=>'deleted'];
     }
 }

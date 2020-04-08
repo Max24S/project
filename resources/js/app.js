@@ -63,7 +63,14 @@ Vue.component('create-grade', require('./components/forms/сreate/CreateGrade.vu
 Vue.component('create-subject', require('./components/forms/сreate/CreateSubject.vue').default);
 Vue.component('index-timetable', require('./components/forms/index/IndexTimetable').default);
 Vue.component('index-user', require('./components/forms/index/IndexUser').default);
+Vue.component('index-subject', require('./components/forms/index/IndexSubject').default);
+Vue.component('index-classroom', require('./components/forms/index/IndexClassroom').default);
+Vue.component('index-grade', require('./components/forms/index/IndexGrade').default);
 Vue.component('edit-user', require('./components/forms/edit/EditUser').default);
+Vue.component('edit-classroom', require('./components/forms/edit/EditClassroom').default);
+Vue.component('edit-subject', require('./components/forms/edit/EditSubject').default);
+Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default);
+Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 
 
 const app = new Vue({

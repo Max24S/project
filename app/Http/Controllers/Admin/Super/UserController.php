@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\StoreRequest;
@@ -72,7 +73,18 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.super.users.edit', compact('user'));
+        $grade_id='';
+        if($user->role=='Ученик')
+        {
+            $grade_id = (new Student())->getStudentGrade($user->id);
+        }
+        $grades = (new Grade())
+            ->getAllGrades()
+            ->get(['id','name']);
+
+        $studentData=['grades'=>$grades,'grade_id'=>$grade_id];
+
+        return view('admin.super.user.edit', compact('user','studentData'));
     }
 
     /**
@@ -82,9 +94,23 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(StoreRequest $request, User $user)
     {
-        //
+        $data = $request->only(['surname',
+            'name',
+            'patronymic',
+            'email',
+            'birthday',
+            'sex',
+            'role',
+            'address',
+            'number',
+            ]);
+
+
+        $user->update($data);
+
+        return redirect()->route('admin.super.user.index');
     }
 
     /**
@@ -96,7 +122,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        session()->flash('success', 'User deleted successfully');
 
         return ['response'=>'deleted'];
     }

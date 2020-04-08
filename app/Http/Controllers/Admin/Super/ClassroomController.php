@@ -16,7 +16,9 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        //
+        $classrooms = (new Classroom())->getAll()->get(['id','name']);
+
+        return view('admin.super.classroom.index',compact('classrooms'));
     }
 
     /**
@@ -62,7 +64,8 @@ class ClassroomController extends Controller
      */
     public function edit(Classroom $classroom)
     {
-        //
+
+        return view('admin.super.classroom.edit', compact('classroom'));
     }
 
     /**
@@ -85,6 +88,8 @@ class ClassroomController extends Controller
      */
     public function destroy(Classroom $classroom)
     {
-        //
+        $classroom->delete();
+
+        return ['response'=>'deleted'];
     }
 }

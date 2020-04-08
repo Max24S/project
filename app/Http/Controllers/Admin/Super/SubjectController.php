@@ -17,7 +17,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('admin.super.subject.index');
     }
 
     /**

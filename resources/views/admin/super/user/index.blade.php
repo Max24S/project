@@ -11,5 +11,6 @@
 <script>
     window.routes = {
         'admin.super.user.create' : '{{ route('admin.super.user.create') }}',
+
     }
 </script>

@@ -3,13 +3,13 @@
 @section('form')
 
     <div id="app">
-        <edit-user :grades="{{json_encode($grades)}}"></edit-user>
+        <edit-user :user="{{json_encode($user)}}" :student-data="{{json_encode($studentData)}}"></edit-user>
     </div>
 
 @endsection
 
 <script>
     window.routes = {
-        'admin.super.user.store' : '{{ route('admin.super.user.store') }}',
+        'admin.super' : '{{ route('admin.super.') }}',
     }
 </script>
