@@ -4,12 +4,12 @@
 @endsection
 @section('form')
     <div id="app">
-        <edit-timetable :timetable="{{json_encode($Timetable)}}" :rec="{{json_encode($timetable)}}"></edit-timetable>
+        <edit-timetable :db="{{json_encode($Timetable)}}" :rec="{{json_encode($data)}}"></edit-timetable>
     </div>
 @endsection
 <script>
-    window.routes = {
-        'admin.teacher.head-teacher.timetable.index' : '{{ route('admin.teacher.head-teacher.timetable.index') }}',
-        'admin.teacher.head-teacher.timetable.indexTimetable' : '{{ route('admin.teacher.head-teacher.timetable.indexTimetable') }}'
-    }
+    {{--window.routes = {--}}
+    {{--    'admin.teacher.head-teacher.timetable.index' : '{{ route('admin.teacher.head-teacher.timetable.index') }}',--}}
+    {{--    'admin.teacher.head-teacher.timetable.indexTimetable' : '{{ route('admin.teacher.head-teacher.timetable.indexTimetable') }}'--}}
+    {{--}--}}
 </script>
