@@ -14,25 +14,25 @@
                              <option value="none">Выберите день недели</option>
                              <option v-for="day in days">{{day}}</option>
                          </select>
-                         <span v-show="errors.has('day')" class="help is-danger">{{ errors.first('day') }}</span>
+                         <span v-if="errors.has('day')" class="help is-danger">{{ errors.first('day') }}</span>
                      </th>
                      <th scope="col">
                          <select name="grade_id" v-model="timetableData.grade_id" v-validate="'excluded:none'"
-                                 id="" :class="{'input': true, 'alert-danger':errors.has('grade_id')}">
+                                  :class="{'input': true, 'alert-danger':errors.has('grade_id')}">
                              <option value="none">Выберите класс</option>
                              <option v-for="grade in teachersAndSubjects['grades']" :value="grade.id">{{grade.name}}</option>
                          </select>
-                         <span v-show="errors.has('grade_id')" class="help is-danger">{{ errors.first('grade_id') }}</span>
+                         <span v-if="errors.has('grade_id')" class="help is-danger">{{ errors.first('grade_id') }}</span>
                      </th>
                      <th scope="col">
                          <select name="semester" v-model="timetableData.semester"
-                                 v-validate="'excluded:none'"id=""
+                                 v-validate="'excluded:none'"
                                  :class="{'input': true, 'alert-danger':errors.has('semester')}">
                              <option value="none">Выберите семестр</option>
                              <option >1</option>
                              <option >2</option>
                          </select>
-                         <span v-show="errors.has('semester')" class="help is-danger">{{ errors.first('semester') }}</span>
+                         <span v-if="errors.has('semester')" class="help is-danger">{{ errors.first('semester') }}</span>
                      </th>
                  </tr>
                  </thead>
@@ -40,7 +40,7 @@
                  <tr v-if="n<=counter" v-for="n in 8">
                      <th scope="row">
                          <div :name="'lesson'+n">{{n}}</div>
-                         <input type="hidden" :name="'lesson'+n":value="n" id="">
+                         <input type="hidden" :name="'lesson'+n":value="n" >
                      </th>
                      <td>
                          <select v-model="timetableData['currentSubject'+n]"
@@ -49,12 +49,11 @@
                              <option value="none">Выберите предмет</option>
                              <option value="-">Урока нет</option>
                              <option v-for="subject in teachersAndSubjects['subjects']"
-                                     v-if="timetableData['currentTeacher'+n]==='none'|| timetableData['currentTeacher'+n].subject_id==subject.id"
                                      :value="subject.id">
                                  {{subject.name}}
                              </option>
                          </select>
-                         <span v-show="errors.has('subject'+n)" class="help is-danger">Поле обязательно для заполнения</span>
+                         <span v-if="errors.has('subject'+n)" class="help is-danger">Поле обязательно для заполнения</span>
                      </td>
                      <template v-if="timetableData['currentSubject'+n]!='-'">
                      <td>
@@ -66,10 +65,10 @@
                              <option v-for="teacher in teachersAndSubjects['teachers']"
                                      v-if="timetableData['currentSubject'+n]==='none'|| timetableData['currentSubject'+n]==teacher.subject_id"
                                      :value="teacher">
-                                 {{teacher.teachers}}
+                                 {{teacher.surname}} {{teacher.name}} {{teacher.patronymic}}
                              </option>
                          </select>
-                         <span v-show="errors.has('teacher'+n)" class="help is-danger">Поле обязательно для заполнения</span>
+                         <span v-if="errors.has('teacher'+n)" class="help is-danger">Поле обязательно для заполнения</span>
                          <span v-if="duplicateTeacher['lesson'+n]" class="help is-danger">У этого преподователя уже есть занятие на этом уроке</span>
                      </td>
                      <td>
@@ -79,7 +78,8 @@
                          <option value='none'>Выберите кабинет</option>
                          <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom.id">{{classroom.name}}</option>
                      </select>
-                     <span v-show="errors.has('classroom_id'+n)" class="help is-danger">Поле обязательно для заполнения</span>
+                     <span v-if="errors.has('classroom_id'+n)" class="help is-danger">Поле обязательно для заполнения</span>
+                     <span v-if="duplicateClassroom['lesson'+n]" class="help is-danger">Кабинет занят</span>
                      </td>
                      </template>
                  </tr>
@@ -119,6 +119,16 @@
                     'lesson6':'',
                     'lesson7':'',
                     'lesson8':''
+                },
+                duplicateClassroom:{
+                    'lesson1':'',
+                    'lesson2':'',
+                    'lesson3':'',
+                    'lesson4':'',
+                    'lesson5':'',
+                    'lesson6':'',
+                    'lesson7':'',
+                    'lesson8':''
                 }
             }
         },
@@ -128,49 +138,50 @@
                 {
                     this.duplicateTeacher[lesson]='';
                 }
+                for( let lesson in this.duplicateClassroom)
+                {
+                    this.duplicateClassroom[lesson]='';
+                }
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         for ( let i=1;i<=this.counter;i++) {
                             let lesson={};
-                            if(this.timetableData['currentSubject' + i]!='-') {
+                            if(this.timetableData['currentSubject' + i]!='-')
+                            {
                                 lesson = {
                                     'lesson': i, 'day': this.timetableData.day,
                                     'grade_id': this.timetableData.grade_id,
-                                    'subject_user_id': this.timetableData['currentTeacher' + i].id ,
-                                    'classroom_id': this.timetableData['classroom_id' + i],
+                                    'subject_user_id':this.timetableData['currentTeacher'+i].id,
+                                    'classroom_id':this.timetableData['classroom_id'+i],
                                     'semester': this.timetableData.semester
                                 }
-                            }
-                            else if(this.timetableData['currentSubject' + i]=='-')
-                                    {
-                                         lesson = {
-                                            'lesson': i, 'day': this.timetableData.day,
-                                            'grade_id': this.timetableData.grade_id,
-                                            'subject_user_id': null,
-                                            'classroom_id': null,
-                                            'semester': this.timetableData.semester
-                                        }
-                                    }
                                 this.request[i] =lesson;
-                                }
+                            }
+                        }
+                        console.log(this.request);
                              axios.post(window.routes['admin.teacher.head-teacher.timetable.store'], this.request)
                             .then((response) => {
-                                console.log(response.data);
                                 if (response.data.result=='OK') {
                                     this.$toaster.success('Расписание успешно добавленно');
                                 }
-                                else if (response.data.result=='isset') {
-                                    this.$toaster.info('Расписание на этот день для этого класса уже есть,перейдите в раздел редактирования', {timeout: 5000})
-                                }
-                                else if (Object.keys(response.data.duplicate).length>0)
-                                {
-                                    this.$toaster.warning('Занят урок!', {timeout: 5000})
-                                    for( let i=1; i<=8;i++)
-                                    {
-                                        this.duplicateTeacher['lesson'+i]=response.data.duplicate['lesson'+i];
+                                else {
+                                    if (response.data.result == 'isset') {
 
+                                        this.$toaster.info('Расписание на этот день для этого класса уже есть,перейдите в раздел редактирования', {timeout: 5000})
                                     }
-                                    console.log(this.duplicateTeacher);
+                                    else {
+                                        if (Object.keys(response.data.duplicateTeacher).length > 0) {
+                                            for (let i = 1; i <= 8; i++) {
+                                                this.duplicateTeacher['lesson' + i] = response.data.duplicateTeacher['lesson' + i];
+
+                                            }
+                                        }
+                                        if (Object.keys(response.data.duplicateClassroom).length > 0) {
+                                            for (let i = 1; i <= 8; i++) {
+                                                this.duplicateClassroom['lesson' + i] = response.data.duplicateClassroom['lesson' + i];
+                                            }
+                                        }
+                                    }
                                 }
                             })
                             .catch(e => {

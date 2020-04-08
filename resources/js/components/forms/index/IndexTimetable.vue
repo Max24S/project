@@ -88,7 +88,7 @@
             @filtered="onFiltered"
         >
             <template v-slot:cell(monday)="row">
-                <a :href="'timetable/'+row.value.id+'/edit'">{{ row.value.subjects }}</a>
+                <a :href="'timetable/'+row.value.id+'/edit'">{{ row.value}}</a>
             </template>
             <template v-slot:cell(tuesday)="row">
                 {{ row.value.subjects }}
@@ -225,6 +225,7 @@
         },
         mounted() {
             this.totalRows = this.items.length
+
         },
     }
 </script>

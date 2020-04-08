@@ -67,6 +67,7 @@ Vue.component('index-classroom', require('./components/forms/index/IndexClassroo
 Vue.component('index-grade', require('./components/forms/index/IndexGrade').default);
 Vue.component('index-subject-user', require('./components/forms/index/IndexSubjectUser').default);
 Vue.component('edit-user', require('./components/forms/edit/EditUser').default);
+Vue.component('edit-timetable', require('./components/forms/edit/EditTimetable').default);
 Vue.component('edit-classroom', require('./components/forms/edit/EditClassroom').default);
 Vue.component('edit-subject', require('./components/forms/edit/EditSubject').default);
 Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default);

@@ -32,25 +32,69 @@ class Timetable extends Model
                             'timetables.id')
             ->get();
     }
+    public function getInfoForLesson($id)
+    {
+        return DB::table('subject_user')
+            ->join('subjects','subject_user.subject_id','=','subjects.id')
+            ->join('users','subject_user.user_id','=','users.id')
+            ->where('subject_user.id',$id)
+            ->select(   'subject_user.id',
+                                'users.name as name',
+                                'users.surname as surname',
+                                'users.patronymic as patronymic',
+                                'subjects.id as subject_id',
+                                'users.id as users_id',
+                                'subjects.name as subject')
+            ->get();
+    }
     public function timetableFormation($grade,$semester)
     {
         $dbTimetableData=$this->show($grade,$semester);
 
         $timetable=[];
-        $Sorted = $dbTimetableData->sortBy('lesson')->groupBy('day')->toArray();
-        for ($i=0;$i<=7;$i++)
-        {
-            $lessonForDays=['lesson'=>$i+1,
-                "monday"=>$Sorted['Понедельник'][$i]??' ',
-                "tuesday"=>$Sorted['Вторник'][$i]??' ',
-                "wednesday"=>$Sorted['Среда'][$i]??' ',
-                "thursday"=>$Sorted['Четверг'][$i]??' ',
-                "friday"=>$Sorted['Пятница'][$i]??' ',
-                "saturday"=>$Sorted['Суббота'][$i]??' ',
-            ];
-            array_push($timetable,$lessonForDays);
-        }
+         $Sorted = $dbTimetableData->sortBy('lesson')->groupBy('day')->toArray();
+                 $lessonsForDays['Понедельник']=[];
+                $lessonsForDays['Вторник']=[];
+                 $lessonsForDays['Среда']=[];
+                $lessonsForDays['Четверг']=[];
+                $lessonsForDays['Пятница']=[];
+                $lessonsForDays['Суббота']=[];
+                foreach ($Sorted as $day) {
+                    $j=0;
+                    for ($i = 0; $i <= 7; $i++) {
+
+                        if ( $day[$i-$j]??"") {
+
+                            if ($day[$i-$j]->lesson == $i+1) {
+
+                                array_push($lessonsForDays[$day[$i-$j]->day], $day[$i-$j]);
+                            }
+                            else {
+                                 array_push($lessonsForDays[$day[$i-$j]->day] , null);
+                                $j++;
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+                for ($i=0;$i<=7;$i++)
+                {
+                    $lessons=[
+                        'lesson'=>$i+1,
+                        "monday"=>$lessonsForDays['Понедельник'][$i]??' ',
+                        "tuesday"=>$lessonsForDays['Вторник'][$i]??' ',
+                        "wednesday"=>$lessonsForDays['Среда'][$i]??' ',
+                        "thursday"=>$lessonsForDays['Четверг'][$i]??' ',
+                        "friday"=>$lessonsForDays['Пятница'][$i]??' ',
+                        "saturday"=>$lessonsForDays['Суббота'][$i]??' ',
+                    ];
+                    array_push($timetable,$lessons);
+                }
         return $timetable;
+
         }
 
     public function getTeachers()
@@ -61,23 +105,39 @@ class Timetable extends Model
 
               ->get(['users.id as user_id',
                 'subject_user.id',
-                'users.name as teachers',
+                'users.name as name',
+                 'users.surname as surname',
+                 'users.patronymic as patronymic',
                 'subjects.id as subject_id',
-                'subjects.name as subjects']);
+                'subjects.name as subject']);
     }
-    public function uniqueTeacher($lesson){
+    public function checkTeacher($record){
 
-        $check = DB::table('timetables')->where('day',$lesson['day'])
-                 ->where('lesson',$lesson['lesson'])
-                ->where('subject_user_id',$lesson['subject_user_id'])
+        $check = DB::table('timetables')
+            ->where('day',$record['day'])
+            ->where('lesson',$record['lesson'])
+            ->where('subject_user_id',$record['subject_user_id'])
             ->where('subject_user_id','<>',null)
-                ->where('semester',$lesson['semester'])->first();
-        if($check){
-
-            return false;
-        }
-        return true;
+            ->where('semester',$record['semester'])->first();
+            if($check){
+                return 'Duplicate';
+            }
+             return false;
     }
+    public function checkClassroom($record)
+    {
+        $check = DB::table('timetables')
+            ->where('day',$record['day'])
+            ->where('classroom_id',$record['classroom_id'])
+            ->where('classroom_id','<>',null)
+            ->where('lesson',$record['lesson'])->first();
+            if ($check)
+            {
+                return "Duplicate";
+            }
+            return false;
+    }
+
     public function checkLesson($lesson)
     {
         $check = DB::table('timetables')
@@ -86,10 +146,9 @@ class Timetable extends Model
             ->where('grade_id',$lesson['grade_id'])
             ->where('semester',$lesson['semester'])->first();
         if($check){
-
-            return false;
+            return 'isset';
         }
-        return true;
+        return false;
     }
     public function getSubjects()
     {
@@ -109,24 +168,28 @@ class Timetable extends Model
     public function  addTimeTable($request)
     {
         $result=[];
-        $response=[];
-        $response['duplicate']=[];
+        $response['duplicateTeacher']=[];
+        $response['duplicateClassroom']=[];
         $response['result']='';
-        if(!$this->checkLesson($request[1])) {
-            $response['result']='isset';
-            return $response;
-        }
         foreach ($request as $item) {
-            if ($this->uniqueTeacher($item)) {
+            $duplicateTeacher=$this->checkTeacher($item);
+            $isset=$this->checkLesson($item);
+            $duplicateClassroom=$this->checkClassroom($item);
+            if (!$duplicateTeacher && !$duplicateClassroom &&!$isset) {
                 $item['created_at'] = date('Y-m-d H:i:s');
                 $item['updated_at'] = date('Y-m-d H:i:s');
                 array_push($result, $item);
             }
             else {
-                $response['duplicate']['lesson'.$item['lesson']]='duplicate';
+                $response['duplicateTeacher']['lesson'.$item['lesson']]=$duplicateTeacher;
+                $response['duplicateClassroom']['lesson'.$item['lesson']]=$duplicateClassroom;
+                if ($isset)
+                {
+                    $response['result']='isset';
+                }
             }
         }
-        if (!count($response['duplicate'])) {
+        if (!count($response['duplicateTeacher'])&&!count($response['duplicateClassroom'])) {
             DB::table('timetables')->insert($result);
             $response['result']='OK';
         }
