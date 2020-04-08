@@ -33,7 +33,8 @@ class SubjectUserController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.super.subject-user.create');
     }
 
     /**
@@ -89,6 +90,8 @@ class SubjectUserController extends Controller
      */
     public function destroy(SubjectUser $subjectUser)
     {
-        //
+        $subjectUser->delete();
+
+        return ['response'=>'deleted'];
     }
 }

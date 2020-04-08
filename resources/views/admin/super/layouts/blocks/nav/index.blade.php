@@ -27,9 +27,6 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="{{route('admin.super.classroom.index')}}"   aria-haspopup="true" aria-expanded="false">Кабинеты</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="{{route('admin.super.subject-user.index')}}"   aria-haspopup="true" aria-expanded="false">Преподаватели</a>
-                </li>
             </ul>
         </div>
     </nav>

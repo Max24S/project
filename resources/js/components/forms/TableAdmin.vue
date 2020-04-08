@@ -48,7 +48,7 @@
                 bordered
             >
                 <template v-slot:cell(actions)="row">
-                    <a :href="routes.Edit+row.item.id+'/edit'">Редактировать</a>
+                    <a v-if="routes.Edit" :href="routes.Edit+row.item.id+'/edit'">Редактировать</a>
                     <b-button
                         @click="showMsgBoxDelelete(row.item.id,row.index)"
                         size="sm"
