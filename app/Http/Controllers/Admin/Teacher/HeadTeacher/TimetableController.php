@@ -58,9 +58,7 @@ class TimetableController extends Controller
      */
     public function store( StoreRequest $request)
     {
-
-       $response=(new Timetable())->addTimeTable($request->all());
-        return $response;
+        return (new Timetable())->addTimeTable($request->all());
     }
 
     /**
@@ -82,11 +80,12 @@ class TimetableController extends Controller
      */
     public function edit(Timetable $timetable)
     {
-        $Timetable=collect(
-            ["teachers"=>(new Timetable())->getTeachers(),
-            "subjects"=>(new Timetable())->getSubjects()->get(),
-            'classrooms'=>(new Timetable())->getClassrooms()->get()]);
-            return view('admin.teacher.head-teacher.timetable.edit',compact('Timetable','timetable'));
+            $data=$timetable;
+               $Timetable= ["teachers"=>(new Timetable())->getTeachers(),
+                "subjects"=>(new Timetable())->getSubjects()->get(),
+                'classrooms'=>(new Timetable())->getClassrooms()->get(),
+                 'info'=>(new Timetable())->getInfoForLesson($timetable->subject_user_id)];
+                return view('admin.teacher.head-teacher.timetable.edit',compact('Timetable','data'));
     }
 
     /**
@@ -109,6 +108,9 @@ class TimetableController extends Controller
      */
     public function destroy(Timetable $timetable)
     {
-        //
+        $timetable->delete();
+
+        return ['response'=>'deleted'];
+
     }
 }
