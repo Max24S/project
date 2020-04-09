@@ -85,21 +85,30 @@
                             name="password"
                             type="password"
                             id="password"
-                            ref="password"
                             placeholder="Пароль"
                             class="form-control password"
                             v-model="user.password"
+                            ref="password"
+                            oncopy="return false"
                         >
-                        <div class="arrow" type="checkbox"></div>
+                        <div class="visible position-absolute" @click="showPassword()">
+                            <b-icon-eye-fill v-if="!visiblePassword&&user.password"></b-icon-eye-fill>
+                            <b-icon-eye-slash-fill v-if="visiblePassword&&user.password"></b-icon-eye-slash-fill>
+                        </div>
+                        <b-icon-arrow-repeat
+                            v-if="!user.password"
+                            @click="genPassword()"
+                            class="rand-password"
+                        >
+                        </b-icon-arrow-repeat>
                         <span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span>
                     </div>
                 </div>
-
             </div>
             <div class="form-group">
                 <div class="row">
                     <label for="confirm-password" class="col-sm-4 control-label">Подтверждение пароля</label>
-                    <div class="col-sm-8">
+                    <div class="col-sm-8 position-relative">
                         <input
                             v-validate="'required|confirmed:password'"
                             :class="{'input': true, 'alert-danger':errors.has('confirm-password')}"
@@ -108,8 +117,13 @@
                             id="confirm-password"
                             placeholder="Подтвердите пароль"
                             class="form-control"
+                            ref="confirmPassword"
                             v-model="confirmPassword"
                         >
+                        <div class="visible position-absolute" @click="showConfirmPassword()">
+                            <b-icon-eye-fill v-if="!visibleConfirmPassword"></b-icon-eye-fill>
+                            <b-icon-eye-slash-fill v-if="visibleConfirmPassword" ></b-icon-eye-slash-fill>
+                        </div>
                         <span v-show="errors.has('confirm-password')" class="help is-danger">{{ errors.first('confirm-password') }}</span>
                     </div>
                 </div>
@@ -270,10 +284,31 @@
                     grade_id:'',
                     password:''
                 },
-                confirmPassword:""
+                visibleConfirmPassword:false,
+                visiblePassword:false,
+                confirmPassword:''
             }
         },
         methods: {
+            showPassword(){
+                this.visiblePassword = !this.visiblePassword;
+                this.$refs.password.type=this.visiblePassword?'text':'password';
+            },
+            showConfirmPassword(){
+                this.visibleConfirmPassword = !this.visibleConfirmPassword;
+                this.$refs.confirmPassword.type=this.visibleConfirmPassword?'text':'password';
+            },
+            genPassword(){
+                let len=12;
+                let password = "";
+                let symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                for (let i = 0; i < len; i++){
+                    password += symbols.charAt(Math.floor(Math.random() * symbols.length));
+                }
+
+                this.user.password=password;
+                this.confirmPassword =password;
+            },
             sendUser(){
                 console.log(this.user);
                 this.$validator.validateAll().then((result) => {
@@ -306,7 +341,6 @@
                         this.$toaster.warning("Заполните все поля!");
                     }
                 })
-
             }
         }
     }
@@ -316,48 +350,30 @@
  .is-danger {
      color: red;
  }
-.alert-danger{
-    border:2px solid red!important;
-}
  textarea {
      height: 80px!important;
      resize: none!important;
  }
- .arrow {
-     position: relative;
-     z-index: 10;
-     width: 15px;
-     height: 15px;
-     border-radius: 50%;
-     background: steelblue;
-     top: -25px;
-     left: 87%;
+ .visible {
+     width: 16px;
+     top: 12px;
+     right: 25px;
+     cursor: pointer;
  }
- .arrow:before,
- .arrow:after {
-     content: "";
-     display: block;
+ .visible:hover {
+      opacity:0.9;
+    }
+ .rand-password {
      position: absolute;
+     height: 25px;
+     width: 25px;
+     z-index: 10;
+     right: 21px;
+     top: 6px;
+     transition: 600ms;
+     cursor:pointer;
  }
-
- .arrow {
-     width: 10px;
-     height: 10px;
-     border-radius: 50%;
-     background: steelblue;
- }
- .arrow::before {
-     top: -3px;
-     left: -11px;
-     border: 8px solid transparent;
-     border-right-color: steelblue;
-     border-left: 0;
- }
- .arrow::after {
-     top: -3px;
-     right: -11px;
-     border: 8px solid transparent;
-     border-left-color: steelblue;
-     border-right: 0;
+ .rand-password:hover {
+     transform: rotate(90deg);
  }
 </style>
