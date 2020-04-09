@@ -78,8 +78,19 @@ class GradeController extends Controller
      */
     public function edit(Grade $grade)
     {
-        
-        return view('admin.super.grade.edit');
+        $classrooms = (new Classroom())
+            ->noClassroom()
+            ->get(['classrooms.id','classrooms.name']);
+
+        $users = (new User())
+            ->noGrade()
+            ->get(['users.id','users.name','users.surname','users.patronymic']);
+
+        $users = (new User())->groupFullName($users);
+
+        $dataForSelect=['classrooms'=>$classrooms,'users'=>$users];
+
+        return view('admin.super.grade.edit',compact('dataForSelect','grade'));
     }
 
     /**

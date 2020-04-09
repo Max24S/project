@@ -31,13 +31,8 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        $teachers = (new User())
-            ->getAllTeachers()
-            ->get(['id','name','surname','patronymic']);
 
-        $teachers = (new User())->groupFullName($teachers);
-
-        return view('admin.super.subject.create',compact('teachers'));
+        return view('admin.super.subject.create');
     }
 
     /**
@@ -72,7 +67,8 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        //
+
+        return view('admin.super.subject.edit',compact('subject'));
     }
 
     /**

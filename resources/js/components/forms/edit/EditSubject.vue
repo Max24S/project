@@ -1,10 +1,14 @@
 <template>
-    
+
 </template>
 
 <script>
     export default {
-        name: "EditSubject"
+        name: "EditSubject",
+        props:['subject'],
+        created(){
+            console.log(this.subject)
+        }
     }
 </script>
 

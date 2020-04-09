@@ -1,10 +1,11 @@
 <template>
-    
+    <h1>iuuoiti4iiiiiiiiiiii</h1>
 </template>
 
 <script>
     export default {
-        name: "EditClassroom"
+        name: "EditClassroom",
+        props:['classroom']
     }
 </script>
 

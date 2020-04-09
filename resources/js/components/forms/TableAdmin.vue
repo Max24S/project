@@ -59,13 +59,6 @@
                         <a :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
                     </template>
                 </template>
-                <!--<template v-slot:row-details="row">-->
-                    <!--<b-card>-->
-                        <!--<ul>-->
-                            <!--<li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>-->
-                        <!--</ul>-->
-                    <!--</b-card>-->
-                <!--</template>-->
             </b-table>
             <b-row>
                 <b-col sm="12" md="6" class="my-1">
@@ -121,15 +114,18 @@
                 sortDirection: 'asc',
                 filter: null,
                 filterOn: [],
+
             }
         },
         mounted() {
+            console.log(this.$refs.table.items)
             // Set the initial number of items
-            // this.$refs.table.refresh();
+
             this.totalRows = this.items.length
         },
         methods: {
             showMsgBoxDelelete(id, index) {
+
                 this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
                     size: 'sm',
                     buttonSize: 'md',
@@ -139,6 +135,7 @@
                     footerClass: 'p-2',
                     hideHeaderClose: false,
                     centered: true
+
                 })
                     .then(value => {
 
@@ -148,7 +145,8 @@
                                 console.log(this.routes.Delete+id);
                                 if(response.data.response=='deleted')
                                 {
-                                    // this.$refs.table.refresh();
+                                    this.$delete(this.$refs.table.items,index);
+                                    this.$refs.table.refresh();
 
                                     this.$toaster.success("Запись успешно удалена");
 

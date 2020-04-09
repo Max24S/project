@@ -8,8 +8,4 @@
 
 @endsection
 
-<script>
-    window.routes = {
-        'admin.super' : '{{ route('admin.super.') }}',
-    }
-</script>
+

@@ -3,7 +3,7 @@
 @section('form')
 
 <div id="app">
-    <edit-classroom></edit-classroom>
+    <edit-classroom :classroom="{{json_encode($classroom)}}"></edit-classroom>
 </div>
 @endsection
 

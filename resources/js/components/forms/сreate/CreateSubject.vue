@@ -19,23 +19,6 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-sm-4">
-                    <label>Преподаватели</label>
-                </div>
-                <div class="col-sm-8">
-                    <v-select
-                        v-model="subject.teachers"
-                        :options="this.teachers"
-                        :reduce="teacher => teacher.id"
-                        label="fullName"
-                        multiple
-                    >
-                    </v-select>
-                </div>
-            </div>
-        </div>
         <button type="submit" class="btn btn-primary btn-block">Добавить</button>
     </form>
 </template>
@@ -47,11 +30,10 @@
         data(){
             return {
                 routes:{
-                    subjectStore: window.routes['admin.super.subject.store']
+                    subjectStore: '/admin/super/subject'
                 },
                subject:{
                    name:'',
-                   teachers:''
                }
             }
         },

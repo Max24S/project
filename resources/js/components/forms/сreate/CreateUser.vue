@@ -376,4 +376,7 @@
  .rand-password:hover {
      transform: rotate(90deg);
  }
+ .alert-danger{
+     border:2px solid red!important;
+ }
 </style>

@@ -108,7 +108,9 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('admin.super.user.index');
+        return "dd";
+
+//        return redirect()->route('admin.super.user.index');
     }
 
     /**

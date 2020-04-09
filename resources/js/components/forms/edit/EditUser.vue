@@ -7,7 +7,7 @@
                     <label for="firstName" class="col-sm-4 control-label">Фамилия</label>
                     <div class="col-sm-8 ">
                         <input
-                            v-validate="'required|alpha'"
+                            v-validate="'required|alpha|min:4|max:20'"
                             :class="{'input': true, 'alert-danger':errors.has('surname')}"
                             name="surname"
                             type="text"
@@ -25,7 +25,7 @@
                     <label for="middleName" class="col-sm-4 control-label">Имя</label>
                     <div class="col-sm-8">
                         <input
-                            v-validate="'required|alpha'"
+                            v-validate="'required|alpha|min:4|max:20'"
                             :class="{'input': true, 'alert-danger':errors.has('name')}"
                             name="name"
                             type="text"
@@ -43,7 +43,7 @@
                     <label for="lastName" class="col-sm-4 control-label">Отчество</label>
                     <div class="col-sm-8">
                         <input
-                            v-validate="'required|alpha'"
+                            v-validate="'required|alpha|min:4|max:20'"
                             :class="{'input': true, 'alert-danger':errors.has('patronymic')}"
                             name="patronymic"
                             type="text"
@@ -73,6 +73,59 @@
                         <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
                     </div>
 
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="password" class="col-sm-4 control-label">Пароль</label>
+                    <div class="col-sm-8 position-relative">
+                        <input
+                            v-validate="'required|min:8|max:16'"
+                            :class="{'input': true, 'alert-danger':errors.has('password')}"
+                            name="password"
+                            type="password"
+                            id="password"
+                            placeholder="Пароль"
+                            class="form-control password"
+                            v-model="editUser.password"
+                            ref="password"
+                            oncopy="return false"
+                        >
+                        <div class="visible position-absolute" @click="showPassword()">
+                            <b-icon-eye-fill v-if="!visiblePassword&&editUser.password"></b-icon-eye-fill>
+                            <b-icon-eye-slash-fill v-if="visiblePassword&&editUser.password"></b-icon-eye-slash-fill>
+                        </div>
+                        <b-icon-arrow-repeat
+                            v-if="!editUser.password"
+                            @click="genPassword()"
+                            class="rand-password"
+                        >
+                        </b-icon-arrow-repeat>
+                        <span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="confirm-password" class="col-sm-4 control-label">Подтверждение пароля</label>
+                    <div class="col-sm-8 position-relative">
+                        <input
+                            v-validate="'required|confirmed:password'"
+                            :class="{'input': true, 'alert-danger':errors.has('confirm-password')}"
+                            name="confirm-password"
+                            type="password"
+                            id="confirm-password"
+                            placeholder="Подтвердите пароль"
+                            class="form-control"
+                            ref="confirmPassword"
+                            v-model="confirmPassword"
+                        >
+                        <div class="visible position-absolute" @click="showConfirmPassword()">
+                            <b-icon-eye-fill v-if="!visibleConfirmPassword"></b-icon-eye-fill>
+                            <b-icon-eye-slash-fill v-if="visibleConfirmPassword" ></b-icon-eye-slash-fill>
+                        </div>
+                        <span v-show="errors.has('confirm-password')" class="help is-danger">{{ errors.first('confirm-password') }}</span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -115,7 +168,7 @@
                     <label class="col-md-4 control-label" for="address">Адресс</label>
                     <div class="col-md-8">
                         <textarea
-                            v-validate="'required'"
+                            v-validate="'required|max:255'"
                             :class="{'input': true, 'alert-danger':errors.has('address')}"
                             name="address"
                             class="form-control"
@@ -174,7 +227,7 @@
                             class="form-control"
                             v-model="editUser.role"
                         >
-                            <option selected value="none"></option>
+                            <option selected value="none">Укажите роль</option>
                             <option>Директор</option>
                             <option>Завуч</option>
                             <option>Учитель</option>
@@ -216,7 +269,7 @@
         data(){
             return {
                 routes:{
-                    userUpdate: window.routes['admin.super']
+
                 },
                 editUser:{
                     name:'',
@@ -228,8 +281,12 @@
                     address:'',
                     sex:'',
                     role:'',
-                    grade_id:''
+                    grade_id:'',
+                    password:''
                 },
+                visibleConfirmPassword:false,
+                visiblePassword:false,
+                confirmPassword:''
             }
         },
         created(){
@@ -238,12 +295,31 @@
             this.editUser.grade_id=this.studentData.grade_id;
         },
         methods:{
+            showPassword(){
+                this.visiblePassword = !this.visiblePassword;
+                this.$refs.password.type=this.visiblePassword?'text':'password';
+            },
+            showConfirmPassword(){
+                this.visibleConfirmPassword = !this.visibleConfirmPassword;
+                this.$refs.confirmPassword.type=this.visibleConfirmPassword?'text':'password';
+            },
+            genPassword(){
+                let len=12;
+                let password = "";
+                let symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                for (let i = 0; i < len; i++){
+                    password += symbols.charAt(Math.floor(Math.random() * symbols.length));
+                }
+
+                this.editUser.password=password;
+                this.confirmPassword =password;
+            },
         sendUser(){
             console.log(this.user);
             this.$validator.validateAll().then((result) => {
                 if (result) {
 
-                    axios.post('/admin/super/user/'+this.user.id,this.editUser)
+                    axios.put('/admin/super/user/'+this.user.id,this.editUser)
                         .then((response)=>{
                             if(response.data.response == 'created'){
 
@@ -278,5 +354,36 @@
 </script>
 
 <style scoped>
-
+    .is-danger {
+        color: red;
+    }
+    textarea {
+        height: 80px!important;
+        resize: none!important;
+    }
+    .visible {
+        width: 16px;
+        top: 12px;
+        right: 25px;
+        cursor: pointer;
+    }
+    .visible:hover {
+        opacity:0.9;
+    }
+    .rand-password {
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        z-index: 10;
+        right: 21px;
+        top: 6px;
+        transition: 600ms;
+        cursor:pointer;
+    }
+    .rand-password:hover {
+        transform: rotate(90deg);
+    }
+    .alert-danger{
+        border:2px solid red!important;
+    }
 </style>

@@ -21,6 +21,7 @@ Route::name('admin.')
                 Route::resource('user', 'UserController');
                 Route::resource('subject-user', 'SubjectUserController');
                 Route::get("subject-user/index/{id}/{name}",'SubjectUserController@TeachersForSubject');
+                Route::put("user/{user} ",'UserController@update');
 
             });
         Route::prefix('teacher')
