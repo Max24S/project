@@ -74,6 +74,7 @@ Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 
 
+
 const app = new Vue({
     el: '#app',
 });

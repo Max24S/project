@@ -12,22 +12,28 @@ class SubjectUser extends Model
         'subject_id','user_id'
     ];
 
-    public function prepareFromCrete($teachers_id,$subject_id)
+    public function prepareForCreate($teacherAndSubject)
     {
-        $dbData=[];
+        if($this->checkUnique($teacherAndSubject['user_id'],$teacherAndSubject['subject_id'])){
 
-        for ($i=0;$i<count($teachers_id);$i++)
-        {
-            $row = [];
-            $row['created_at']=date('Y-m-d H:i:s');
-            $row['updated_at']=date('Y-m-d H:i:s');
-            $row['subject_id']=$subject_id;
-            $row['user_id']=$teachers_id[$i];
+            SubjectUser::create(['user_id'=>$teacherAndSubject['user_id'],'subject_id'=>$teacherAndSubject['subject_id']]);
 
-            array_push($dbData,$row);
+            return ['response' => 'created'];
         }
 
-        DB::table('subject_user')->insert($dbData);
+        return ['response' => 'duplicate'];
+    }
+
+    public function checkUnique($user_id,$subject_id){
+
+        $check = SubjectUser::where('user_id',$user_id)->where('subject_id',$subject_id)->first();
+        if($check)
+        {
+
+            return false;
+        }
+
+        return true;
     }
 
     public function getTeachers($subject_id)

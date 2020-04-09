@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubjectUser\StoreRequest;
 use App\Models\SubjectUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SubjectUserController extends Controller
@@ -20,9 +22,16 @@ class SubjectUserController extends Controller
 
     public function TeachersForSubject($id,$name)
     {
-        $teachers = (new SubjectUser())->getTeachers($id);
+        $teachersForSubjects = (new SubjectUser())->getTeachers($id);
+        $teachers = (new User())
+            ->getAllTeachers()
+            ->get(['id','name','surname','patronymic']);
 
-        return view('admin.super.subject-user.index',compact('teachers','name'));
+        $teachers = (new User())->groupFullName($teachers);
+        $teachers = ['teachers'=>$teachers,'teachersForSubjects'=>$teachersForSubjects];
+        $subject = ['id'=>$id,'name'=>$name];
+
+        return view('admin.super.subject-user.index',compact('teachers','subject'));
     }
 
 
@@ -34,7 +43,6 @@ class SubjectUserController extends Controller
     public function create()
     {
 
-        return view('admin.super.subject-user.create');
     }
 
     /**
@@ -43,9 +51,10 @@ class SubjectUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+
+        return (new SubjectUser())->prepareForCreate($request->all());
     }
 
     /**

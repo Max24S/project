@@ -1,45 +1,43 @@
 <template>
-        <form class="form-horizontal" role="form" @submit.prevent="sendSubject">
-            <h2>Добавление предмета</h2>
-            <div class="form-group">
-                <div class="row">
-                    <label for="Name" class="col-sm-4 control-label">Название предмета</label>
-                    <div class="col-sm-8">
-                        <input
-                            v-validate="'required'"
-                            :class="{'input': true, 'alert-danger':errors.has('name')}"
-                            type="text"
-                            name="name"
-                            id="Name"
-                            placeholder="Предмет..."
-                            class="form-control"
-                            v-model="subject.name"
-                        >
-                        <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
-                    </div>
+    <form class="form-horizontal" role="form" @submit.prevent="sendSubject">
+        <h2>Добавление предмета</h2>
+        <div class="form-group">
+            <div class="row">
+                <label for="Name" class="col-sm-4 control-label">Название предмета</label>
+                <div class="col-sm-8">
+                    <input
+                        v-validate="'required'"
+                        :class="{'input': true, 'alert-danger':errors.has('name')}"
+                        type="text"
+                        name="name"
+                        id="Name"
+                        placeholder="Предмет..."
+                        class="form-control"
+                        v-model="subject.name"
+                    >
+                    <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label>Преподаватели</label>
-                    </div>
-                    <div class="col-sm-8">
-                        <v-select
-                            v-model="subject.teachers"
-                            :options="this.teachers"
-                            :reduce="teacher => teacher.id"
-                            label="fullName"
-                            multiple
-                        >
-                        </v-select>
-                    </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Преподаватели</label>
+                </div>
+                <div class="col-sm-8">
+                    <v-select
+                        v-model="subject.teachers"
+                        :options="this.teachers"
+                        :reduce="teacher => teacher.id"
+                        label="fullName"
+                        multiple
+                    >
+                    </v-select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Добавить</button>
-        </form>
-
-
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+    </form>
 </template>
 
 <script>

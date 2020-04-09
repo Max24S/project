@@ -15,11 +15,7 @@ class Subject extends Model
     {
         if($this->uniqueName($subject['name'])){
 
-           $dbSubject = Subject::create(['name'=>$subject['name']]);
-            if($subject['teachers'])
-            {
-                (new SubjectUser())->prepareFromCrete($subject['teachers'], $dbSubject->id);
-            }
+           Subject::create(['name'=>$subject['name']]);
 
            return ['response'=>'created'];
         }

@@ -26,7 +26,7 @@
                 </b-col>
                 <b-col md="4" lg="6">
                     <b-form-group class="mb-0">
-                        <a :href="routes.Create">Добавить</a>
+                        <a v-if="routes.Create" :href="routes.Create">Добавить</a>
                     </b-form-group>
                 </b-col>
             </b-row>
