@@ -50,7 +50,7 @@
                 <template v-slot:cell(actions)="row">
                     <a v-if="routes.Edit" :href="routes.Edit+row.item.id+'/edit'">Редактировать</a>
                     <b-button
-                        @click="showMsgBoxDelelete(row.item.id,row.index)"
+                        @click="showMsgBoxDelete(row.item.id,row.index)"
                         size="sm"
                         class="bg-danger">
                         Удалить
@@ -61,6 +61,17 @@
                 </template>
             </b-table>
             <b-row>
+                <b-col sm="12" md="6" class="my-1">
+                    <b-pagination
+                        v-model="currentPage"
+                        :total-rows="totalRows"
+                        :per-page="perPage"
+                        align="fill"
+                        size="sm"
+                        class="my-0"
+                    >
+                    </b-pagination>
+                </b-col>
                 <b-col sm="12" md="6" class="my-1">
                     <b-form-group
                         label="Выводить по"
@@ -82,17 +93,6 @@
                         >
                         </b-form-select>
                     </b-form-group>
-                </b-col>
-                <b-col sm="12" md="6" class="my-1">
-                    <b-pagination
-                        v-model="currentPage"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        align="fill"
-                        size="sm"
-                        class="my-0"
-                    >
-                    </b-pagination>
                 </b-col>
             </b-row>
         </b-container>
@@ -124,7 +124,7 @@
             this.totalRows = this.items.length
         },
         methods: {
-            showMsgBoxDelelete(id, index) {
+            showMsgBoxDelete(id, index) {
 
                 this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
                     size: 'sm',
