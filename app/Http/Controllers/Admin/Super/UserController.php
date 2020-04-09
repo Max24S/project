@@ -22,8 +22,6 @@ class UserController extends Controller
             ->getAll()
             ->get();
 
-
-
         return view('admin.super.user.index',compact('users'));
     }
 

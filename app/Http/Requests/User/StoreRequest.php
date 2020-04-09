@@ -24,15 +24,16 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|min:3|max:20',
-            'surname' => 'required|min:3|max:20',
-            'patronymic' => 'required|max:20',
+            'name' => 'required|min:4|max:20',
+            'surname' => 'required|min:4|max:20',
+            'patronymic' => 'required|min:4|max:20',
             'email' => 'required|email',
             'birthday' => 'required',
             'number' => 'required|min:9|max:13',
-            'address' => 'required',
+            'address' => 'required|max:255',
             'sex' => 'required',
             'role' => 'required',
+            'password' =>"required|min:8|max:16"
         ];
         if($this['role']=='Ученик'){
 

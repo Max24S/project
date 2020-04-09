@@ -45,7 +45,7 @@ class User extends Authenticatable
     {
         if($this->uniqueEmail($user['email']))
         {
-            $user['password'] = bcrypt(Str::random(12));
+            $user['password'] = bcrypt($user['password']);
 
             $dbUser = User::create($user);
 

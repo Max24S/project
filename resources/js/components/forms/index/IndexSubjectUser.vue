@@ -62,11 +62,11 @@
                             .then((response) => {
                                 if (response.data.response == 'created') {
 
-                                    this.$toaster.success('Предмет успешно добавлен');
+                                    this.$toaster.success('Запись успешно добавлена');
                                 }
                                 else if (response.data.response == 'duplicate') {
 
-                                    this.$toaster.warning('Предмет уже добавлен');
+                                    this.$toaster.warning('Запись уже существует');
                                 }
                                 else {
 

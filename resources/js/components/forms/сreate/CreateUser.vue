@@ -7,7 +7,7 @@
                     <label for="firstName" class="col-sm-4 control-label">Фамилия</label>
                     <div class="col-sm-8 ">
                         <input
-                            v-validate="'required|alpha'"
+                            v-validate="'required|alpha|min:4|max:20'"
                             :class="{'input': true, 'alert-danger':errors.has('surname')}"
                             name="surname"
                             type="text"
@@ -25,7 +25,7 @@
                     <label for="middleName" class="col-sm-4 control-label">Имя</label>
                     <div class="col-sm-8">
                         <input
-                            v-validate="'required|alpha'"
+                            v-validate="'required|alpha|min:4|max:20'"
                             :class="{'input': true, 'alert-danger':errors.has('name')}"
                             name="name"
                             type="text"
@@ -43,7 +43,7 @@
                     <label for="lastName" class="col-sm-4 control-label">Отчество</label>
                     <div class="col-sm-8">
                         <input
-                            v-validate="'required|alpha'"
+                            v-validate="'required|alpha|min:4|max:20'"
                             :class="{'input': true, 'alert-danger':errors.has('patronymic')}"
                             name="patronymic"
                             type="text"
@@ -73,6 +73,45 @@
                         <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
                     </div>
 
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="password" class="col-sm-4 control-label">Пароль</label>
+                    <div class="col-sm-8 position-relative">
+                        <input
+                            v-validate="'required|min:8|max:16'"
+                            :class="{'input': true, 'alert-danger':errors.has('password')}"
+                            name="password"
+                            type="password"
+                            id="password"
+                            ref="password"
+                            placeholder="Пароль"
+                            class="form-control password"
+                            v-model="user.password"
+                        >
+                        <div class="arrow" type="checkbox"></div>
+                        <span v-show="errors.has('password')" class="help is-danger">{{ errors.first('password') }}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <label for="confirm-password" class="col-sm-4 control-label">Подтверждение пароля</label>
+                    <div class="col-sm-8">
+                        <input
+                            v-validate="'required|confirmed:password'"
+                            :class="{'input': true, 'alert-danger':errors.has('confirm-password')}"
+                            name="confirm-password"
+                            type="password"
+                            id="confirm-password"
+                            placeholder="Подтвердите пароль"
+                            class="form-control"
+                            v-model="confirmPassword"
+                        >
+                        <span v-show="errors.has('confirm-password')" class="help is-danger">{{ errors.first('confirm-password') }}</span>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -115,7 +154,7 @@
                     <label class="col-md-4 control-label" for="address">Адресс</label>
                     <div class="col-md-8">
                         <textarea
-                            v-validate="'required'"
+                            v-validate="'required|max:255'"
                             :class="{'input': true, 'alert-danger':errors.has('address')}"
                             name="address"
                             class="form-control"
@@ -174,7 +213,7 @@
                         class="form-control"
                         v-model="user.role"
                     >
-                        <option selected value="none"></option>
+                        <option selected value="none">Укажите роль</option>
                         <option>Директор</option>
                         <option>Завуч</option>
                         <option>Учитель</option>
@@ -228,8 +267,10 @@
                     address:'',
                     sex:'',
                     role:'',
-                    grade_id:''
+                    grade_id:'',
+                    password:''
                 },
+                confirmPassword:""
             }
         },
         methods: {
@@ -281,5 +322,42 @@
  textarea {
      height: 80px!important;
      resize: none!important;
+ }
+ .arrow {
+     position: relative;
+     z-index: 10;
+     width: 15px;
+     height: 15px;
+     border-radius: 50%;
+     background: steelblue;
+     top: -25px;
+     left: 87%;
+ }
+ .arrow:before,
+ .arrow:after {
+     content: "";
+     display: block;
+     position: absolute;
+ }
+
+ .arrow {
+     width: 10px;
+     height: 10px;
+     border-radius: 50%;
+     background: steelblue;
+ }
+ .arrow::before {
+     top: -3px;
+     left: -11px;
+     border: 8px solid transparent;
+     border-right-color: steelblue;
+     border-left: 0;
+ }
+ .arrow::after {
+     top: -3px;
+     right: -11px;
+     border: 8px solid transparent;
+     border-left-color: steelblue;
+     border-right: 0;
  }
 </style>
