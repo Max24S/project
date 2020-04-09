@@ -138,6 +138,32 @@ class Timetable extends Model
             return false;
     }
 
+    public function checkTeacherUpdate($record,$id){
+
+        $check = DB::table('timetables')
+            ->where('day',$record['day'])
+            ->where('lesson',$record['lesson'])
+            ->where('subject_user_id',$record['subject_user_id'])
+            ->where('id','<>',$id)
+            ->where('semester',$record['semester'])->first();
+        if($check){
+            return 'Duplicate';
+        }
+        return false;
+    }
+    public function checkClassroomUpdate($record,$id)
+    {
+        $check = DB::table('timetables')
+            ->where('day',$record['day'])
+            ->where('classroom_id',$record['classroom_id'])
+            ->where('id','<>',$id)
+            ->where('lesson',$record['lesson'])->first();
+        if ($check)
+        {
+            return "Duplicate";
+        }
+        return false;
+    }
     public function checkLesson($lesson)
     {
         $check = DB::table('timetables')
@@ -164,6 +190,29 @@ class Timetable extends Model
     {
         return DB::table('classrooms')
             ->select('id','name');
+    }
+    public function UpdateTimetable($request,$id)
+    {
+        $response['duplicateTeacher']=[];
+        $response['duplicateClassroom']=[];
+        $response['result']='';
+        $duplicateTeacher=$this->checkTeacherUpdate($request,$id);
+        $duplicateClassroom=$this->checkClassroomUpdate($request,$id);
+        if (!$duplicateTeacher && !$duplicateClassroom) {
+
+        }
+        else {
+            $response['duplicateTeacher']['lesson'.$request['lesson']]=$duplicateTeacher;
+            $response['duplicateClassroom']['lesson'.$request['lesson']]=$duplicateClassroom;
+        }
+
+        if (!count($response['duplicateTeacher'])||!count($response['duplicateClassroom'])) {
+            $response['result']='OK';
+            DB::table('timetables')
+                ->where('id', $id)
+                ->update(['subject_user_id' => $request->subject_user_id,'classroom_id' => $request->classroom_id]);
+        }
+        return $response;
     }
     public function  addTimeTable($request)
     {

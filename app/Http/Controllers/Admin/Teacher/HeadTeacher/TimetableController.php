@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Teacher\HeadTeacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Timetable\IndexRequest;
+use App\Http\Requests\Timetable\UpdateRequest;
 use App\Models\Subject;
 use App\Models\Timetable;
 use App\Models\User;
@@ -97,7 +98,9 @@ class TimetableController extends Controller
      */
     public function update(Request $request, Timetable $timetable)
     {
-        //
+        $id=$timetable->only(['id']);
+        $data = $request->only(['subject_user_id','classroom_id']);
+        return (new Timetable())->UpdateTimetable($request,$id);;
     }
 
     /**

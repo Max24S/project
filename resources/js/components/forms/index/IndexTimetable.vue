@@ -88,22 +88,29 @@
             @filtered="onFiltered"
         >
             <template v-slot:cell(monday)="row">
+
                 <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button v-if="!row.value.subjects">dfd</b-button>
             </template>
             <template v-slot:cell(tuesday)="row">
                 <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button v-if="!row.value.subjects">dfd</b-button>
             </template>
             <template v-slot:cell(wednesday)="row">
                 <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button v-if="!row.value.subjects">dfd</b-button>
             </template>
             <template v-slot:cell(thursday)="row">
                 <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button v-if="!row.value.subjects">dfd</b-button>
             </template>
             <template v-slot:cell(friday)="row">
                 <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button v-if="!row.value.subjects">dfd</b-button>
             </template>
             <template v-slot:cell(saturday)="row">
                 <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button v-if="!row.value.subjects">dfd</b-button>
             </template>
             <template v-slot:cell(actions)="row">
                 <b-button  size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
@@ -122,10 +129,10 @@
                 </b-card>
             </template>
         </b-table>
-
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
             <pre>{{ infoModal.content }}</pre>
         </b-modal>
+        <add-lesson ></add-lesson>
     </b-container>
     </div>
 </template>

@@ -34,7 +34,7 @@ Route::name('admin.')
                     ->name('head-teacher.')
                     ->group(function () {
                         Route::view('/','admin.teacher.head-teacher.index');
-                        Route::get('/timetable/{timetable}/edit','TimetableController@update');
+                        Route::put('/timetable/{timetable}','TimetableController@update');
                         Route::post('/timetable/indexTimetable','TimetableController@indexTimetable')->name('timetable.indexTimetable');
                         Route::resource('timetable', 'TimetableController');
                     });

@@ -1,10 +1,9 @@
 <template>
         <div class="container">
-            <form class="col-xl-10">
+            <form   @submit.prevent="SendData" class="col-xl-10">
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Урок</th>
                         <th scope="col">Предмет</th>
                         <th scope="col">Преподователь</th>
                         <th scope="col">Кабинет</th>
@@ -12,10 +11,6 @@
                     </thead>
                     <tbody>
                     <tr>
-<!--                    <th scope="row">-->
-<!--                        <div :name="'lesson'+n">{{n}}</div>-->
-<!--                        <input type="hidden" :name="'lesson'":value="n" id="">-->
-<!--                    </th>-->
                     <td>
                         <select v-model="timetableData['currentSubject']"
                                 :name="'subject'" v-validate="'excluded:none'"
@@ -29,39 +24,39 @@
                         </select>
                         <span v-show="errors.has('subject')" class="help is-danger">Поле обязательно для заполнения</span>
                     </td>
-                        <template v-if="timetableData['currentSubject']!='-'">
+                        <template  v-if="timetableData['currentSubject']!='-'">
                             <td>
-                                {{timetableData['currentTeacher']}}
+                                {{trackSubject}}
                                 <select v-model="timetableData['currentTeacher']"
                                         :name="'teacher'"
                                         v-validate="'excluded:none'"
                                         :class="{'input': true, 'alert-danger':errors.has('teacher')}">
+                                    <option value="none">Выберите преподователя</option>
                                     <option v-for="teacher in db['teachers']"
-                                            v-if="timetableData['currentSubject']==='none'|| timetableData['currentSubject']==teacher.subject_id"
+                                            v-if="timetableData['currentSubject']==teacher.subject_id"
                                             :value="teacher.id">
-                                        {{teacher.name}}
+                                             {{teacher.name}}
                                     </option>
                                 </select>
                                 <span v-show="errors.has('teacher')" class="help is-danger">Поле обязательно для заполнения</span>
                                 <span v-if="duplicateTeacher['lesson']" class="help is-danger">У этого преподователя уже есть занятие на этом уроке</span>
+
                             </td>
-<!--                            <td>-->
-<!--                                <select :name="'classroom_id'+n" v-model="timetableData['classroom_id'+n]"-->
-<!--                                        v-validate="'excluded:none'"-->
-<!--                                        :class="{'input': true, 'alert-danger':errors.has('classroom_id'+n)}">-->
-<!--                                    <option value='none'>Выберите кабинет</option>-->
-<!--                                    <option v-for="classroom in timetable['classrooms']" :value="classroom.id">{{classroom.name}}</option>-->
-<!--                                </select>-->
-<!--                                <span v-show="errors.has('classroom_id'+n)" class="help is-danger">Поле обязательно для заполнения</span>-->
-<!--                            </td>-->
+                            <td>
+                                <select :name="'classroom_id'" v-model="timetableData['classroom_id']"
+                                        v-validate="'excluded:none'"
+                                        :class="{'input': true, 'alert-danger':errors.has('classroom_id')}">
+                                    <option v-for="classroom in db['classrooms']" :value="classroom.id">{{classroom.name}}</option>
+                                </select>
+                                <span v-show="errors.has('classroom_id')" class="help is-danger">Поле обязательно для заполнения</span>
+                                <span v-if="duplicateClassroom['lesson']" class="help is-danger">Кабинет занят</span>
+                            </td>
                         </template>
                     </tr>
                     </tbody>
                 </table>
-
-                <input type="submit">
+                <input  value="Редактировать"  type="submit">
             </form>
-            <button @click="">Удалить</button>
         </div>
 </template>
 
@@ -77,34 +72,91 @@
                         currentTeacher:"",
                         classroom_id:'',
                     },
+
                 counter:1,
                 duplicateTeacher:{
-                    'lesson1':'',
-                    'lesson2':'',
-                    'lesson3':'',
-                    'lesson4':'',
-                    'lesson5':'',
-                    'lesson6':'',
-                    'lesson7':'',
-                    'lesson8':''
+                    'lesson':'',
+                },
+                duplicateClassroom:{
+                    'lesson':'',
                 }
                 }
         },
-        methods:{
+        methods: {
+            SendData() {
+                console.log(this.timetableData);
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                            let lesson={};
+                            if(this.timetableData['currentSubject']!='-')
+                            {
+                                if (this.timetableData['currentTeacher']!=this.db['info'][0].id
+                                    || this.timetableData['currentSubject']!=this.db['info'][0].subject_id
+                                    || this.timetableData['classroom_id']!=this.rec.classroom_id) {
+                                    lesson = {
+                                        'lesson':this.rec.lesson,
+                                        'day': this.rec.day,
+                                        'grade_id': this.rec.grade_id,
+                                        'subject_user_id': this.timetableData['currentTeacher'],
+                                        'classroom_id': this.timetableData['classroom_id'],
+                                        'semester': this.rec.semester
+                                    }
 
+                                    axios.put('/admin/teacher/head-teacher/timetable/'+this.rec.id, lesson)
+                                        .then((response) => {
+                                            if (response.data.result=='OK') {
+                                                this.$toaster.success('Запись успешно изменина');
+                                            }
+                                            else {
+
+                                                if (Object.keys(response.data.duplicateTeacher).length > 0) {
+
+                                                    this.duplicateTeacher['lesson'] = response.data.duplicateTeacher['lesson1' ];
+                                                }
+                                                else if (Object.keys(response.data.duplicateClassroom).length > 0) {
+
+                                                    this.duplicateClassroom['lesson'] = response.data.duplicateClassroom['lesson1'];
+                                                }
+                                            }
+                                        })
+                                        .catch(e => {
+                                        })
+                                    }
+                                else {
+                                    this.$toaster.info('Вы не внесли изменений', {timeout: 5000})
+                                }
+                            }
+                        }
+                    else{
+                        this.$toaster.warning('Будьте внимательны при заполнении полей', {timeout: 5000})
+                    }
+                })
+
+            }
+        },
+        computed :{
+           trackSubject()
+            {
+                if(this.timetableData['currentSubject']!=this.db['info'][0].subject_id)
+                this.timetableData['currentTeacher']='none';
+            }
         },
         created() {
 
             this.timetableData['currentTeacher']=this.db['info'][0].id;
             this.timetableData['currentSubject']=this.db['info'][0].subject_id;
-            console.log( this.timetableData['currentSubject']);
-            console.log(this.timetableData['currentTeacher']);
-            console.log(this.rec);
-            console.log(this.db)
+            this.timetableData['classroom_id']=this.rec.classroom_id;
+        },
+        updated() {
         }
+
     }
 </script>
-
 <style scoped>
-
+form{
+    margin-top:55px;
+}
+.is-danger {
+    color: red;
+}
 </style>
