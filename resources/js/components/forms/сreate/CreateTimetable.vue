@@ -158,7 +158,6 @@
                                 this.request[i] =lesson;
                             }
                         }
-                        console.log(this.request);
                              axios.post(window.routes['admin.teacher.head-teacher.timetable.store'], this.request)
                             .then((response) => {
                                 if (response.data.result=='OK') {
