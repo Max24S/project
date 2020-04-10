@@ -72,7 +72,6 @@
                         >
                         <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
                     </div>
-
                 </div>
             </div>
             <div class="form-group">

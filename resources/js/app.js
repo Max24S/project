@@ -77,6 +77,8 @@ Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 Vue.component('add-lesson', require('./components/forms/timetable/AddLesson').default);
 
+Vue.component('com-p', require('./components/ComP').default);
+Vue.component('com-h', require('./components/ComH').default);
 
 let EventBus = new Vue();
 const app = new Vue({
