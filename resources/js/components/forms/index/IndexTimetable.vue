@@ -3,11 +3,11 @@
         <form method="get" @submit.prevent="SendData">
         <select v-model="timetableData.grade_id"  name="grade">
             <option value="none">Выберите класс</option>
-            <option v-for="grade in grades" :value="grade.id">{{grade.name}}</option>
+            <option v-for="grade in teachersAndSubjects['grades']" :value="grade.id">{{grade.name}}</option>
         </select>
         <select v-model="timetableData.semester" name="semectr">
             <option value="none">Выберите семестр</option>
-            <option>1</option>
+            <option selected>1</option>
             <option>2</option>
         </select>
         <input type="submit">
@@ -86,31 +86,36 @@
             :sort-desc.sync="sortDesc"
             :sort-direction="sortDirection"
             @filtered="onFiltered"
-        >
+            ref="table">
             <template v-slot:cell(monday)="row">
-
-                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subjects">dfd</b-button>
+                <b-button @click="deleleteLesson(row.value.id,row.index,'tuesday')" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button v-if="!row.value.subjects" @click="OpenModal('Вторник',row.item.lesson)" variant="primary"><b-icon-plus></b-icon-plus></b-button>
             </template>
             <template v-slot:cell(tuesday)="row">
-                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subjects">dfd</b-button>
+                    <b-button @click="deleleteLesson(row.value.id,row.index,'tuesday')" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                    <b-button  v-if="!row.value.subjects" @click="OpenModal('Вторник',row.item.lesson)" variant="primary"><b-icon-plus></b-icon-plus></b-button>
             </template>
             <template v-slot:cell(wednesday)="row">
-                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subjects">dfd</b-button>
+                <b-button @click="deleleteLesson(row.value.id,row.index,'wednesday')" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button  v-if="!row.value.subjects" @click="OpenModal('Среда',row.item.lesson)" variant="primary"><b-icon-plus></b-icon-plus></b-button>
             </template>
             <template v-slot:cell(thursday)="row">
-                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subjects">dfd</b-button>
+                <b-button @click="deleleteLesson(row.value.id,row.index,'thursday')" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button  v-if="!row.value.subjects" @click="OpenModal('Четверг',row.item.lesson)" variant="primary"><b-icon-plus></b-icon-plus></b-button>
             </template>
             <template v-slot:cell(friday)="row">
-                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subjects">dfd</b-button>
+                <b-button @click="deleleteLesson(row.value.id,row.index,'friday')" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button @click="OpenModal('Пятница',row.item.lesson)" variant="primary"><b-icon-plus></b-icon-plus></b-button>
             </template>
             <template v-slot:cell(saturday)="row">
-                <b-button @click="deleleteLesson(row.value.id)" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button><a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subjects">dfd</b-button>
+                <b-button @click="deleleteLesson(row.value.id,row.index,'saturday')" v-if="row.value.subjects" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <a :href="'timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subjects}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <b-button @click="OpenModal('Суббота',row.item.lesson)" variant="primary"><b-icon-plus></b-icon-plus></b-button>
             </template>
             <template v-slot:cell(actions)="row">
                 <b-button  size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
@@ -132,29 +137,109 @@
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
             <pre>{{ infoModal.content }}</pre>
         </b-modal>
-        <add-lesson ></add-lesson>
+
+        <b-modal
+                size="md"
+                v-model="show"
+                title="Modal Variants">
+            <b-container fluid>
+                <b-row class="mb-1">
+                    <b-col sm="3">
+                        <b-col>Предмет</b-col>
+                        <select v-model="timetableData['currentSubject']"
+                                :name="'subject'" v-validate="'excluded:none'"
+                                :class="{'input': true, 'alert-danger':errors.has('subject')}">
+                            <option value="none">Выберите предмет</option>
+                            <option value="-">Урока нет</option>
+                            <option v-for="subject in teachersAndSubjects['subjects']"
+                                    :value="subject.id">
+                                {{subject.name}}
+                            </option>
+                        </select>
+                        <span v-if="errors.has('subject')" class="help is-danger">Поле обязательно для заполнения</span>
+                    </b-col>
+                    <template v-if="timetableData['currentSubject']!='-'">
+                    <b-col md="10">
+                        <div class="row">
+                            <div class="col-md-4">Преподователь</div>
+                            <div class="col-md-8">
+                            <select v-model="timetableData['currentTeacher']"
+                                    :name="'teacher'"
+                                    v-validate="'excluded:none'"
+                                    :class="{'input': true, 'alert-danger':errors.has('teacher')}">
+                                <option value="none">Выберите преподователя</option>
+                                <option v-for="teacher in teachersAndSubjects['teachers']"
+                                        v-if="timetableData['currentSubject']==='none'|| timetableData['currentSubject']==teacher.subject_id"
+                                        :value="teacher">
+                                    {{teacher.surname}} {{teacher.name}} {{teacher.patronymic}}
+                                </option>
+                            </select>
+                            <span v-if="errors.has('teacher')" class="help is-danger">Поле обязательно для заполнения</span>
+                            </div>
+<!--                        <span v-if="duplicateTeacher['lesson']" class="help is-danger">У этого преподователя уже есть занятие на этом уроке</span>-->
+                        </div>
+                    </b-col>
+                    <b-col sm="3">
+                        <b-col>Класс</b-col>
+                        <select :name="'classroom_id'" v-model="timetableData['classroom_id']"
+                                v-validate="'excluded:none'"
+                                :class="{'input': true, 'alert-danger':errors.has('classroom_id')}">
+                            <option value='none'>Выберите кабинет</option>
+                            <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom.id">{{classroom.name}}</option>
+                        </select>
+                        <span v-if="errors.has('classroom_id')" class="help is-danger">Поле обязательно для заполнения</span>
+<!--                        <span v-if="duplicateClassroom['lesson']" class="help is-danger">Кабинет занят</span>-->
+                    </b-col>
+                    </template>
+                </b-row>
+            </b-container>
+            <template v-slot:modal-footer>
+                <div class="w-100">
+                    <b-button
+                            variant="primary"
+                            size="sm"
+                            class="float-right"
+                            @click="AddLesson"
+                    >
+                        Ok
+                    </b-button>
+                    <b-button
+                            variant="primary"
+                            size="sm"
+                            class="float-right"
+                            @click="show=false"
+                    >
+                    Close
+                    </b-button>
+                </div>
+            </template>
+        </b-modal>
     </b-container>
     </div>
 </template>
 <script>
+
     export default {
         name: "IndexTimetable",
-        props:['grades'],
+        props:['teachers-and-subjects'],
         data(){
             return {
                 timetableData:
                     {
+                        currentSubject:'none',
+                        currentTeacher:'none',
+                        classroom_id:'none',
                         grade_id:'none',
                         semester:'none',
                     },
                 counter:1,
                 request:{},
+                items:[],
+                lessons: {
+                    day:'',
+                    number:'',
 
-                days:['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],
-                items: [
-            ]
-                ,
-            monday:{},
+                },
                 isVisible:"",
                 fields: [
                     { key: 'lesson', label: '№ урока' },
@@ -178,7 +263,9 @@
                     id: 'info-modal',
                     title: '',
                     content: ''
-                }
+                },
+                show:false,
+                showCell:true
             }
         },
         methods:{
@@ -189,9 +276,7 @@
                             .then((response) => {
                                 if (response.data.result=='OK') {
                                     this.items=response.data.timetable;
-
                                     this.isVisible=1;
-                                    console.log(this.items);
                                 }
                             })
                             .catch(e => {
@@ -203,7 +288,7 @@
                     }
                 })
             },
-            deleleteLesson(id) {
+            deleleteLesson(id,index,day) {
                 this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
                     size: 'sm',
                     buttonSize: 'md',
@@ -219,11 +304,11 @@
                         if (value){
 
                             axios.delete('/admin/teacher/head-teacher/timetable/'+id).then((response) =>{
-                                console.log(response.data.response);
                                 if(response.data.response=='deleted')
                                 {
+                                    this.items[index][day]=null;
+                                    this.$refs.table.refresh();
                                     this.$toaster.success("Запись успешно удалена");
-
                                 }
 
                             }).catch(e => {
@@ -236,6 +321,11 @@
 
                     })
             },
+            OpenModal: function (day,number) {
+                this.lessons.day=day;
+                this.lessons.number=number;
+                this.show=true;
+            },
             info(item, index, button) {
                 this.infoModal.title = `Row index: ${index}`
                 this.infoModal.content = JSON.stringify(item, null, 2)
@@ -246,14 +336,58 @@
                 this.infoModal.content = ''
             },
             onFiltered(filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
+            },
+            AddLesson(){
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                            let lesson={};
+                            if(this.timetableData['currentSubject']!='-')
+                            {
+                                lesson = {
+                                    'lesson': this.lessons.number,
+                                    'day': this.lessons.day,
+                                    'grade_id': this.timetableData.grade_id,
+                                    'subject_user_id':this.timetableData['currentTeacher'].id,
+                                    'classroom_id':this.timetableData['classroom_id'],
+                                    'semester': this.timetableData.semester
+                                }
+                        }
+                        axios.post('/admin/teacher/head-teacher/timetable/StoreLesson', lesson)
+                            .then((response) => {
+                                if (response.data.result=='OK') {
+                                    this.$toaster.success('Расписание успешно добавленно');
+                                }
+                                else {
+                                    if (response.data.result == 'isset') {
+
+                                        this.$toaster.info('Расписание на этот день для этого класса уже есть,перейдите в раздел редактирования', {timeout: 5000})
+                                    }
+                                    else {
+                                        if (Object.keys(response.data.duplicateTeacher).length > 0) {
+
+                                                this.duplicateTeacher['lesson' ] = response.data.duplicateTeacher['lesson'];
+
+                                        }
+                                        if (Object.keys(response.data.duplicateClassroom).length > 0) {
+
+                                                this.duplicateClassroom['lesson'] = response.data.duplicateClassroom['lesson'];
+                                        }
+                                    }
+                                }
+                            })
+                            .catch(e => {
+                            })
+                    }
+                    else{
+                        this.$toaster.warning('Будьте внимательны при заполнении полей', {timeout: 5000})
+                    }
+                })
             }
         },
         computed: {
             sortOptions() {
-                // Create an options list from our fields
                 return this.fields
                     .filter(f => f.sortable)
                     .map(f => {
@@ -265,6 +399,9 @@
             this.totalRows = this.items.length
 
         },
+        created() {
+
+        }
     }
 </script>
 
@@ -274,5 +411,11 @@
     }
     .btn .b-icon.bi{
         font-size: 80%;
+    }
+    .is-danger {
+        color: red;
+    }
+    .alert-danger{
+        border:2px solid red!important;
     }
 </style>

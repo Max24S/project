@@ -75,6 +75,7 @@ Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 Vue.component('add-lesson', require('./components/forms/timetable/AddLesson').default);
 
 
+let EventBus = new Vue();
 const app = new Vue({
     el: '#app',
 });

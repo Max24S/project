@@ -22,8 +22,11 @@ class TimetableController extends Controller
      */
     public function index()
     {
-        $grades=(new Timetable())->getGrades()->get();
-        return view('admin.teacher.head-teacher.timetable.index',compact('grades'));
+        $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
+            "subjects"=>(new Timetable())->getSubjects()->get(),
+            "grades"=>(new Timetable())->getGrades()->get(),
+            'classrooms'=>(new Timetable())->getClassrooms()->get()]);
+        return view('admin.teacher.head-teacher.timetable.index',compact('teachersAndThemSubjects'));
 
     }
     /**
@@ -61,7 +64,10 @@ class TimetableController extends Controller
     {
         return (new Timetable())->addTimeTable($request->all());
     }
-
+    public function StoreLesson(Request $request)
+    {
+        return (new Timetable())->addLesson($request->all());
+    }
     /**
      * Display the specified resource.
      *

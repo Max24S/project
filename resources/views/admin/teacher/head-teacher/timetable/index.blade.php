@@ -4,7 +4,7 @@
 @endsection
 @section('form')
     <div id="app">
-        <index-timetable :grades="{{json_encode($grades)}}"></index-timetable>
+        <index-timetable :teachers-and-subjects="{{json_encode($teachersAndThemSubjects)}}"></index-timetable>
     </div>
     <div id="app">
 

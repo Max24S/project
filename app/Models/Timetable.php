@@ -214,6 +214,29 @@ class Timetable extends Model
         }
         return $response;
     }
+    public function addLesson($request)
+    {
+        $result=[];
+        $response['duplicateTeacher']=[];
+        $response['duplicateClassroom']=[];
+        $response['result']='';
+            $duplicateTeacher=$this->checkTeacher($request);
+            $duplicateClassroom=$this->checkClassroom($request);
+            if (!$duplicateTeacher && !$duplicateClassroom) {
+                $request['created_at'] = date('Y-m-d H:i:s');
+                $request['updated_at'] = date('Y-m-d H:i:s');
+                array_push($result, $request);
+            }
+            else {
+                $response['duplicateTeacher']['lesson' . $request['lesson']] = $duplicateTeacher;
+                $response['duplicateClassroom']['lesson' . $request['lesson']] = $duplicateClassroom;
+            }
+        if (!count($response['duplicateTeacher'])&&!count($response['duplicateClassroom'])) {
+            DB::table('timetables')->insert($result);
+            $response['result']='OK';
+        }
+        return $response;
+    }
     public function  addTimeTable($request)
     {
         $result=[];

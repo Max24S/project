@@ -208,7 +208,7 @@
             }
         },
         created() {
-            console.log(this.teachersAndSubjects)
+
         }
     }
 </script>
