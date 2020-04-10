@@ -15,11 +15,7 @@ use mysql_xdevapi\Result;
 
 class TimetableController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
@@ -29,22 +25,13 @@ class TimetableController extends Controller
         return view('admin.teacher.head-teacher.timetable.index',compact('teachersAndThemSubjects'));
 
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Database\Query\Builder
-     */
+
     public function indexTimetable(IndexRequest $request)
     {
         return ['result'=>'OK','timetable'=>(new Timetable())->timetableFormation($request->grade_id,$request->semester)];
-//        return (new Timetable())->show()->get();
+
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+
     public function create()
     {
             $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
@@ -54,37 +41,21 @@ class TimetableController extends Controller
              return view('admin.teacher.head-teacher.timetable.create',compact('teachersAndThemSubjects'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store( StoreRequest $request)
     {
         return (new Timetable())->addTimeTable($request->all());
     }
     public function StoreLesson(Request $request)
     {
+
         return (new Timetable())->addLesson($request->all());
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Timetable  $timetable
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Timetable $timetable)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Timetable  $timetable
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Timetable $timetable)
     {
                 $data=$timetable;
@@ -95,13 +66,6 @@ class TimetableController extends Controller
                 return view('admin.teacher.head-teacher.timetable.edit',compact('Timetable','data'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Timetable  $timetable
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Timetable $timetable)
     {
         $id=$timetable->only(['id']);
@@ -109,12 +73,6 @@ class TimetableController extends Controller
         return (new Timetable())->UpdateTimetable($request,$id);;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Timetable  $timetable
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Timetable $timetable)
     {
         $timetable->delete();

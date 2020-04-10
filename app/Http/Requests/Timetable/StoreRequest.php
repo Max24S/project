@@ -25,11 +25,11 @@ class StoreRequest extends FormRequest
     {
         $rules=[
             '*.day' => 'required|not_in:none',
-            '*.subject_user_id' => 'integer',
-            '*.lesson' => 'required',
-            '*.grade_id' => 'required|not_in:none',
-            '*.classroom_id' => 'integer',
-            '*.semester' => 'required|not_in:none'
+            '*.subject_user_id' => 'integer|not_in:none',
+            '*.lesson' => 'integer|not_in:none',
+            '*.grade_id' => 'integer|not_in:none',
+            '*.classroom_id' => 'integer|not_in:none',
+            '*.semester' => 'integer|not_in:none'
         ];
 
         return $rules;
