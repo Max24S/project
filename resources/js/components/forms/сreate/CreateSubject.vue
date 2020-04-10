@@ -75,6 +75,38 @@
                 })
 
             }
+        },
+        mounted() {
+            let m = this.$modals.open({
+                title: 'Добавление предмета',
+                theme: 'osx', // || mojave
+                items: [{
+                    label: 'Предмет',
+                    name: 'username',
+                    type: 'text',
+                    value: 'Daniel',
+                },
+                    {
+                        label: 'Bio',
+                        name: 'bio',
+                        type: 'textarea',
+                        value: 'web developer',
+                    }
+                ],
+            });
+
+            m.onsave((m) => {
+                m.loading();
+                setTimeout(() => {
+                    console.log(m.formData())
+                    console.log(m.getItems())
+                    m.loaded()
+                }, 500)
+            })
+
+            m.onreload(() => {
+                console.log('Reloaded')
+            })
         }
     }
 </script>
