@@ -22,6 +22,9 @@ import Toaster from 'v-toaster'
 
 import 'v-toaster/dist/v-toaster.css'
 
+import {EagleModal} from 'vue-eagle-modal'
+Vue.use(EagleModal);
+
 // optional set default imeout, the default is 10000 (10 seconds).
 Vue.use(Toaster, {timeout: 5000})
 Vue.use(BootstrapVue);
