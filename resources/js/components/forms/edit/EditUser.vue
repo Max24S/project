@@ -80,7 +80,7 @@
                     <label for="password" class="col-sm-4 control-label">Пароль</label>
                     <div class="col-sm-8 position-relative">
                         <input
-                            v-validate="'required|min:8|max:16'"
+                            v-validate="'min:8|max:16'"
                             :class="{'input': true, 'alert-danger':errors.has('password')}"
                             name="password"
                             type="password"
@@ -110,7 +110,7 @@
                     <label for="confirm-password" class="col-sm-4 control-label">Подтверждение пароля</label>
                     <div class="col-sm-8 position-relative">
                         <input
-                            v-validate="'required|confirmed:password'"
+                            v-validate="'confirmed:password|'+(editUser.password ? 'required' : '')"
                             :class="{'input': true, 'alert-danger':errors.has('confirm-password')}"
                             name="confirm-password"
                             type="password"
@@ -257,7 +257,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+            <button type="submit" class="btn btn-primary btn-block">Редактировать</button>
         </form> <!-- /form -->
     </div>
 </template>
@@ -311,8 +311,8 @@
                     password += symbols.charAt(Math.floor(Math.random() * symbols.length));
                 }
 
-                this.editUser.password=password;
-                this.confirmPassword =password;
+                this.editUser.password = password;
+                this.confirmPassword = password;
             },
         sendUser(){
             console.log(this.user);
@@ -321,9 +321,9 @@
 
                     axios.put('/admin/super/user/'+this.user.id,this.editUser)
                         .then((response)=>{
-                            if(response.data.response == 'created'){
+                            if(response.data.response == 'updated'){
 
-                                this.$toaster.success('Пользователь успешно добавлен');
+                                this.$toaster.success('Данные успешно отредактированы');
                             }
                             else if(response.data.response == 'emailDuplicate'){
 

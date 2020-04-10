@@ -2,8 +2,8 @@
     <div>
         <b-container fluid>
             <b-row>
-                <b-col md="8" lg="6" class="my-1">
-                    <b-form-group class="mb-0">
+                <b-col md="8" lg="6" class="">
+                    <b-form-group class="mb-1">
                         <b-input-group size="sm">
                             <b-form-input
                                 v-model="filter"
@@ -26,7 +26,7 @@
                 </b-col>
                 <b-col md="4" lg="6">
                     <b-form-group class="mb-0">
-                        <a v-if="routes.Create" :href="routes.Create">Добавить</a>
+                        <a class="btn btn-primary edit" v-if="routes.Create" :href="routes.Create">Добавить запись</a>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -46,17 +46,24 @@
                 @filtered="onFiltered"
                 ref="table"
                 bordered
+                class="mb-0 table"
             >
                 <template v-slot:cell(actions)="row">
-                    <a v-if="routes.Edit" :href="routes.Edit+row.item.id+'/edit'">Редактировать</a>
+                    <a
+                        class="btn btn-primary edit"
+                        v-if="routes.Edit"
+                        :href="routes.Edit+row.item.id+'/edit'"
+                    >
+                        Редактировать
+                    </a>
                     <b-button
                         @click="showMsgBoxDelete(row.item.id,row.index)"
                         size="sm"
-                        class="bg-danger">
+                        class="btn btn-danger">
                         Удалить
                     </b-button>
                     <template v-if="action">
-                        <a :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
+                        <a class="btn btn-info edit" :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
                     </template>
                 </template>
             </b-table>
@@ -75,17 +82,15 @@
                 <b-col sm="12" md="6" class="my-1">
                     <b-form-group
                         label="Выводить по"
-                        label-cols-sm="6"
-                        label-cols-md="4"
-                        label-cols-lg="3"
-                        label-align-sm="left"
+                        label-cols-sm="9"
+                        label-align-sm="right"
                         label-size="sm"
                         label-for="perPageSelect"
                         class="mb-0"
                     >
                         <b-form-select
-                            sm="6"
-                            text-align-sm="left"
+                            sm="3"
+                            class="perPageSelect"
                             v-model="perPage"
                             id="perPageSelect"
                             size="sm"
@@ -172,4 +177,11 @@
 </script>
 
 <style scoped>
+    .edit {
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+    .perPageSelect {
+        max-width:100px;
+    }
 </style>

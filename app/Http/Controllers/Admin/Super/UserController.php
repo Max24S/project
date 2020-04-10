@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\UpdateRequest;
 use App\Models\Grade;
 use App\Models\Student;
 use App\Models\User;
@@ -92,7 +93,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRequest $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
         $data = $request->only(['surname',
             'name',
@@ -103,12 +104,21 @@ class UserController extends Controller
             'role',
             'address',
             'number',
+            'password'
             ]);
 
+        if(isset($data['password']))
+        {
+            $data['password']=bcrypt($data['password']);
+        }
+        else {
+
+            unset($data['password']);
+        }
 
         $user->update($data);
 
-        return "dd";
+        return ['response'=>'updated'];
 
 //        return redirect()->route('admin.super.user.index');
     }
