@@ -15,7 +15,7 @@
             top: 0;
         }
         body {
-            padding-top: 100px;
+            padding-top: 70px;
         }
         .formContainer {
             max-width: 500px;
