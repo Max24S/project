@@ -239,26 +239,6 @@
                 </div>
             </div>
             </div>
-            <div class="form-group">
-                <div class="row" v-if="user.role=='Ученик'">
-                    <div class="col-sm-4">
-                        <label>Укажите класс</label>
-                    </div>
-                    <div class="form-group col-sm-8">
-                        <v-select
-                            v-validate="'required'"
-                            :class="{'input': true, 'alert-danger':errors.has('grade_id')}"
-                            name="grade_id"
-                            v-model="user.grade_id"
-                            :options="this.grades"
-                            :reduce="grade => grade.id"
-                            label="name"
-                        >
-                        </v-select>
-                        <span v-show="errors.has('grade_id')" class="help is-danger">{{ errors.first('grade_id') }}</span>
-                    </div>
-                </div>
-            </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
     </div>
@@ -268,7 +248,6 @@
 <script>
     export default {
         name: "CreateUser",
-        props:['grades'],
         data(){
             return {
                 routes:{
@@ -284,7 +263,6 @@
                     address:'',
                     sex:'',
                     role:'none',
-                    grade_id:'',
                     password:''
                 },
                 visibleConfirmPassword:false,

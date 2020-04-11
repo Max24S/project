@@ -17,6 +17,7 @@
                             v-model="subject.name"
                         >
                         <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                        <span v-if="nameErr&&duplicateName==subject.name" class="is-danger">{{nameErr}}</span>
                     </div>
                 </div>
             </div>
@@ -36,7 +37,9 @@
                 },
                subject:{
                    name:'',
-               }
+               },
+                nameErr:'',
+                duplicateName:''
             }
         },
         created(){
@@ -55,7 +58,8 @@
                                     document.location.href = "/admin/super/subject"
                                 }
                                 else if (response.data.response == 'duplicate') {
-
+                                    this.duplicateName=this.subject.name;
+                                    this.nameErr='Предмет уже добавлен';
                                     this.$toaster.warning('Предмет уже добавлен');
                                 }
                                 else {

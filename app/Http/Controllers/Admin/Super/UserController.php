@@ -33,11 +33,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $grades = (new Grade())
-            ->getAllGrades()
-            ->get(['id','name']);
 
-        return view('admin.super.user.create',compact('grades'));
+        return view('admin.super.user.create');
     }
 
     /**
@@ -72,18 +69,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $grade_id='';
-        if($user->role=='Ученик')
-        {
-            $grade_id = (new Student())->getStudentGrade($user->id);
-        }
-        $grades = (new Grade())
-            ->getAllGrades()
-            ->get(['id','name']);
 
-        $studentData=['grades'=>$grades,'grade_id'=>$grade_id];
-
-        return view('admin.super.user.edit', compact('user','studentData'));
+        return view('admin.super.user.edit', compact('user'));
     }
 
     /**
@@ -107,8 +94,6 @@ class UserController extends Controller
             'password',
             ]);
 
-//        $r = $request->all();
-//        return ($r['name']);
 
         if(isset($data['password']))
         {
@@ -118,11 +103,7 @@ class UserController extends Controller
 
             unset($data['password']);
         }
-//
-//        if($request->only('grade_id')) {
-//
-//            (new Student())->updateStudent($request->id,$data['grade_id']);
-//        }
+
         $user->update($data);
 
         return ['response'=>'updated'];

@@ -9,16 +9,14 @@ class Student extends Model
 {
     protected $fillable = ['grade_id','user_id'];
 
-    public function getStudentGrade($id) {
-
+    public function getStudents($grade_id)
+    {
         return DB::table('students')
-            ->join('grades','grades.id',"=",'students.grade_id')
-            ->where('students.user_id',$id)
-            ->get(['students.grade_id','grades.name']);
+            ->join('users','users.id','=','students.user_id')
+            ->join('grades','grades.id','=','students.grade_id')
+            ->where('grades.id',$grade_id)
+            ->get(['students.id','users.surname','users.name','users.patronymic']);
     }
 
-    public function updateStudent($user_id,$grade_id) {
 
-            Student::update(['grade_id'=>$grade_id])->where('user_id',$user_id);
-    }
 }

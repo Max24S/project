@@ -20,7 +20,7 @@ class SubjectUserController extends Controller
 
     }
 
-    public function TeachersForSubject($id,$name)
+    public function teachersForSubject($id,$name)
     {
         $teachers = (new SubjectUser())->getTeachers($id);
 

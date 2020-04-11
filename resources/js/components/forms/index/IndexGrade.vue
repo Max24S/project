@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
 
-    <table-admin :items="grades" :fields="fields" :routes="routes"></table-admin>
+    <table-admin :items="grades" :fields="fields" :routes="routes" :action="action"></table-admin>
 
 </template>
 
@@ -27,6 +27,10 @@
                     { key: 'actions', label: 'Действия' }
 
                 ],
+                action: {
+                    route:'/admin/super/student/index/',
+                    content:'Ученики'
+                }
             }
         },
     }

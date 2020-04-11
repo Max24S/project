@@ -66,12 +66,14 @@ Vue.component('create-classroom', require('./components/forms/сreate/CreateClas
 Vue.component('create-grade', require('./components/forms/сreate/CreateGrade.vue').default);
 Vue.component('create-subject', require('./components/forms/сreate/CreateSubject.vue').default);
 Vue.component('create-subject-user', require('./components/forms/сreate/CreateSubjectUser.vue').default);
+Vue.component('create-student', require('./components/student/CreateStudent').default);
 Vue.component('index-timetable', require('./components/forms/index/IndexTimetable').default);
 Vue.component('index-user', require('./components/forms/index/IndexUser').default);
 Vue.component('index-subject', require('./components/forms/index/IndexSubject').default);
 Vue.component('index-classroom', require('./components/forms/index/IndexClassroom').default);
 Vue.component('index-grade', require('./components/forms/index/IndexGrade').default);
 Vue.component('index-subject-user', require('./components/forms/index/IndexSubjectUser').default);
+Vue.component('index-student', require('./components/student/IndexStudent').default);
 Vue.component('edit-user', require('./components/forms/edit/EditUser').default);
 Vue.component('edit-timetable', require('./components/forms/edit/EditTimetable').default);
 Vue.component('edit-classroom', require('./components/forms/edit/EditClassroom').default);

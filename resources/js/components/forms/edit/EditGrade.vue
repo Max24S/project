@@ -32,6 +32,12 @@
                             :reduce="teacher => teacher.id"
                             label="fullName"
                         >
+                            <template v-slot:no-options="{ search, searching }">
+                                <template v-if="searching">
+                                    Совпадений не найдено
+                                </template>
+                                <em style="opacity: 0.5;" v-else>Start typing to search for a country.</em>
+                            </template>
                         </v-select>
                     </div>
                 </div>
@@ -48,6 +54,12 @@
                             :reduce="teacher => teacher.id"
                             label="name"
                         >
+                            <template v-slot:no-options="{ search, searching }">
+                                <template v-if="searching">
+                                    Совпадений не найдено
+                                </template>
+                                <em style="opacity: 0.5;" v-else>Start typing to search for a country.</em>
+                            </template>
                         </v-select>
                     </div>
                 </div>
@@ -81,10 +93,6 @@
                                     this.$toaster.success('Данные успешно отредактированы');
                                     document.location.href = "/admin/super/grade"
                                 }
-                                else if (response.data.response == 'duplicate') {
-
-                                    this.$toaster.warning('Запись уже существует');
-                                }
                                 else {
 
                                     this.$toaster.error('Ошибка');
@@ -94,7 +102,8 @@
                             })
                             .catch(e => {
                                 console.log(e);
-                                this.$toaster.error(e.response.data);
+
+                                this.$toaster.warning('Запись уже существует');
                             })
                     }
                     else {

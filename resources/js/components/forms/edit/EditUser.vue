@@ -237,26 +237,6 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="row" v-if="editUser.role=='Ученик'">
-                    <div class="col-sm-4">
-                        <label>Укажите класс</label>
-                    </div>
-                    <div class="form-group col-sm-8">
-                        <v-select
-                            v-validate="'required'"
-                            :class="{'input': true, 'alert-danger':errors.has('grade_id')}"
-                            name="grade_id"
-                            v-model="editUser.grade_id"
-                            :options="studentData.grades"
-                            :reduce="grade => grade.id"
-                            label="name"
-                        >
-                        </v-select>
-                        <span v-show="errors.has('grade_id')" class="help is-danger">{{ errors.first('grade_id') }}</span>
-                    </div>
-                </div>
-            </div>
             <button type="submit" class="btn btn-primary btn-block">Редактировать</button>
         </form> <!-- /form -->
     </div>
@@ -265,12 +245,9 @@
 <script>
     export default {
         name: "EditUser",
-        props:['user','student-data'],
+        props:['user'],
         data(){
             return {
-                routes:{
-
-                },
                 editUser:{
                     name:'',
                     surname:'',
@@ -281,7 +258,6 @@
                     address:'',
                     sex:'',
                     role:'',
-                    grade_id:'',
                     password:''
                 },
                 visibleConfirmPassword:false,
@@ -294,8 +270,8 @@
         created(){
 
             this.editUser=this.user;
-            this.editUser.grade_id=this.studentData.grade_id;
-            console.log(this.studentData.grade_id);
+            this.editUser.grade_id=this.studentData.grade[0].name;
+            console.log(this.studentData);
         },
         methods:{
             showPassword(){
@@ -347,7 +323,7 @@
                                     if(e.response.data.errors.email[0]){
                                         this.duplicateEmail=this.editUser.email;
                                         this.emailErr='Пользователь с данным email уже существует';
-                                        this.$toaster.error(e.response.data.errors.email[0]);
+                                        this.$toaster.warning(e.response.data.errors.email[0]);
                                     }
                                     else {
                                         this.$toaster.error(e.response.data.errors);
@@ -388,7 +364,7 @@
         height: 25px;
         width: 25px;
         z-index: 10;
-        right: 21px;
+        right: 22px;
         top: 6px;
         transition: 600ms;
         cursor:pointer;

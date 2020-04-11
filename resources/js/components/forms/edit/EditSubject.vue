@@ -17,6 +17,7 @@
                             v-model="editSubject.name"
                         >
                         <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                        <span v-if="nameErr&&duplicateName==editSubject.name" class="is-danger">{{nameErr}}</span>
                     </div>
                 </div>
             </div>
@@ -31,7 +32,9 @@
         props:['subject'],
         data(){
             return {
-               editSubject:{}
+               editSubject:{},
+                nameErr:'',
+                duplicateName:''
             }
         },
         created(){
@@ -62,8 +65,14 @@
 
                             })
                             .catch(e => {
-                                console.log(e);
-                                this.$toaster.error(e.response.data.errors.name[0]);
+                                if(e.response.data.errors.name[0]){
+                                    this.duplicateName=this.editSubject.name;
+                                    this.nameErr='Запись уже существует';
+                                    this.$toaster.warning(e.response.data.errors.name[0]);
+                                }
+                                else {
+                                    this.$toaster.error(e.response.data.errors);
+                                }
                             })
                         }
                     else {

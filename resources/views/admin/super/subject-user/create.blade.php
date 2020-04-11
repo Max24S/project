@@ -1,6 +1,6 @@
 @extends('admin.super.layouts.admin')
 @section('form')
     <div id="app">
-        <create-subject-user :subject="{{json_encode($subject)}}" :teachers="{{json_encode($teachers)}}"></create-subject-user>
+        <create-student :grade="{{json_encode($grade)}}" :student="{{json_encode($student)}}"></create-student>
     </div>
 @endsection
