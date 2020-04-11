@@ -1,5 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
     <div>
+        <span>Укажите класс</span>
         <b-container fluid>
             <b-table
                 show-empty
@@ -22,9 +23,19 @@
                 <template v-slot:thead-top="data">
                     <b-tr>
                         <b-th></b-th>
-                        <b-th v-for="date in dateNow">{{date}}</b-th>
+                        <b-th v-for="date in dateNow" :key="date.key">
+                            <span class="d-flex justify-content-center">{{date}}</span>
+                        </b-th>
                     </b-tr>
                 </template>
+
+                <template v-slot:cell()="row">
+                    <span class="d-flex justify-content-center align-items-center">{{ row.value.lesson}}</span>
+                    <span class="d-flex justify-content-center">{{row.value.subject}}</span>
+                    <span class="d-flex justify-content-center"> {{ row.value.classroom}}</span>
+                    <span class="d-flex justify-content-center">{{row.value.teacher}}</span>
+                </template>
+
                 <template v-slot:cell(actions)="row">
                     <a
                         class="btn btn-primary edit"
@@ -62,28 +73,29 @@
                 sortDesc: false,
                 sortDirection: 'asc',
                 filter: null,
-                filterOn: [],
+                filterOn: ['rrrrrrrrrrrr'],
                 items:[
-                    {lesson:1,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
-                    {lesson:2,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
-                    {lesson:3,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
-                    {lesson:4,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
-                    {lesson:5,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
-                    {lesson:6,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
-                    {lesson:7,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
-                    {lesson:8,monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''}
+                    {lesson:{lesson:1},monday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"},tuesday:{name:"life"},wednesday:"",thursday:"",friday:"",saturday:''},
+                    {lesson:{lesson:2},monday:{name:"life"},tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
+                    {lesson:{lesson:3},monday:"",tuesday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"},wednesday:"",thursday:"",friday:"",saturday:''},
+                    {lesson:{lesson:4},monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
+                    {lesson:{lesson:5},monday:"",tuesday:"",wednesday:{name:"life"},thursday:"",friday:"",saturday:''},
+                    {lesson:{lesson:6},monday:"",tuesday:"",wednesday:"",thursday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"},friday:"",saturday:''},
+                    {lesson:{lesson:7},monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
+                    {lesson:{lesson:8},monday:"",tuesday:"",wednesday:"",thursday:"",friday:{name:"life"},saturday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"}}
                     ],
                 fields:[
-                    {key:'lesson',label:'№ Урока'},
-                    {key:'monday',label: 'Понедельник'},
-                    {key:'tuesday',label: 'Вторник'},
-                    {key:'wednesday',label: 'Среда'},
-                    {key:'thursday',label: 'Четверг'},
-                    {key:'friday',label: 'Пятница'},
-                    {key:'saturday',label: 'Суббота'},
+                    {key:'lesson',label:'№ Урока',class: 'text-center'},
+                    {key:'monday',label: 'Понедельник',class: 'text-center'},
+                    {key:'tuesday',label: 'Вторник',class: 'text-center'},
+                    {key:'wednesday',label: 'Среда',class: 'text-center'},
+                    {key:'thursday',label: 'Четверг',class: 'text-center'},
+                    {key:'friday',label: 'Пятница',class: 'text-center'},
+                    {key:'saturday',label: 'Суббота',class: 'text-center'},
                     ],
                 routes:{},
-                dateNow:[]
+                dateNow:[],
+                days:['monday','tuesday','wednesday','thursday','friday','saturday']
             }
         },
         mounted() {

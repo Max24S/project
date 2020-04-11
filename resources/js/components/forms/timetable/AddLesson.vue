@@ -23,7 +23,7 @@
                 d:""
             }
         },
-        mounted() {
+        created() {
 
            this.userName=this.lesson;
            this.d=this.day;
