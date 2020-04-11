@@ -106,6 +106,7 @@
                                         .then((response) => {
                                             if (response.data.result=='OK') {
                                                 this.$toaster.success('Запись успешно изменина');
+                                                document.location.href = "/admin/teacher/head-teacher/timetable/index/"+lesson['grade_id']+"/"+lesson['semester'];
                                             }
                                             else {
 
