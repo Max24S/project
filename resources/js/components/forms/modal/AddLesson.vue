@@ -5,63 +5,59 @@
             title="Cоздание записи урока">
         <b-container fluid>
             {{Show}}
-            <b-row class="mb-1">
-                <b-col class="mb-3"  md="10">
-                    <div class="row">
-                        <div class="col-md-4">Предмет</div>
-                        <div class="col-md-8">
-                            <select v-model="currentSubject"
-                                    :name="'subject'" v-validate="'excluded:none'"
-                                    :class="{'input': true, 'alert-danger':errors.has('subject')}">
-                                <option value="none">Выберите предмет</option>
-                                <option value="-">Урока нет</option>
-                                <option v-for="subject in teachersAndSubjects['subjects']"
-                                        :value="subject">
-                                    {{subject.name}}
-                                </option>
-                            </select>
-                        </div>
-                        <span v-if="errors.has('subject')" class="help is-danger mx-auto">Поле обязательно для заполнения</span>
+            <div class="form-group row mb-1">
+                <label for="subject_id" class="col-sm-4 col-form-label">Предмет</label>
+                <div class="col-sm-8">
+                    <select v-model="currentSubject"
+                        id="subject_id"
+                        :name="'subject'" v-validate="'excluded:none'"
+                        :class="{'input': true, 'alert-danger':errors.has('subject')}">
+                        <option value="none">Выберите предмет</option>
+                        <option v-for="subject in teachersAndSubjects['subjects']"
+                                :value="subject">
+                            {{subject.name}}
+                        </option>
+                    </select>
+                    <span v-if="errors.has('subject')" class="help is-danger d-block">Поле обязательно для заполнения</span>
+                </div>
+            </div>
+            <template v-if="currentSubject!='-'">
+                <div class="form-group row mb-1">
+                    <label for="teacher_id" class="col-sm-4 col-form-label">Преподователь</label>
+                    <div class="col-sm-8">
+                        <select v-model="currentTeacher"
+                             id="teacher_id"
+                            :name="'teacher'"
+                            v-validate="'excluded:none'"
+                            :class="{'input': true, 'alert-danger':errors.has('teacher')}">
+                        <option value="none">Выберите преподователя</option>
+                        <option v-for="teacher in teachersAndSubjects['teachers']"
+                                v-if="currentSubject==='none'|| currentSubject.id==teacher.subject_id"
+                                :value="teacher">
+                            {{teacher.surname}} {{teacher.name}} {{teacher.patronymic}}
+                        </option>
+                    </select>
+                    <span v-if="duplicateTeacher['lesson']" class="help is-danger d-block">У этого преподователя уже есть занятие на этом уроке</span>
+                    <span v-if="errors.has('teacher')" class="help is-danger d-block">Поле обязательно для заполнения</span>
                     </div>
-                </b-col>
-                <template v-if="currentSubject!='-'">
-                    <b-col class="mb-3" md="10">
-                        <div class="row">
-                            <div class="col-md-4">Преподователь</div>
-                            <div class="col-md-8">
-                                <select v-model="currentTeacher"
-                                        :name="'teacher'"
-                                        v-validate="'excluded:none'"
-                                        :class="{'input': true, 'alert-danger':errors.has('teacher')}">
-                                    <option value="none">Выберите преподователя</option>
-                                    <option v-for="teacher in teachersAndSubjects['teachers']"
-                                            v-if="currentSubject==='none'|| currentSubject.id==teacher.subject_id"
-                                            :value="teacher">
-                                        {{teacher.surname}} {{teacher.name}} {{teacher.patronymic}}
-                                    </option>
-                                </select>
-                            </div>
-                            <span v-if="errors.has('teacher')" class="help is-danger mx-auto">Поле обязательно для заполнения</span>
-                            <!--                        <span v-if="duplicateTeacher['lesson']" class="help is-danger">У этого преподователя уже есть занятие на этом уроке</span>-->
-                        </div>
-                    </b-col>
-                    <b-col class="mb-3" md="10">
-                        <div class="row">
-                            <div class="col-md-4">Класс</div>
-                            <div class="col-md-8">
-                                <select :name="'classroom_id'" v-model="classroom_id"
-                                        v-validate="'excluded:none'"
-                                        :class="{'input': true, 'alert-danger':errors.has('classroom_id')}">
-                                    <option value='none'>Выберите кабинет</option>
-                                    <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom">{{classroom.name}}</option>
-                                </select>
-                                <!--                        <span v-if="duplicateClassroom['lesson']" class="help is-danger">Кабинет занят</span>-->
-                            </div>
-                            <span v-if="errors.has('classroom_id')" class="help is-danger mx-auto">Поле обязательно для заполнения</span>
-                        </div>
-                    </b-col>
-                </template>
-            </b-row>
+                </div>
+                <div class="form-group row mb-1">
+                    <label for="classroom_id" class="col-sm-4 col-form-label">Класс</label>
+                    <div class="col-sm-8">
+                        <select
+                                id="classroom_id"
+                                :name="'classroom'"
+                                v-model="classroom_id"
+                                v-validate="'excluded:none'"
+                                :class="{'input': true, 'alert-danger':errors.has('classroom')}">
+                            <option value='none'>Выберите кабинет</option>
+                            <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom">{{classroom.name}}</option>
+                        </select>
+                        <span v-if="duplicateClassroom['lesson']" class=" d-block help is-danger">Кабинет занят</span>
+                        <span v-if="errors.has('classroom')" class=" d-block help is-danger ">Поле обязательно для заполнения</span>
+                    </div>
+                 </div>
+            </template>
         </b-container>
         <template v-slot:modal-footer>
             <div class="w-100">
@@ -92,19 +88,16 @@
         props:['teachers-and-subjects','timetable','visible'],
         data(){
             return{
-                // lessons:{
-                //     day:'',
-                //     numbers:'',
-                //     grade_id:'',
-                //     classroom_id:'',
-                //     currentTeacher:'',
-                //     semester:''
-                // },
                 currentSubject:'none',
                 currentTeacher:'none',
                 classroom_id:'none',
-                show:false
-
+                show:false,
+                duplicateTeacher:{
+                    lesson:""
+                },
+                duplicateClassroom:{
+                    lesson:""
+                }
             }
         },
         methods:{
@@ -148,14 +141,14 @@
                                 }
                                 else {
 
-                                    if (Object.keys(response.data.duplicateTeacher).length > 0) {
+                                    if (Object.keys(response.data[0].duplicateTeacher).length > 0) {
 
-                                        // this.duplicateTeacher['lesson' ] = response.data.duplicateTeacher['lesson'];
+                                        this.duplicateTeacher['lesson' ] = response.data[0].duplicateTeacher['lesson'+ this.timetable.lesson];
 
                                     }
-                                    if (Object.keys(response.data.duplicateClassroom).length > 0) {
+                                    if (Object.keys(response.data[0].duplicateClassroom).length > 0) {
 
-                                        // this.duplicateClassroom['lesson'] = response.data.duplicateClassroom['lesson'];
+                                        this.duplicateClassroom['lesson'] = response.data[0].duplicateClassroom['lesson'+ this.timetable.lesson];
                                     }
                                 }
                             })
@@ -174,7 +167,7 @@
             }
         },
         updated() {
-            console.log('dfdf');
+
         }
     }
 </script>

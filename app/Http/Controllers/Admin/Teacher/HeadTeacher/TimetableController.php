@@ -16,14 +16,16 @@ use mysql_xdevapi\Result;
 class TimetableController extends Controller
 {
 
-    public function index()
+    public function index($grade=null,$semester=null)
     {
+        $initialParameters['grade']=$grade;
+        $initialParameters['semester']=$semester;
         $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
             "subjects"=>(new Timetable())->getSubjects()->get(),
             "grades"=>(new Timetable())->getGrades()->get(),
             'classrooms'=>(new Timetable())->getClassrooms()->get()]);
-        return view('admin.teacher.head-teacher.timetable.index',compact('teachersAndThemSubjects'));
 
+        return view('admin.teacher.head-teacher.timetable.index',compact('teachersAndThemSubjects','initialParameters'));
     }
 
     public function indexTimetable(IndexRequest $request)
@@ -31,7 +33,6 @@ class TimetableController extends Controller
         return ['result'=>'OK','timetable'=>(new Timetable())->timetableFormation($request->grade_id,$request->semester)];
 
     }
-
     public function create()
     {
             $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
@@ -65,7 +66,7 @@ class TimetableController extends Controller
                 return view('admin.teacher.head-teacher.timetable.edit',compact('Timetable','data'));
     }
 
-    public function update(Request $request, Timetable $timetable)
+    public function update(UpdateRequest $request, Timetable $timetable)
     {
         $id=$timetable->only(['id']);
         $data = $request->only(['subject_user_id','classroom_id']);
