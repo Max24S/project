@@ -63,7 +63,9 @@
                             })
                             .catch(e => {
                                 console.log(e);
-                                this.$toaster.error(e.response.data.errors.name[0]);
+                                if(e.response.data.errors.name[0]) {
+                                    this.$toaster.warning(e.response.data.errors.name[0]);
+                                }
                             })
                     }
                     else {

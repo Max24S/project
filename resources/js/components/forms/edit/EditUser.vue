@@ -347,7 +347,7 @@
                                     if(e.response.data.errors.email[0]){
                                         this.duplicateEmail=this.editUser.email;
                                         this.emailErr='Пользователь с данным email уже существует';
-                                        this.$toaster.error(e.response.data.errors.email[0]);
+                                        this.$toaster.warning(e.response.data.errors.email[0]);
                                     }
                                     else {
                                         this.$toaster.error(e.response.data.errors);
@@ -388,7 +388,7 @@
         height: 25px;
         width: 25px;
         z-index: 10;
-        right: 21px;
+        right: 22px;
         top: 6px;
         transition: 600ms;
         cursor:pointer;
