@@ -53,9 +53,12 @@ Route::name('admin.')
 
 Route::name('student.')
     ->namespace('User')
-    ->prefix('user')
+    ->prefix('student')
     ->group(function () {
-        Route::resource('student', 'StudentController');
+
+        Route::view('/','student.index');
+        Route::resource('timetable', 'TimetableController');
+        Route::resource('homework', 'HomeworkController');
     });
 
 Auth::routes();

@@ -81,7 +81,7 @@ Vue.component('edit-subject', require('./components/forms/edit/EditSubject').def
 Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default);
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 Vue.component('add-lesson', require('./components/forms/modal/AddLesson').default);
-
+Vue.component('index-timetable-student', require('./components/student/timetable/IndexTimetableStudent').default);
 
 Vue.component('com-p', require('./components/ComP').default);
 Vue.component('com-h', require('./components/ComH').default);
