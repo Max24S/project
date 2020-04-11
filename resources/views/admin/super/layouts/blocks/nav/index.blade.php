@@ -1,12 +1,5 @@
 <style>
-    ul li:hover> div{
-        display: block;
-        z-index: 2000;
-    }
-    .dropdown-menu {
-        top: 35px;
-        left: -40px;
-    }
+
 </style>
 <div class="container">
     <nav class="navbar navbar-expand-md navbar-dark" >
