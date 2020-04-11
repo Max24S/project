@@ -21,13 +21,8 @@
             >
                 <template v-slot:thead-top="data">
                     <b-tr>
-                        <b-th colspan=""><span class=""></span></b-th>
-                        <b-th class="" variant="">11.04.2020</b-th>
-                        <b-th variant="">12.04.2020</b-th>
-                        <b-th variant="">13.04.2020</b-th>
-                        <b-th variant="">14.04.2020</b-th>
-                        <b-th variant="">15.04.2020</b-th>
-                        <b-th variant="">16.04.2020</b-th>
+                        <b-th></b-th>
+                        <b-th v-for="date in dateNow">{{date}}</b-th>
                     </b-tr>
                 </template>
                 <template v-slot:cell(actions)="row">
@@ -50,9 +45,6 @@
                 </template>
             </b-table>
         </b-container>
-        <ul>
-            <li v-for="r in dateNow">{{r}}</li>
-        </ul>
     </div>
 </template>
 
@@ -124,12 +116,18 @@
                 this.currentPage = 1
             },
             getNow() {
-               let  newDate = new Date();
-                newDate.setDate(newDate.getDate() -newDate.getDay());
+               let nowDate = new Date();
+               if(nowDate.getDay()){
+                   nowDate.setDate(nowDate.getDate() - nowDate.getDay());
+               }
                 for(let i=1;i<7;i++){
-                    let param = newDate.setDate(newDate.getDate()+i)
+                    let param =new Date(nowDate.setDate(nowDate.getDate()+1))
 
-                    this.dateNow.push(param.getDate()+"."+(param.getMonth()+1)+"."+param.getFullYear())
+                    let day = param.getDate()<10?'0'+param.getDate():param.getDate();
+                    let month = param.getMonth()+1<10?'0'+(param.getMonth()+1):param.getMonth()+1;
+                    let year = param.getFullYear();
+
+                    this.dateNow.push(day+"."+month+"."+year)
                 }
             }
         },
