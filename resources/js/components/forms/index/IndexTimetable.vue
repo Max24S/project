@@ -31,7 +31,6 @@
             </form>
         </div>
     <b-container fluid >
-
         <b-table
             bordered
             show-empty
@@ -79,25 +78,7 @@
                 <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
                 <b-button v-if="!row.value.subject" @click="OpenModal('Суббота',row.item.lesson,'saturday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
             </template>
-            <template v-slot:cell(actions)="row">
-                <b-button  size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-                    Info modal
-                </b-button>
-                <b-button size="sm" @click="row.toggleDetails">
-                    {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-                </b-button>
-            </template>
-            <template v-slot:row-details="row">
-                <b-card>
-                    <ul>
-                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-                    </ul>
-                </b-card>
-            </template>
         </b-table>
-        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <pre>{{ infoModal.content }}</pre>
-        </b-modal>
     </b-container>
         <div>
             <add-lesson @hide="show=$event" :teachers-and-subjects="teachersAndSubjects"
@@ -274,8 +255,6 @@
             {
                 this.SendData();
             }
-            console.log(this.timetableData['grade_id']);
-            console.log(this.timetableData['semester']);
         }
     }
 </script>

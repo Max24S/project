@@ -173,6 +173,7 @@
 </script>
 
 <style scoped>
+
     .is-danger {
         color: red;
     }
