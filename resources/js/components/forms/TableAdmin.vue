@@ -56,15 +56,15 @@
                     >
                         Редактировать
                     </a>
+                    <template v-if="action">
+                        <a class="btn btn-info edit" :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
+                    </template>
                     <b-button
                         @click="showMsgBoxDelete(row.item.id,row.index)"
                         size="sm"
                         class="btn btn-danger">
                         Удалить
                     </b-button>
-                    <template v-if="action">
-                        <a class="btn btn-info edit" :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
-                    </template>
                 </template>
             </b-table>
             <b-row>

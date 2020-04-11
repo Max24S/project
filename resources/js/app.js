@@ -79,7 +79,7 @@ Vue.component('edit-subject', require('./components/forms/edit/EditSubject').def
 Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default);
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 Vue.component('add-lesson', require('./components/forms/timetable/AddLesson').default);
-Vue.component('form-create', require('./components/forms/сreate/FormCreate.vue').default);
+
 
 Vue.component('com-p', require('./components/ComP').default);
 Vue.component('com-h', require('./components/ComH').default);

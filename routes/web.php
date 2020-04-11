@@ -25,7 +25,7 @@ Route::name('admin.')
                 Route::put("subject/{subject} ",'SubjectController@update');
                 Route::put("grade/{grade} ",'GradeController@update');
                 Route::put("classroom/{classroom} ",'ClassroomController@update');
-                Route::get("subject-user/create/{id} ",'SubjectUserController@createForm');
+                Route::get("subject-user/create/{id}/{name} ",'SubjectUserController@createForm');
 
 
             });

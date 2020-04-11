@@ -16,7 +16,7 @@
         data() {
             return {
                 routes:{
-                    Create:'/admin/super/subject-user/create/'+this.subject.id,
+                    Create:'/admin/super/subject-user/create/'+this.subject.id+'/'+this.subject.name,
                     Edit:'',
                     Delete:'/admin/super/subject-user/'
                 },
@@ -26,45 +26,7 @@
                     { key: 'surname', label: 'фамилия', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
                     { key: 'patronymic', label: 'Отчество', sortable: true, sortDirection: 'desc',class: 'text-center' },
                     { key: 'actions', label: 'Действия' }
-                ],
-                createRequest:{
-                    subject_id:this.subject.id,
-                    user_id:''
-                }
-            }
-        },
-        methods: {
-            addTeachers() {
-                this.$validator.validateAll().then((result) => {
-                    if (result) {
-                        axios.post('/admin/super/subject-user', this.createRequest)
-                            .then((response) => {
-                                if (response.data.response == 'created') {
-
-                                    this.$toaster.success('Запись успешно добавлена');
-                                }
-                                else if (response.data.response == 'duplicate') {
-
-                                    this.$toaster.warning('Запись уже существует');
-                                }
-                                else {
-
-                                    this.$toaster.error('Ошибка');
-                                }
-                                console.log(response);
-
-                            })
-                            .catch(e => {
-                                console.log(e);
-                                this.$toaster.error(e.response.data.message);
-                            })
-
-                    }
-                    else {
-
-                        this.$toaster.warning("Заполните все поля!");
-                    }
-                })
+                ]
             }
         }
     }

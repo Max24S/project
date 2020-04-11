@@ -29,15 +29,16 @@ class SubjectUserController extends Controller
         return view('admin.super.subject-user.index',compact('teachers','subject'));
     }
 
-    public function createForm($id) {
+    public function createForm($id,$name) {
 
         $teachers = (new User())
             ->getAllTeachers()
             ->get(['id','name','surname','patronymic']);
 
         $teachers = (new User())->groupFullName($teachers);
+        $subject = ['id'=>$id,'name'=>$name];
 
-        return view("admin.super.subject-user.create",compact('id','teachers'));
+        return view("admin.super.subject-user.create",compact('subject','teachers'));
     }
 
     /**

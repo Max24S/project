@@ -324,6 +324,7 @@
                                 if(response.data.response == 'created'){
 
                                     this.$toaster.success('Пользователь успешно добавлен');
+                                    document.location.href = "/admin/super/user"
                                 }
                                 else if(response.data.response == 'emailDuplicate'){
                                     this.duplicateEmail=this.user.email;

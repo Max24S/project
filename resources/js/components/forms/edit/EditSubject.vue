@@ -48,6 +48,7 @@
                                 if (response.data.response == 'updated') {
 
                                     this.$toaster.success('Данные успешно отредактированы');
+                                    document.location.href = "/admin/super/subject"
                                 }
                                 else if (response.data.response == 'duplicate') {
 

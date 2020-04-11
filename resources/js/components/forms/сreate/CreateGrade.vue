@@ -89,6 +89,7 @@
                                 if (response.data.response == 'created') {
 
                                     this.$toaster.success('Класс успешно добавлен');
+                                    document.location.href = "/admin/super/grade"
                                 }
                                 else if (response.data.response == 'duplicate') {
 

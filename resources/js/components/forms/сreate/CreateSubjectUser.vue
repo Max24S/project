@@ -1,38 +1,41 @@
 <template>
-    <form class="form-horizontal" role="form" @submit.prevent="sendSubject">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-sm-4">
-                    <label>Добавление преподавателя</label>
-                </div>
-                <div class="col-sm-8">
-                    <v-select
-                        v-validate="'required'"
-                        :class="{'input': true, 'alert-danger':errors.has('name')}"
-                        name="name"
-                        v-model="teacher.user_id"
-                        :options="teachers"
-                        :reduce="teacher => teacher.id"
-                        label="fullName"
-                    >
-                    </v-select>
-                    <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+    <div class="form_container">
+        <form class="form-horizontal" role="form" @submit.prevent="sendSubject">
+            <span class="d-block mb-4 title">Добавление преподавателя</span>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label>Преподаватель</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <v-select
+                            v-validate="'required'"
+                            :class="{'input': true, 'alert-danger':errors.has('name')}"
+                            name="name"
+                            v-model="teacher.user_id"
+                            :options="teachers"
+                            :reduce="teacher => teacher.id"
+                            label="fullName"
+                        >
+                        </v-select>
+                        <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Добавить</button>
-    </form>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Добавить</button>
+        </form>
+    </div>
 </template>
 
 <script>
     export default {
         name: "CreateUserSubject",
-        props:['teachers','id'],
+        props:['teachers','subject'],
         data(){
             return {
                 teacher:{
                     user_id:'',
-                    subject_id:this.id
+                    subject_id:this.subject.id
                 }
             }
         },
@@ -49,6 +52,7 @@
                                 if (response.data.response == 'created') {
 
                                     this.$toaster.success('Преподаватель успешно добавлен');
+                                    document.location.href = "/admin/super/subject-user/index/"+this.subject.id+'/'+this.subject.name;
                                 }
                                 else if (response.data.response == 'duplicate') {
 
@@ -83,6 +87,15 @@
         color: red;
     }
     .alert-danger{
-        border:2px solid red!important;
+        border:1px solid red!important;
+    }
+    .form_container {
+        padding: 25px;
+        border:1px solid grey;
+        margin-bottom:30px;
+        border-radius:10px;
+    }
+    .title {
+        font-size: 30px;
     }
 </style>

@@ -52,6 +52,7 @@
                                 if (response.data.response == 'created') {
 
                                     this.$toaster.success('Предмет успешно добавлен');
+                                    document.location.href = "/admin/super/subject"
                                 }
                                 else if (response.data.response == 'duplicate') {
 

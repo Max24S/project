@@ -48,6 +48,7 @@
                                 if (response.data.response == 'created') {
 
                                     this.$toaster.success('Кабинет успешно добавлен');
+                                    document.location.href = "/admin/super/classroom"
                                 }
                                 else if (response.data.response == 'nameDuplicate') {
 
