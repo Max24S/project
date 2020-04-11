@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Student\StoreRequest;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\User\StoreRequest;
+
 class StudentController extends Controller
 {
     /**
@@ -15,9 +17,17 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
+    public function studentsForGrade($id,$name)
+    {
+        $students = (new Student())->getStudents($id);
+
+        $grade = ['id'=>$id,'name'=>$name];
+
+        return view('admin.super.student.index',compact('students','grade'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -28,14 +38,28 @@ class StudentController extends Controller
 
     }
 
+    public function createForm($id,$name) {
+
+        $students = (new User())
+            ->getStudents()
+            ->get(['id','name','surname','patronymic']);
+
+        $students = (new User())->groupFullName($students);
+        $grade = ['id'=>$id,'name'=>$name];
+
+        return view("admin.super.student.create",compact('grade','students'));
+    }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($request)
+    public function store(StoreRequest $request)
     {
+        Student::create($request->all());
+
+        return ['response'=>'created'];
 
     }
 
@@ -81,6 +105,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+
+        return ['response'=>'deleted'];
     }
 }

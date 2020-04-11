@@ -35,10 +35,7 @@ class StoreRequest extends FormRequest
             'role' => 'required',
             'password' =>"required|min:8|max:16"
         ];
-        if($this['role']=='Ученик'){
 
-            $rules['grade_id']="required";
-        }
         return $rules;
     }
 }

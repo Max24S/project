@@ -47,13 +47,7 @@ class User extends Authenticatable
         {
             $user['password'] = bcrypt($user['password']);
 
-            $dbUser = User::create($user);
-
-            if($dbUser->role=='Ученик'){
-
-                $student = ['user_id'=>$dbUser->id,'grade_id'=>$user['grade_id']];
-                Student::create($student);
-            }
+            User::create($user);
 
             return ['response'=>'created'];
         }
@@ -88,6 +82,12 @@ class User extends Authenticatable
 
         return DB::table('users')
             ->where('users.role','<>','Ученик');
+    }
+
+    public function getStudents() {
+
+        return DB::table('users')
+            ->where('users.role','=','Ученик');
     }
 
     public function getAll()

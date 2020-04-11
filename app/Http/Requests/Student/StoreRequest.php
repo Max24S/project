@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Grade;
+namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['string', 'max:6', 'unique:grades,name,'.$this['id']],
-            'user_id'=>['integer', 'unique:grades,user_id,'.$this['id'],'nullable'],
-            'classroom_id'=>['integer','unique:grades,classroom_id,'.$this['id'],'nullable'],
+            'user_id'=>['integer', 'unique:students,user_id'],
+            'grade_id'=>['integer'],
         ];
     }
 }

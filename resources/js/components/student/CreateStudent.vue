@@ -1,20 +1,20 @@
 <template>
     <div class="form_container">
-        <form class="form-horizontal" role="form" @submit.prevent="createSubjectUser">
-            <span class="d-block mb-4 title">Добавление преподавателя</span>
+        <form class="form-horizontal" role="form" @submit.prevent="createStudent">
+            <span class="d-block mb-4 title">Добавление ученика</span>
             <div class="form-group">
                 <div class="row">
                     <div class="col-sm-4">
-                        <label>Преподаватель</label>
+                        <label>Ученик</label>
                     </div>
                     <div class="col-sm-8">
                         <v-select
                             v-validate="'required'"
                             :class="{'input': true, 'alert-danger':errors.has('name')}"
                             name="name"
-                            v-model="teacher.user_id"
-                            :options="teachers"
-                            :reduce="teacher => teacher.id"
+                            v-model="student.user_id"
+                            :options="students"
+                            :reduce="student => student.id"
                             label="fullName"
                         >
                             <template v-slot:no-options="{ search, searching }">
@@ -35,34 +35,32 @@
 
 <script>
     export default {
-        name: "CreateUserSubject",
-        props:['teachers','subject'],
+        name: "CreateStudent",
+        props:['students','grade'],
         data(){
             return {
-                teacher:{
+                student:{
                     user_id:'',
-                    subject_id:this.subject.id
+                    grade_id:this.grade.id
                 }
             }
         },
-        created(){
-            console.log(this.teachers);
-        },
         methods: {
-            createSubjectUser() {
-                console.log(this.teacher);
+            createStudent() {
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        axios.post('/admin/super/subject-user', this.teacher)
+                        console.log(this.student)
+                        axios.post('/admin/super/student', this.student)
                             .then((response) => {
+
                                 if (response.data.response == 'created') {
 
-                                    this.$toaster.success('Преподаватель успешно добавлен');
-                                    document.location.href = "/admin/super/subject-user/index/"+this.subject.id+'/'+this.subject.name;
+                                    this.$toaster.success('Запись успешно добавлена');
+                                    document.location.href = "/admin/super/student/index/"+this.grade.id+'/'+this.grade.name;
                                 }
                                 else if (response.data.response == 'duplicate') {
 
-                                    this.$toaster.warning('Преподаватель уже добавлен');
+                                    this.$toaster.warning('Запись уже существует');
                                 }
                                 else {
 
