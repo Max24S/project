@@ -51,6 +51,13 @@ Route::name('admin.')
             });
     });
 
+Route::name('student.')
+    ->namespace('User')
+    ->prefix('user')
+    ->group(function () {
+        Route::resource('student', 'StudentController');
+    });
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
