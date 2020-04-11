@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Timetable extends Model
 {
 
-    protected $fillable = ['lesson','teach_id','grade_id','classroom_id','name','description','status','created_at','updated_at'];
-
+    protected $fillable = ['lesson','subject_user_id','grade_id','classroom_id','name','description','status','created_at','updated_at'];
     public function show($grade,$semester)
     {
         return DB::table('timetables')
@@ -28,7 +27,7 @@ class Timetable extends Model
                             'users.name',
                             'users.surname',
                             'users.patronymic',
-                            'subjects.name as subjects',
+                            'subjects.name as subject',
                             'timetables.id')
             ->get();
     }
@@ -96,7 +95,6 @@ class Timetable extends Model
         return $timetable;
 
         }
-
     public function getTeachers()
     {
         return DB::table('subject_user')
@@ -137,7 +135,6 @@ class Timetable extends Model
             }
             return false;
     }
-
     public function checkTeacherUpdate($record,$id){
 
         $check = DB::table('timetables')
@@ -217,25 +214,24 @@ class Timetable extends Model
     public function addLesson($request)
     {
         $result=[];
+        $id='';
         $response['duplicateTeacher']=[];
         $response['duplicateClassroom']=[];
         $response['result']='';
             $duplicateTeacher=$this->checkTeacher($request);
             $duplicateClassroom=$this->checkClassroom($request);
             if (!$duplicateTeacher && !$duplicateClassroom) {
-                $request['created_at'] = date('Y-m-d H:i:s');
-                $request['updated_at'] = date('Y-m-d H:i:s');
-                array_push($result, $request);
             }
             else {
                 $response['duplicateTeacher']['lesson' . $request['lesson']] = $duplicateTeacher;
                 $response['duplicateClassroom']['lesson' . $request['lesson']] = $duplicateClassroom;
             }
         if (!count($response['duplicateTeacher'])&&!count($response['duplicateClassroom'])) {
-            DB::table('timetables')->insert($result);
+            $item=Timetable::create($request);
+             $id=$item->id;
             $response['result']='OK';
         }
-        return $response;
+        return [$response,$id];
     }
     public function  addTimeTable($request)
     {

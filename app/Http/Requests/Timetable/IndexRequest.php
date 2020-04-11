@@ -24,8 +24,8 @@ class IndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'grade_id' => 'required|not_in:none',
-            'semester' => 'required|not_in:none',
+            'grade_id' => 'required|not_in:none|integer',
+            'semester' => 'required|not_in:none|integer',
         ];
     }
 }
