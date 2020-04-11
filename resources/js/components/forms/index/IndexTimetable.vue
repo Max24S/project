@@ -5,17 +5,23 @@
                 <div class="form-container">
                     <div class="row">
                         <div class="col-5">
-                            <select class="form-control input" v-model="timetableData.grade_id"  name="grade">
+                            <select class="form-control input" v-model="timetableData.grade_id"  name="grade"
+                                    v-validate="'required|excluded:none|integer'"
+                                    :class="{'input': true, 'alert-danger':errors.has('grade')}">
                                 <option value="none">Выберите класс</option>
                                 <option v-for="grade in teachersAndSubjects['grades']" :value="grade.id">{{grade.name}}</option>
                             </select>
+                            <span v-if="errors.has('grade')" class="help is-danger">{{ errors.first('grade') }}</span>
                         </div>
                         <div class="col-5">
-                            <select class="form-control input" v-model="timetableData.semester" name="semester">
+                            <select class="form-control input" v-model="timetableData.semester" name="semester"
+                                    v-validate="'required|excluded:none|integer'"
+                                    :class="{'input': true, 'alert-danger':errors.has('semester')}">
                                 <option value="none">Выберите семестр</option>
-                                <option selected>1</option>
+                                <option >1</option>
                                 <option>2</option>
                             </select>
+                            <span v-if="errors.has('semester')" class="help is-danger">{{ errors.first('semester') }}</span>
                         </div>
                         <div class="col-2">
                            <b-button variant="info" type="submit">Выбрать</b-button>
@@ -162,7 +168,7 @@
             },
             SendData(){
                 this.$validator.validateAll().then((result) => {
-                    if (true) {
+                    if (result) {
                         axios.post(window.routes['admin.teacher.head-teacher.timetable.indexTimetable'], this.timetableData)
                             .then((response) => {
                                 if (response.data.result=='OK') {

@@ -172,6 +172,9 @@
             Show(){
                 this.show=this.visible;
             }
+        },
+        updated() {
+            console.log('dfdf');
         }
     }
 </script>

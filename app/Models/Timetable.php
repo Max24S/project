@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Timetable extends Model
 {
 
-    protected $fillable = ['lesson','subject_user_id','grade_id','classroom_id','name','description','status','created_at','updated_at'];
+    protected $fillable = ['lesson','subject_user_id','grade_id','classroom_id','day','description','status','created_at','updated_at'];
     public function show($grade,$semester)
     {
         return DB::table('timetables')

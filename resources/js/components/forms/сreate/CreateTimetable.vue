@@ -17,7 +17,7 @@
                          <span v-if="errors.has('day')" class="help is-danger">{{ errors.first('day') }}</span>
                      </th>
                      <th scope="col">
-                         <select name="grade_id" v-model="timetableData.grade_id" v-validate="'excluded:none'"
+                         <select name="grade_id" v-model="timetableData.grade_id" v-validate="'required|excluded:none'"
                                   :class="{'input': true, 'alert-danger':errors.has('grade_id')}">
                              <option value="none">Выберите класс</option>
                              <option v-for="grade in teachersAndSubjects['grades']" :value="grade.id">{{grade.name}}</option>
@@ -26,7 +26,7 @@
                      </th>
                      <th scope="col">
                          <select name="semester" v-model="timetableData.semester"
-                                 v-validate="'excluded:none'"
+                                 v-validate="'required|excluded:none'"
                                  :class="{'input': true, 'alert-danger':errors.has('semester')}">
                              <option value="none">Выберите семестр</option>
                              <option >1</option>

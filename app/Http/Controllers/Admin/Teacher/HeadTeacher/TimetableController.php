@@ -47,7 +47,6 @@ class TimetableController extends Controller
     }
     public function StoreLesson(Request $request)
     {
-
         return (new Timetable())->addLesson($request->all());
     }
 

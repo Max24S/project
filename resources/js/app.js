@@ -80,7 +80,7 @@ Vue.component('edit-classroom', require('./components/forms/edit/EditClassroom')
 Vue.component('edit-subject', require('./components/forms/edit/EditSubject').default);
 Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default);
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
-Vue.component('add-lesson', require('./components/forms/timetable/AddLesson').default);
+Vue.component('add-lesson', require('./components/forms/modal/AddLesson').default);
 
 
 Vue.component('com-p', require('./components/ComP').default);
