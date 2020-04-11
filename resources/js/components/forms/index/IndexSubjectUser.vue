@@ -1,30 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
     <div>
         <div class="container-fluid">
-            <span class="title d-block mb-3">{{subject.name}}</span>
-            <div class="row">
-                <div class="col-sm-4">
-                    <label>Добавление преподавателя</label>
-                </div>
-                <div class="col-sm-8">
-                    <div class="row">
-                        <div class="col-6">
-                            <v-select
-                                v-model="createRequest.user_id"
-                                :options="teachers.teachers"
-                                :reduce="teacher => teacher.id"
-                                label="fullName"
-                            >
-                            </v-select>
-                        </div>
-                        <div class="col-6">
-                            <button @click="addTeachers()" class="btn btn-primary btn-block">Добавить</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <span class="title d-block mb-3">Преподаватели по предмету: {{subject.name}}</span>
         </div>
-        <table-admin :items="teachers.teachersForSubjects" :fields="fields" :routes="routes"></table-admin>
+        <table-admin :items="teachers" :fields="fields" :routes="routes"></table-admin>
     </div>
 </template>
 
@@ -37,7 +16,7 @@
         data() {
             return {
                 routes:{
-                    Create:'',
+                    Create:'/admin/super/subject-user/create/'+this.subject.id,
                     Edit:'',
                     Delete:'/admin/super/subject-user/'
                 },
@@ -93,6 +72,6 @@
 
 <style scoped>
     .title {
-        font-size:22px;
+        font-size: 28px;
     }
 </style>

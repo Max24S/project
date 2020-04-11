@@ -22,18 +22,23 @@ class SubjectUserController extends Controller
 
     public function TeachersForSubject($id,$name)
     {
-        $teachersForSubjects = (new SubjectUser())->getTeachers($id);
-        $teachers = (new User())
-            ->getAllTeachers()
-            ->get(['id','name','surname','patronymic']);
+        $teachers = (new SubjectUser())->getTeachers($id);
 
-        $teachers = (new User())->groupFullName($teachers);
-        $teachers = ['teachers'=>$teachers,'teachersForSubjects'=>$teachersForSubjects];
         $subject = ['id'=>$id,'name'=>$name];
 
         return view('admin.super.subject-user.index',compact('teachers','subject'));
     }
 
+    public function createForm($id) {
+
+        $teachers = (new User())
+            ->getAllTeachers()
+            ->get(['id','name','surname','patronymic']);
+
+        $teachers = (new User())->groupFullName($teachers);
+
+        return view("admin.super.subject-user.create",compact('id','teachers'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -43,6 +48,7 @@ class SubjectUserController extends Controller
     public function create()
     {
 
+        return view("admin.super.subject-user.create");
     }
 
     /**

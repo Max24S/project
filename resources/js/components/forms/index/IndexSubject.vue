@@ -1,6 +1,13 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
     <div>
-        <table-admin :items="subjects" :fields="fields" :routes="routes" :action="action"></table-admin>
+        <table-admin
+            :items="subjects"
+            :fields="fields"
+            :routes="routes"
+            :action="action"
+        >
+            <create-subject></create-subject>
+        </table-admin>
     </div>
 </template>
 

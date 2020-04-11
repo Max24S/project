@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Super;
 
+use App\Http\Requests\Classroom\UpdateRequest;
 use App\Models\Classroom;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -75,9 +76,13 @@ class ClassroomController extends Controller
      * @param  \App\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Classroom $classroom)
+    public function update(UpdateRequest $request, Classroom $classroom)
     {
-        //
+        $data = $request->only(['name']);
+
+        $classroom->update($data);
+
+        return ['response'=>'updated'];
     }
 
     /**

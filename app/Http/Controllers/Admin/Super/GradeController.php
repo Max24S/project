@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Requests\Grade\StoreRequest;
+use App\Http\Requests\Grade\UpdateRequest;
 use App\Models\Classroom;
 use App\Models\Grade;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 
 use function GuzzleHttp\Promise\all;
+use Illuminate\Http\Request;
 
 class GradeController extends Controller
 {
@@ -100,9 +102,13 @@ class GradeController extends Controller
      * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Grade $grade)
+    public function update(UpdateRequest $request, Grade $grade)
     {
-        //
+        $data = $request->only(['name','classroom_id','user_id']);
+
+        $grade->update($data);
+
+        return ['response'=>'updated'];
     }
 
     /**

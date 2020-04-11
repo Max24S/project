@@ -1,27 +1,28 @@
 <template>
-    <!--<form class="form-horizontal" role="form" @submit.prevent="sendSubject">-->
-        <!--<h2>Добавление предмета</h2>-->
-        <!--<div class="form-group">-->
-            <!--<div class="row">-->
-                <!--<label for="Name" class="col-sm-4 control-label">Название предмета</label>-->
-                <!--<div class="col-sm-8">-->
-                    <!--<input-->
-                        <!--v-validate="'required'"-->
-                        <!--:class="{'input': true, 'alert-danger':errors.has('name')}"-->
-                        <!--type="text"-->
-                        <!--name="name"-->
-                        <!--id="Name"-->
-                        <!--placeholder="Предмет..."-->
-                        <!--class="form-control"-->
-                        <!--v-model="subject.name"-->
-                    <!--&gt;-->
-                    <!--<span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<button type="submit" class="btn btn-primary btn-block">Добавить</button>-->
-    <!--</form>-->
-    <com-p></com-p>
+    <div class="form_container">
+        <form class="form-horizontal" role="form" @submit.prevent="sendSubject">
+            <span class="d-block mb-4 title">Добавление предмета</span>
+            <div class="form-group">
+                <div class="row">
+                    <label for="Name" class="col-sm-4 control-label">Предмет</label>
+                    <div class="col-sm-8">
+                        <input
+                            v-validate="'required'"
+                            :class="{'input': true, 'alert-danger':errors.has('name')}"
+                            type="text"
+                            name="name"
+                            id="Name"
+                            placeholder="Предмет..."
+                            class="form-control"
+                            v-model="subject.name"
+                        >
+                        <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Добавить</button>
+        </form>
+    </div>
 </template>
 
 <script>
@@ -76,38 +77,6 @@
                 })
 
             }
-        },
-        mounted() {
-            let m = this.$modals.open({
-                title: 'Добавление предмета',
-                theme: 'osx', // || mojave
-                items: [{
-                    label: 'Предмет',
-                    name: 'username',
-                    type: 'text',
-                    value: 'Daniel',
-                },
-                    {
-                        label: 'Bio',
-                        name: 'bio',
-                        type: 'textarea',
-                        value: 'web developer',
-                    }
-                ],
-            });
-
-            m.onsave((m) => {
-                m.loading();
-                setTimeout(() => {
-                    console.log(m.formData())
-                    console.log(m.getItems())
-                    m.loaded()
-                }, 500)
-            })
-
-            m.onreload(() => {
-                console.log('Reloaded')
-            })
         }
     }
 </script>
@@ -117,6 +86,15 @@
         color: red;
     }
     .alert-danger{
-        border:2px solid red!important;
+        border:1px solid red!important;
+    }
+    .form_container {
+        padding: 25px;
+        border:1px solid grey;
+        margin-bottom:30px;
+        border-radius:10px;
+    }
+    .title {
+        font-size: 30px;
     }
 </style>

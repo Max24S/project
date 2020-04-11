@@ -16,4 +16,9 @@ class Student extends Model
             ->where('students.user_id',$id)
             ->get(['students.grade_id','grades.name']);
     }
+
+    public function updateStudent($user_id,$grade_id) {
+
+            Student::update(['grade_id'=>$grade_id])->where('user_id',$user_id);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Super;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\StoreRequest;
+use App\Http\Requests\Subject\UpdateRequest;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -78,9 +79,13 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(UpdateRequest $request, Subject $subject)
     {
-        //
+        $data = $request->only(['name']);
+
+        $subject->update($data);
+
+        return ['response'=>'updated'];
     }
 
     /**

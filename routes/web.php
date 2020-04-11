@@ -22,6 +22,11 @@ Route::name('admin.')
                 Route::resource('subject-user', 'SubjectUserController');
                 Route::get("subject-user/index/{id}/{name}",'SubjectUserController@TeachersForSubject');
                 Route::put("user/{user} ",'UserController@update');
+                Route::put("subject/{subject} ",'SubjectController@update');
+                Route::put("grade/{grade} ",'GradeController@update');
+                Route::put("classroom/{classroom} ",'ClassroomController@update');
+                Route::get("subject-user/create/{id} ",'SubjectUserController@createForm');
+
 
             });
         Route::prefix('teacher')

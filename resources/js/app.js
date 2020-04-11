@@ -48,7 +48,9 @@ Vue.use(VeeValidate, {
                 day:" ",
                 grade_id:" ",
                 classroom_id:" ",
-                semester:" "
+                semester:" ",
+                'confirm-password': " ",
+                password: " "
             }
         }
     }
@@ -63,6 +65,7 @@ Vue.component('create-timetable', require('./components/forms/сreate/CreateTime
 Vue.component('create-classroom', require('./components/forms/сreate/CreateClassroom.vue').default);
 Vue.component('create-grade', require('./components/forms/сreate/CreateGrade.vue').default);
 Vue.component('create-subject', require('./components/forms/сreate/CreateSubject.vue').default);
+Vue.component('create-subject-user', require('./components/forms/сreate/CreateSubjectUser.vue').default);
 Vue.component('index-timetable', require('./components/forms/index/IndexTimetable').default);
 Vue.component('index-user', require('./components/forms/index/IndexUser').default);
 Vue.component('index-subject', require('./components/forms/index/IndexSubject').default);
@@ -76,6 +79,7 @@ Vue.component('edit-subject', require('./components/forms/edit/EditSubject').def
 Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default);
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 Vue.component('add-lesson', require('./components/forms/timetable/AddLesson').default);
+Vue.component('form-create', require('./components/forms/сreate/FormCreate.vue').default);
 
 Vue.component('com-p', require('./components/ComP').default);
 Vue.component('com-h', require('./components/ComH').default);

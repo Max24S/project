@@ -1,7 +1,8 @@
 <template>
     <div>
+    <div class="form_container">
         <form class="form-horizontal" role="form" id="form" @submit.prevent="sendUser" method="post">
-            <h2>Добавление пользователя</h2>
+            <span class="d-block mb-4 title">Добавление пользователя</span>
             <div class="form-group">
                 <div class="row">
                     <label for="firstName" class="col-sm-4 control-label">Фамилия</label>
@@ -71,6 +72,7 @@
                             v-model="user.email"
                         >
                         <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                        <span v-if="emailErr&&duplicateEmail==user.email" class="is-danger">{{emailErr}}</span>
                     </div>
 
                 </div>
@@ -260,6 +262,7 @@
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
     </div>
+    </div>
 </template>
 
 <script>
@@ -280,13 +283,15 @@
                     number:'',
                     address:'',
                     sex:'',
-                    role:'',
+                    role:'none',
                     grade_id:'',
                     password:''
                 },
                 visibleConfirmPassword:false,
                 visiblePassword:false,
-                confirmPassword:''
+                confirmPassword:'',
+                emailErr:'',
+                duplicateEmail:''
             }
         },
         methods: {
@@ -310,6 +315,7 @@
                 this.confirmPassword =password;
             },
             sendUser(){
+                this.emailErr="";
                 console.log(this.user);
                 this.$validator.validateAll().then((result) => {
                     if (result) {
@@ -320,7 +326,8 @@
                                     this.$toaster.success('Пользователь успешно добавлен');
                                 }
                                 else if(response.data.response == 'emailDuplicate'){
-
+                                    this.duplicateEmail=this.user.email;
+                                    this.emailErr='Пользователь с данным email уже существует';
                                     this.$toaster.warning('Пользователь с данным email уже существует');
                                 }
                                 else{
@@ -331,7 +338,6 @@
 
                             })
                             .catch( e=>{
-
                                 this.$toaster.error(e.response.data.message);
                             })
 
@@ -374,9 +380,18 @@
      cursor:pointer;
  }
  .rand-password:hover {
-     transform: rotate(90deg);
+     transform: rotate(360deg);
  }
  .alert-danger{
-     border:2px solid red!important;
+     border:1px solid red!important;
+ }
+ .form_container {
+     padding: 25px;
+     border:1px solid grey;
+     margin-bottom:30px;
+     border-radius:10px;
+ }
+ .title {
+     font-size: 30px;
  }
 </style>

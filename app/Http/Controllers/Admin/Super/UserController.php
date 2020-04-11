@@ -104,8 +104,11 @@ class UserController extends Controller
             'role',
             'address',
             'number',
-            'password'
+            'password',
             ]);
+
+//        $r = $request->all();
+//        return ($r['name']);
 
         if(isset($data['password']))
         {
@@ -115,12 +118,14 @@ class UserController extends Controller
 
             unset($data['password']);
         }
-
+//
+//        if($request->only('grade_id')) {
+//
+//            (new Student())->updateStudent($request->id,$data['grade_id']);
+//        }
         $user->update($data);
 
         return ['response'=>'updated'];
-
-//        return redirect()->route('admin.super.user.index');
     }
 
     /**

@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <div>
+    <div class="form_container">
         <form class="form-horizontal" role="form" @submit.prevent = "sendGrade">
-            <h2>Добавление класса</h2>
+            <span class="d-block mb-4 title">Добавление класса</span>
             <div class="form-group">
                 <div class="row">
                     <label for="Name" class="col-sm-4 control-label">Название класса</label>
@@ -54,9 +54,7 @@
             </div>
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form>
-
     </div>
-
 </template>
 
 
@@ -121,10 +119,19 @@
 </script>
 
 <style scoped>
+    .form_container {
+        padding: 25px;
+        border:1px solid grey;
+        margin-bottom:30px;
+        border-radius:10px;
+    }
+    .title {
+        font-size: 30px;
+    }
     .is-danger {
         color: red;
     }
     .alert-danger{
-        border:2px solid red!important;
+        border:1px solid red!important;
     }
 </style>

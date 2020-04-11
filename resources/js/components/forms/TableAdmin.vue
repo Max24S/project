@@ -107,7 +107,7 @@
 <script>
     export default {
         name:'TableAdmin',
-        props:['routes','fields','items','action'],
+        props:['routes','fields','items','action','form-create'],
         data() {
             return {
                 totalRows: 1,

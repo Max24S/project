@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="form_container">
         <form class="form-horizontal" role="form" id="form" @submit.prevent="sendUser" method="post">
-            <h2>Редактирование пользователя</h2>
+            <span class="d-block mb-4 title">Редактирование пользователя</span>
             <div class="form-group">
                 <div class="row">
                     <label for="firstName" class="col-sm-4 control-label">Фамилия</label>
@@ -71,6 +71,7 @@
                             v-model="editUser.email"
                         >
                         <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
+                        <span v-if="emailErr&&duplicateEmail==editUser.email" class="is-danger">{{emailErr}}</span>
                     </div>
                 </div>
             </div>
@@ -285,13 +286,16 @@
                 },
                 visibleConfirmPassword:false,
                 visiblePassword:false,
-                confirmPassword:''
+                confirmPassword:'',
+                emailErr:'',
+                duplicateEmail:''
             }
         },
         created(){
 
             this.editUser=this.user;
             this.editUser.grade_id=this.studentData.grade_id;
+            console.log(this.studentData.grade_id);
         },
         methods:{
             showPassword(){
@@ -317,38 +321,47 @@
             console.log(this.user);
             this.$validator.validateAll().then((result) => {
                 if (result) {
+                    let check = this.editUser;
+                    delete check.password;
+                    console.log(check)
+                    console.log(this.user)
+                        axios.put('/admin/super/user/' + this.user.id, this.editUser)
+                            .then((response) => {
+                                if (response.data.response == 'updated') {
 
-                    axios.put('/admin/super/user/'+this.user.id,this.editUser)
-                        .then((response)=>{
-                            if(response.data.response == 'updated'){
+                                    this.$toaster.success('Данные успешно отредактированы');
+                                }
+                                else if (response.data.response == 'emailDuplicate') {
 
-                                this.$toaster.success('Данные успешно отредактированы');
-                            }
-                            else if(response.data.response == 'emailDuplicate'){
+                                    this.$toaster.warning('Пользователь с данным email уже существует');
+                                }
+                                else {
 
-                                this.$toaster.warning('Пользователь с данным email уже существует');
-                            }
-                            else{
+                                    this.$toaster.error('Ошибка');
+                                }
+                                console.log(response);
 
-                                this.$toaster.error('Ошибка');
-                            }
-                            console.log(response);
+                            })
+                            .catch(e => {
+                                    if(e.response.data.errors.email[0]){
+                                        this.duplicateEmail=this.editUser.email;
+                                        this.emailErr='Пользователь с данным email уже существует';
+                                        this.$toaster.error(e.response.data.errors.email[0]);
+                                    }
+                                    else {
+                                        this.$toaster.error(e.response.data.errors);
+                                    }
+                            })
 
-                        })
-                        .catch( e=>{
+                        }
+                    else {
 
-                            this.$toaster.error(e.response.data.message);
-                        })
+                        this.$toaster.warning("Заполните все поля!");
+                    }
+                })
 
-                }
-                else {
-
-                    this.$toaster.warning("Заполните все поля!");
-                }
-            })
-
+            }
         }
-    }
     }
 </script>
 
@@ -362,8 +375,8 @@
     }
     .visible {
         width: 16px;
-        top: 12px;
-        right: 25px;
+        top: 7px;
+        right: 27px;
         cursor: pointer;
     }
     .visible:hover {
@@ -380,9 +393,18 @@
         cursor:pointer;
     }
     .rand-password:hover {
-        transform: rotate(90deg);
+        transform: rotate(360deg);
     }
     .alert-danger{
-        border:2px solid red!important;
+        border:1px solid red!important;
+    }
+    .form_container {
+        padding: 25px;
+        border:1px solid grey;
+        margin-bottom:30px;
+        border-radius:10px;
+    }
+    .title {
+        font-size: 30px;
     }
 </style>

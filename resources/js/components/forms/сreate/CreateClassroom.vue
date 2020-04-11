@@ -1,26 +1,28 @@
 <template>
-    <form class="form-horizontal" @submit.prevent = "sendClassroom">
-        <h2>Добавление кабинета</h2>
-        <div class="form-group">
-            <div class="row">
-                <label for="Name" class="col-sm-4 control-label">Номер кабинета</label>
-                <div class="col-sm-8">
-                    <input
-                        v-validate="'required'"
-                        :class="{'input': true, 'alert-danger':errors.has('name')}"
-                        name="name"
-                        type="text"
-                        id="Name"
-                        placeholder="Кабинет..."
-                        class="form-control"
-                        v-model="classroom.name"
-                    >
-                    <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+    <div class="form_container">
+        <form class="form-horizontal" @submit.prevent = "sendClassroom">
+            <span class="d-block mb-4 title">Добавление кабинета</span>
+            <div class="form-group">
+                <div class="row">
+                    <label for="Name" class="col-sm-4 control-label">Номер кабинета</label>
+                    <div class="col-sm-8">
+                        <input
+                            v-validate="'required'"
+                            :class="{'input': true, 'alert-danger':errors.has('name')}"
+                            name="name"
+                            type="text"
+                            id="Name"
+                            placeholder="Кабинет..."
+                            class="form-control"
+                            v-model="classroom.name"
+                        >
+                        <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Добавить</button>
-    </form>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Добавить</button>
+        </form>
+    </div>
 </template>
 
 <script>
@@ -74,10 +76,19 @@
 </script>
 
 <style scoped>
+    .form_container {
+        padding: 25px;
+        border:1px solid grey;
+        margin-bottom:30px;
+        border-radius:10px;
+    }
+    .title {
+        font-size: 30px;
+    }
     .is-danger {
         color: red;
     }
     .alert-danger{
-        border:2px solid red!important;
+        border:1px solid red!important;
     }
 </style>
