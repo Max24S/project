@@ -19,9 +19,9 @@
                 },
                 fields: [
                     { key: 'id', label: 'id', sortable: true, class: 'text-center' },
-                    { key: 'grade', label: 'Класс', sortable: true, class: 'text-center' },
-                    { key: 'name', label: 'Имя', sortable: true, class: 'text-center' },
-                    { key: 'surname', label: 'фамилия', sortable: true, sortDirection: 'desc' },
+                    { key: 'name', label: 'Класс', sortable: true, class: 'text-center' },
+                    { key: 'surname', label: 'фамилия', sortable: true, class: 'text-center' },
+                    { key: 'secondName', label: 'Имя', sortable: true, sortDirection: 'desc' },
                     { key: 'patronymic', label: 'Отчество', sortable: true, sortDirection: 'desc' },
                     { key: 'classroom', label: 'Кабинет', sortable: true, sortDirection: 'desc' },
                     { key: 'actions', label: 'Действия' }

@@ -74,16 +74,19 @@ Vue.component('index-classroom', require('./components/forms/index/IndexClassroo
 Vue.component('index-grade', require('./components/forms/index/IndexGrade').default);
 Vue.component('index-subject-user', require('./components/forms/index/IndexSubjectUser').default);
 Vue.component('index-student', require('./components/student/IndexStudent').default);
+Vue.component('index-subject-student', require('./components/student/homework/IndexSubjectStudent').default);
 Vue.component('edit-user', require('./components/forms/edit/EditUser').default);
 Vue.component('edit-timetable', require('./components/forms/edit/EditTimetable').default);
 Vue.component('edit-classroom', require('./components/forms/edit/EditClassroom').default);
 Vue.component('edit-subject', require('./components/forms/edit/EditSubject').default);
 Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default);
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
+Vue.component('table-student', require('./components/student/TableStudent').default);
 Vue.component('add-lesson', require('./components/forms/modal/AddLesson').default);
 Vue.component('add-homework', require('./components/forms/modal/AddHomework').default);
 Vue.component('index-homework',require('./components/forms/index/IndexHomework').default);
 Vue.component('index-timetable-student', require('./components/student/timetable/IndexTimetableStudent').default);
+Vue.component('index-homework', require('./components/student/homework/IndexHomework').default);
 
 let EventBus = new Vue();
 const app = new Vue({

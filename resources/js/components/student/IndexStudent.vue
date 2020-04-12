@@ -11,6 +11,9 @@
     export default {
         name: "IndexStudent",
         props:['students','grade'],
+        created(){
+
+        },
         data() {
             return {
                 routes:{
@@ -20,8 +23,8 @@
                 },
                 fields: [
                     { key: 'id',label: 'id', sortable: true,sortDirection: 'desc', class: 'text-center' },
-                    { key: 'name', label: 'Имя', sortable: true,sortDirection: 'desc', class: 'text-center' },
-                    { key: 'surname', label: 'фамилия', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
+                    { key: 'surname', label: 'фамилия', sortable: true,sortDirection: 'desc', class: 'text-center' },
+                    { key: 'name', label: 'Имя', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
                     { key: 'patronymic', label: 'Отчество', sortable: true, sortDirection: 'desc',class: 'text-center' },
                     { key: 'actions', label: 'Действия' }
                 ]
