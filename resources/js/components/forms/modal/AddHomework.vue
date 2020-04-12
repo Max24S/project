@@ -73,8 +73,8 @@
         },
         methods:{
             Cancel() {
-                // this.show=false;
-                // this.Refresh();
+                this.show=false;
+                this.Refresh();
                 this.$emit('hide', false)
             },
             DateForDb(date){
@@ -85,6 +85,8 @@
             },
             Refresh()
             {
+                this.name='',
+                 this.description='',
                 this.reactiveRules=false;
             },
             AddLesson(){
@@ -96,45 +98,31 @@
                             homework = {
                                 'subject_user_id':this.id[0].subject_user_id,
                                 'grade_id':this.timetable.grade_id,
-                                'date': this.timetable.date,
+                                'deadline': this.timetable.date,
                                 'name': this.name,
                                 'description':this.description,
                             }
                         }
                         axios.post('/admin/teacher/homework/StoreHomeWork', homework)
                             .then((response) => {
-                                if (response.data=='OK') {
-
+                                if (response.data[0]=='OK') {
                                     this.$toaster.success('Расписание успешно добавленно');
-                                    this.show=false;
                                     // let cell = {
-                                    //     // 'dayRow': this.timetable.rowDay,
-                                    //     // 'day': this.timetable.day,
-                                    //     // 'lesson': this.timetable.lesson,
-                                    //     // 'id': response.data[1],
-                                    //     // 'subject': this.currentSubject.name,
-                                    //     // 'surname':this.currentTeacher.surname,
-                                    //     // 'name':this.currentTeacher.name,
-                                    //     // 'patronymic':this.currentTeacher.patronymic,
-                                    //     // 'classroom': this.classroom_id.name,
+                                    //     'dayRow': this.timetable.rowDay,
+                                    //     'day': this.timetable.day,
+                                    //     'lesson': this.timetable.lesson,
+                                    //     'id': response.data[1],
+                                    //     'subject': this.currentSubject.name,
+                                    //     'surname':this.currentTeacher.surname,
+                                    //     'name':this.currentTeacher.name,
+                                    //     'patronymic':this.currentTeacher.patronymic,
+                                    //     'classroom': this.classroom_id.name,
                                     // }
                                     //
                                     // this.SendLessonForTable(cell);
                                     this.Cancel();
-
                                 }
-
                                 else {
-
-                                    if (Object.keys(response.data[0].duplicateTeacher).length > 0) {
-
-                                        this.duplicateTeacher['lesson' ] = response.data[0].duplicateTeacher['lesson'+ this.timetable.lesson];
-
-                                    }
-                                    if (Object.keys(response.data[0].duplicateClassroom).length > 0) {
-
-                                        this.duplicateClassroom['lesson'] = response.data[0].duplicateClassroom['lesson'+ this.timetable.lesson];
-                                    }
                                 }
                             })
                             .catch(e => {
@@ -160,6 +148,16 @@
 
 }
 <style scoped>
+    .cross{
+        position: absolute;
+        width: 60px;
+        height: 62px;
+        background: #fff;
+        top: -63px;
+        right: 0px;
+        color:#FF0000;
+        border:none;
+    }
     .is-danger {
         color: red;
     }
