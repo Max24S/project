@@ -10,7 +10,7 @@ class Timetable extends Model
 
     protected $fillable = ['lesson','subject_user_id','grade_id','classroom_id','day','description','status','created_at','updated_at'];
 
-    public function prepareForStudent($grade_id) {
+    public function prepareForStudent($grade_id,$semester) {
 
        $timetable = DB::table('timetables')
            ->join('subject_user','subject_user.id',"=",'timetables.subject_user_id')
@@ -18,6 +18,7 @@ class Timetable extends Model
            ->join('classrooms','classrooms.id','=','timetables.classroom_id')
            ->join('subjects','subjects.id','=','subject_user.subject_id')
            ->where('timetables.grade_id',$grade_id)
+           ->where('timetables.semester',$semester)
            ->orderBy('timetables.lesson')
            ->get(['users.name',
                'users.surname',
