@@ -47,6 +47,7 @@
                 ref="table"
                 bordered
                 class="mb-0 table"
+                head-variant="light"
             >
                 <template v-slot:empty="scope">
                     <span class="d-flex justify-content-center">Нет записей</span>

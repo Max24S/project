@@ -21,9 +21,9 @@ class TimetableController extends Controller
         return view("student.timetable.index",compact('grades'));
     }
 
-    public function  getTimetable($id){
+    public function  getTimetable($id,$semester){
 
-        $timetable = (new Timetable()) ->prepareForStudent($id);
+        $timetable = (new Timetable()) ->prepareForStudent($id,$semester);
 
         return $timetable;
     }

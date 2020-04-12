@@ -50,7 +50,7 @@ Vue.use(VeeValidate, {
                 classroom_id:" ",
                 semester:" ",
                 'confirm-password': " ",
-                password: " "
+                password: " ",
             }
         }
     }
