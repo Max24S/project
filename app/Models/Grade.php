@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Grade extends Model
@@ -23,7 +24,7 @@ class Grade extends Model
         return DB::table('grades')
             ->leftjoin('users','users.id','=','grades.user_id')
             ->leftjoin('classrooms','classrooms.id','=','grades.classroom_id')
-            ->get(['grades.id','grades.name as grade','users.name','users.surname','users.patronymic','classrooms.name as classroom']);
+            ->get(['grades.id','grades.name as name','users.name as secondName','users.surname','users.patronymic','classrooms.name as classroom']);
     }
 
     public static function find(string $string)
@@ -100,5 +101,16 @@ class Grade extends Model
 
         return true;
 
+    }
+
+    public function getStudentGrade(){
+
+        $id =Auth::id();
+
+        return DB::table('students')
+            ->join('users','users.id','=','students.user_id')
+            ->join('grades','grades.id','=','students.grade_id')
+            ->where('users.id',$id)
+            ->get('grades.id');
     }
 }

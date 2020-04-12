@@ -60,6 +60,7 @@ Route::name('student.')
         Route::resource('timetable', 'TimetableController');
         Route::resource('homework', 'HomeworkController');
         Route::get("timetable-index/{id}/{semester}",'TimetableController@getTimetable');
+        Route::get("homework-index/{id}/{subject}",'HomeworkController@indexHomeworkForSubject');
     });
 
 Auth::routes();
