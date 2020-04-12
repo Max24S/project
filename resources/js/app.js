@@ -83,10 +83,10 @@ Vue.component('edit-grade', require('./components/forms/edit/EditGrade').default
 Vue.component('table-admin', require('./components/forms/TableAdmin').default);
 Vue.component('table-student', require('./components/student/TableStudent').default);
 Vue.component('add-lesson', require('./components/forms/modal/AddLesson').default);
+Vue.component('add-homework', require('./components/forms/modal/AddHomework').default);
 Vue.component('index-homework',require('./components/forms/index/IndexHomework').default);
 Vue.component('index-timetable-student', require('./components/student/timetable/IndexTimetableStudent').default);
 Vue.component('index-homework', require('./components/student/homework/IndexHomework').default);
-
 
 let EventBus = new Vue();
 const app = new Vue({

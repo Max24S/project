@@ -14,7 +14,7 @@
                 <div class="col-sm-8">
                     <select v-model="currentSubject"
                         id="subject_id"
-                        :name="'subject'" v-validate="'required|excluded:none'"
+                        :name="'subject'" v-validate="reactiveRules?'excluded:none':''"
                         :class="{'input': true, 'alert-danger':errors.has('subject')}">
                         <option value="none">Выберите предмет</option>
                         <option v-for="subject in teachersAndSubjects['subjects']"
@@ -22,6 +22,7 @@
                             {{subject.name}}
                         </option>
                     </select>
+                    <div v-if="errors.has('subject')" class="help is-danger ">Поле обязательно для заполнения</div>
                 </div>
             </div>
             <div class="form-group row mb-1">
@@ -30,7 +31,7 @@
                     <select v-model="currentTeacher"
                          id="teacher_id"
                         :name="'teacher'"
-                        v-validate="'required|excluded:none'"
+                        v-validate="reactiveRules?'excluded:none':''"
                         :class="{'input': true, 'alert-danger':errors.has('teacher')}">
                     <option value="none">Выберите преподователя</option>
                     <option v-for="teacher in teachersAndSubjects['teachers']"
@@ -50,7 +51,7 @@
                             id="classroom_id"
                             :name="'classroom'"
                             v-model="classroom_id"
-                            v-validate="'required|excluded:none'"
+                            v-validate="reactiveRules?'excluded:none':''"
                             :class="{'input': true, 'alert-danger':errors.has('classroom')}">
                         <option value='none'>Выберите кабинет</option>
                         <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom">{{classroom.name}}</option>
@@ -91,6 +92,7 @@
         props:['teachers-and-subjects','timetable','visible'],
         data(){
             return{
+                reactiveRules:false,
                 currentSubject:'none',
                 currentTeacher:'none',
                 classroom_id:'none',
@@ -108,10 +110,20 @@
         methods:{
             Cancel() {
                 // this.show=false;
+                this.Refresh();
                 this.$emit('hide', false)
             },
             SendLessonForTable(lesson){
                 this.$emit('lesson', lesson);
+            },
+            Refresh()
+            {
+                    this.reactiveRules=false;
+                    this.currentSubject='none',
+                    this.currentTeacher='none',
+                    this.classroom_id='none',
+                    this.duplicateTeacher['lesson']='',
+                    this.duplicateClassroom['lesson']=''
             },
             AddLesson(){
                 this.$validator.validateAll().then((result) => {
@@ -141,11 +153,15 @@
                                         'lesson': this.timetable.lesson,
                                         'id': response.data[1],
                                         'subject': this.currentSubject.name,
+                                        'surname':this.currentTeacher.surname,
+                                        'name':this.currentTeacher.name,
+                                        'patronymic':this.currentTeacher.patronymic,
                                         'classroom': this.classroom_id.name,
-                                        'show':this.show,
                                     }
+
                                     this.SendLessonForTable(cell);
-                                    this.$bvModal.hide(this.modal_id)
+                                    this.Cancel();
+
                                 }
 
                                 else {
@@ -173,6 +189,7 @@
         computed:{
             Show(){
                 this.show=this.visible;
+                this.reactiveRules=this.show;
             }
         }
     }

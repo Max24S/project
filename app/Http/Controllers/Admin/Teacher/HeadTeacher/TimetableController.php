@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Teacher\HeadTeacher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Timetable\IndexRequest;
+use App\Http\Requests\Timetable\LessonRequest;
 use App\Http\Requests\Timetable\UpdateRequest;
 use App\Models\Subject;
 use App\Models\Timetable;
@@ -46,7 +47,7 @@ class TimetableController extends Controller
     {
         return (new Timetable())->addTimeTable($request->all());
     }
-    public function StoreLesson(Request $request)
+    public function StoreLesson(LessonRequest $request)
     {
         return (new Timetable())->addLesson($request->all());
     }
