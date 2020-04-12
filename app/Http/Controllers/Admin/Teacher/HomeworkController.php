@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Teacher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Homework;
+use App\Models\Timetable;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\Homework\StoreRequest;
@@ -17,7 +18,8 @@ class HomeworkController extends Controller
      */
     public function index()
     {
-        //
+//        $grades=(new Timetable())->getGrades()->get();
+//        return view('admin.teacher.homework.index',compact('grades'));
     }
 
     /**

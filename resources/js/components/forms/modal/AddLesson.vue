@@ -1,16 +1,20 @@
 <template>
+
     <b-modal
+            no-close-on-backdrop
+            no-close-on-esc
             size="md"
             v-model="show"
+            :id="modal_id"
             title="Cоздание записи урока">
         <b-container fluid>
-            {{Show}}
+        {{Show}}
             <div class="form-group row mb-1">
                 <label for="subject_id" class="col-sm-4 col-form-label">Предмет</label>
                 <div class="col-sm-8">
                     <select v-model="currentSubject"
                         id="subject_id"
-                        :name="'subject'" v-validate="'excluded:none'"
+                        :name="'subject'" v-validate="'required|excluded:none'"
                         :class="{'input': true, 'alert-danger':errors.has('subject')}">
                         <option value="none">Выберите предмет</option>
                         <option v-for="subject in teachersAndSubjects['subjects']"
@@ -18,49 +22,48 @@
                             {{subject.name}}
                         </option>
                     </select>
-                    <span v-if="errors.has('subject')" class="help is-danger d-block">Поле обязательно для заполнения</span>
                 </div>
             </div>
-            <template v-if="currentSubject!='-'">
-                <div class="form-group row mb-1">
-                    <label for="teacher_id" class="col-sm-4 col-form-label">Преподователь</label>
-                    <div class="col-sm-8">
-                        <select v-model="currentTeacher"
-                             id="teacher_id"
-                            :name="'teacher'"
-                            v-validate="'excluded:none'"
-                            :class="{'input': true, 'alert-danger':errors.has('teacher')}">
-                        <option value="none">Выберите преподователя</option>
-                        <option v-for="teacher in teachersAndSubjects['teachers']"
-                                v-if="currentSubject==='none'|| currentSubject.id==teacher.subject_id"
-                                :value="teacher">
-                            {{teacher.surname}} {{teacher.name}} {{teacher.patronymic}}
-                        </option>
-                    </select>
-                    <span v-if="duplicateTeacher['lesson']" class="help is-danger d-block">У этого преподователя уже есть занятие на этом уроке</span>
-                    <span v-if="errors.has('teacher')" class="help is-danger d-block">Поле обязательно для заполнения</span>
-                    </div>
+            <div class="form-group row mb-1">
+                <label for="teacher_id" class="col-sm-4 col-form-label">Преподователь</label>
+                <div class="col-sm-8">
+                    <select v-model="currentTeacher"
+                         id="teacher_id"
+                        :name="'teacher'"
+                        v-validate="'required|excluded:none'"
+                        :class="{'input': true, 'alert-danger':errors.has('teacher')}">
+                    <option value="none">Выберите преподователя</option>
+                    <option v-for="teacher in teachersAndSubjects['teachers']"
+                            v-if="currentSubject==='none'|| currentSubject.id==teacher.subject_id"
+                            :value="teacher">
+                        {{teacher.surname}} {{teacher.name}} {{teacher.patronymic}}
+                    </option>
+                </select>
+                <div v-if="duplicateTeacher['lesson']" class="help is-danger ">У этого преподователя уже есть занятие на этом уроке</div>
+                <div v-if="errors.has('teacher')" class="help is-danger ">Поле обязательно для заполнения</div>
                 </div>
-                <div class="form-group row mb-1">
-                    <label for="classroom_id" class="col-sm-4 col-form-label">Класс</label>
-                    <div class="col-sm-8">
-                        <select
-                                id="classroom_id"
-                                :name="'classroom'"
-                                v-model="classroom_id"
-                                v-validate="'excluded:none'"
-                                :class="{'input': true, 'alert-danger':errors.has('classroom')}">
-                            <option value='none'>Выберите кабинет</option>
-                            <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom">{{classroom.name}}</option>
-                        </select>
-                        <span v-if="duplicateClassroom['lesson']" class=" d-block help is-danger">Кабинет занят</span>
-                        <span v-if="errors.has('classroom')" class=" d-block help is-danger ">Поле обязательно для заполнения</span>
-                    </div>
-                 </div>
-            </template>
+            </div>
+            <div class="form-group row mb-1">
+                <label for="classroom_id" class="col-sm-4 col-form-label">Класс</label>
+                <div class="col-sm-8">
+                    <select
+                            id="classroom_id"
+                            :name="'classroom'"
+                            v-model="classroom_id"
+                            v-validate="'required|excluded:none'"
+                            :class="{'input': true, 'alert-danger':errors.has('classroom')}">
+                        <option value='none'>Выберите кабинет</option>
+                        <option v-for="classroom in teachersAndSubjects['classrooms']" :value="classroom">{{classroom.name}}</option>
+                    </select>
+                    <div v-if="duplicateClassroom['lesson']" class="  help is-danger">Кабинет занят</div>
+                    <div v-if="errors.has('classroom')" class=" help is-danger ">Поле обязательно для заполнения</div>
+                </div>
+             </div>
+            <b-button @click="Cancel"variant="outline-light" class=" cross"><b-icon-x-square></b-icon-x-square></b-button>
         </b-container>
         <template v-slot:modal-footer>
             <div class="w-100">
+
                 <b-button
                         squared variant="dark"
                         size="md"
@@ -73,7 +76,7 @@
                         squared variant="warning"
                         size="md"
                         class="float-right"
-                        @click="AddLesson"
+                        @click="AddLesson()"
                 >
                     Добавить
                 </b-button>
@@ -97,12 +100,14 @@
                 },
                 duplicateClassroom:{
                     lesson:""
-                }
+                },
+                modal_id:"modal"
+
             }
         },
         methods:{
-            Cancel(){
-                this.show=false;
+            Cancel() {
+                // this.show=false;
                 this.$emit('hide', false)
             },
             SendLessonForTable(lesson){
@@ -127,18 +132,22 @@
                         axios.post('/admin/teacher/head-teacher/timetable/StoreLesson', lesson)
                             .then((response) => {
                                 if (response.data[0].result=='OK') {
+
                                     this.$toaster.success('Расписание успешно добавленно');
-                                   let cell={
-                                        'dayRow':this.timetable.rowDay,
+                                    this.show=false;
+                                    let cell = {
+                                        'dayRow': this.timetable.rowDay,
                                         'day': this.timetable.day,
                                         'lesson': this.timetable.lesson,
-                                        'id':response.data[1],
-                                        'subject':this.currentSubject.name,
-                                        'classroom':this.classroom_id.name
+                                        'id': response.data[1],
+                                        'subject': this.currentSubject.name,
+                                        'classroom': this.classroom_id.name,
+                                        'show':this.show,
                                     }
                                     this.SendLessonForTable(cell);
-                                    this.show=false;
+                                    this.$bvModal.hide(this.modal_id)
                                 }
+
                                 else {
 
                                     if (Object.keys(response.data[0].duplicateTeacher).length > 0) {
@@ -165,14 +174,24 @@
             Show(){
                 this.show=this.visible;
             }
-        },
-        updated() {
-
         }
     }
 </script>
 
 <style scoped>
+    .cross{
+        position: absolute;
+        width: 60px;
+        height: 62px;
+        background: #fff;
+        top: -63px;
+        right: 0px;
+        color:#FF0000;
+        border:none;
+    }
+    .cross:hover{
+        background:#fff;
+    }
 
     .is-danger {
         color: red;

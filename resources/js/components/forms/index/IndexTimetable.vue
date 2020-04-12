@@ -48,38 +48,50 @@
             @filtered="onFiltered"
             ref="table">
             <template v-slot:cell(monday)="row">
-                <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'monday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <div class="d-flex justify-content-start">
+                    <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'monday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                    <b-button v-if="!row.value.subject" @click="OpenModal('Понедельник',row.item.lesson,'monday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                </div>
                 <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subject" @click="OpenModal('Понедельник',row.item.lesson,'monday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
-
             </template>
             <template v-slot:cell(tuesday)="row">
+                <div class="d-flex justify-content-start">
                     <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'tuesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
-                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
                     <b-button  v-if="!row.value.subject" @click="OpenModal('Вторник',row.item.lesson,'tuesday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                </div>
+                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
             </template>
             <template v-slot:cell(wednesday)="row">
-                <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'wednesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <div class="d-flex justify-content-start">
+                    <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'wednesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                    <b-button  v-if="!row.value.subject" @click="OpenModal('Среда',row.item.lesson,'wednesday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                </div>
                 <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button  v-if="!row.value.subject" @click="OpenModal('Среда',row.item.lesson,'wednesday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
             </template>
             <template  v-slot:cell(thursday)="row">
-                <b-button  variant="danger" @click="deleleteLesson(row.value.id,row.index,'thursday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <div class="d-flex justify-content-start">
+                    <b-button  variant="danger" @click="deleleteLesson(row.value.id,row.index,'thursday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                    <b-button  v-if="!row.value.subject" @click="OpenModal('Четверг',row.item.lesson,'thursday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                </div>
                 <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button  v-if="!row.value.subject" @click="OpenModal('Четверг',row.item.lesson,'thursday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
             </template>
             <template  v-slot:cell(friday)="row">
-                <b-button  variant="danger"@click="deleleteLesson(row.value.id,row.index,'friday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <div class="d-flex justify-content-start">
+                    <b-button  variant="danger"@click="deleleteLesson(row.value.id,row.index,'friday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                    <b-button v-if="!row.value.subject" @click="OpenModal('Пятница',row.item.lesson,'friday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                </div>
                 <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subject" @click="OpenModal('Пятница',row.item.lesson,'friday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
             </template>
             <template  v-slot:cell(saturday)="row">
-                <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'saturday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                <div class="d-flex justify-content-start    ">
+                    <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'saturday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                    <b-button v-if="!row.value.subject" @click="OpenModal('Суббота',row.item.lesson,'saturday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                </div>
                 <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
-                <b-button v-if="!row.value.subject" @click="OpenModal('Суббота',row.item.lesson,'saturday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
             </template>
         </b-table>
     </b-container>
+        {{show}}
         <div>
             <add-lesson @hide="show=$event" :teachers-and-subjects="teachersAndSubjects"
                         :timetable="timetableData"
@@ -110,13 +122,13 @@
                 },
                 isVisible:"",
                 fields: [
-                    { key: 'lesson', label: '№ урока' },
-                    { key: 'monday', label: 'Понедельник' },
-                    { key: 'tuesday', label: 'Вторник' },
-                    { key: 'wednesday', label: 'Среда' },
-                    { key: 'thursday', label: 'Четверг' },
-                    { key: 'friday', label: 'Пятница' },
-                    { key: 'saturday', label: 'Суббота' },
+                    { key: 'lesson', label: '№ урока' ,class: 'text-center'},
+                    { key: 'monday', label: 'Понедельник' ,class: 'text-center'},
+                    { key: 'tuesday', label: 'Вторник' ,class: 'text-center'},
+                    { key: 'wednesday', label: 'Среда' ,class: 'text-center'},
+                    { key: 'thursday', label: 'Четверг' ,class: 'text-center'},
+                    { key: 'friday', label: 'Пятница' ,class: 'text-center'},
+                    { key: 'saturday', label: 'Суббота' ,class: 'text-center'},
                 ],
                 totalRows: 1,
                 currentPage: 1,
@@ -146,8 +158,8 @@
                     'classroom':lesson.classroom,
                     'subject':lesson.subject
                 };
+                this.show=lesson.show;
                 this.$refs.table.refresh();
-                console.log( this.items[lesson.lesson-1][lesson.dayRow]);
             },
             SendData(){
                 this.$validator.validateAll().then((result) => {
