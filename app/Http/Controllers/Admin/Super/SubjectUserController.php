@@ -38,7 +38,7 @@ class SubjectUserController extends Controller
         $teachers = (new User())->groupFullName($teachers);
         $subject = ['id'=>$id,'name'=>$name];
 
-        return view("admin.super.subject-user.create",compact('subject','teachers'));
+        return view("admin.super.subject-user.create",compact('teachers','subject'));
     }
 
     /**

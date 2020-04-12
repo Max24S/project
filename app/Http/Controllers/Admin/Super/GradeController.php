@@ -21,7 +21,7 @@ class GradeController extends Controller
      */
     public function index()
     {
-        $grades = collect((new Grade())->getGrades());
+        $grades = (new Grade())->getGrades();
 
         return view('admin.super.grade.index',compact('grades'));
     }

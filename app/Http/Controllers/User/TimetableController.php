@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Grade;
 use App\Models\Timetable;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,16 @@ class TimetableController extends Controller
      */
     public function index()
     {
+        $grades = (new Grade())->getAllGrades()->get(['id','name']);
 
-        return view("student.timetable.index");
+        return view("student.timetable.index",compact('grades'));
+    }
+
+    public function  getTimetable($id){
+
+        $timetable = (new Timetable()) ->prepareForStudent($id);
+
+        return $timetable;
     }
 
     /**

@@ -16,8 +16,8 @@
                 },
                 fields: [
                     { key: 'id',label: 'id', sortable: true,sortDirection: 'desc', class: 'text-center' },
-                    { key: 'name', label: 'Имя', sortable: true,sortDirection: 'desc', class: 'text-center' },
-                    { key: 'surname', label: 'фамилия', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
+                    { key: 'surname', label: 'Фамилия', sortable: true,sortDirection: 'desc', class: 'text-center' },
+                    { key: 'name', label: 'Имя', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
                     { key: 'patronymic', label: 'Отчество', sortable: true, sortDirection: 'desc',class: 'text-center' },
                     { key: 'email', label: 'email', sortable: true, sortDirection: 'desc',class: 'text-center' },
                     { key: 'number', label: 'Номер телефона', sortable: true, sortDirection: 'desc',class: 'text-center' },

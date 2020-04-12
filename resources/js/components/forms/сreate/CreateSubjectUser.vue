@@ -21,7 +21,6 @@
                                 <template v-if="searching">
                                     Совпадений не найдено
                                 </template>
-                                <em style="opacity: 0.5;" v-else>Start typing to search for a country.</em>
                             </template>
                         </v-select>
                         <span v-show="errors.has('name')" class="help is-danger">{{ errors.first('name') }}</span>
@@ -35,7 +34,7 @@
 
 <script>
     export default {
-        name: "CreateUserSubject",
+        name: "CreateSubjectUser",
         props:['teachers','subject'],
         data(){
             return {
@@ -46,7 +45,7 @@
             }
         },
         created(){
-            console.log(this.teachers);
+            console.log(this.subject);
         },
         methods: {
             createSubjectUser() {

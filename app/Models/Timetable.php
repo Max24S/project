@@ -9,6 +9,74 @@ class Timetable extends Model
 {
 
     protected $fillable = ['lesson','subject_user_id','grade_id','classroom_id','day','description','status','created_at','updated_at'];
+
+    public function prepareForStudent($grade_id) {
+
+       $timetable = DB::table('timetables')
+           ->join('subject_user','subject_user.id',"=",'timetables.subject_user_id')
+           ->join('users','users.id',"=",'subject_user.user_id')
+           ->join('classrooms','classrooms.id','=','timetables.classroom_id')
+           ->join('subjects','subjects.id','=','subject_user.subject_id')
+           ->where('timetables.grade_id',$grade_id)
+           ->orderBy('timetables.lesson')
+           ->get(['users.name',
+               'users.surname',
+               'users.patronymic',
+               'classrooms.name as classroom',
+               'subjects.name as subject',
+               'timetables.lesson',
+               'timetables.day'
+               ]);
+
+       return $this->groupForStudent($timetable->groupBy('day')->toArray());
+    }
+
+    public function groupForStudent($timetable){
+        $result=[];
+
+        $lessonsForDays['Понедельник']=[];
+        $lessonsForDays['Вторник']=[];
+        $lessonsForDays['Среда']=[];
+        $lessonsForDays['Четверг']=[];
+        $lessonsForDays['Пятница']=[];
+        $lessonsForDays['Суббота']=[];
+        foreach ($timetable as $day) {
+            $j=0;
+            for ($i = 0; $i <= 7; $i++) {
+
+                if ( $day[$i-$j]??"") {
+
+                    if ($day[$i-$j]->lesson == $i+1) {
+
+                        array_push($lessonsForDays[$day[$i-$j]->day], $day[$i-$j]);
+                    }
+                    else {
+                        array_push($lessonsForDays[$day[$i-$j]->day] , null);
+                        $j++;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        for ($i=0;$i<=7;$i++)
+        {
+            $lessons=[
+                'lesson'=>$i+1,
+                "monday"=>$lessonsForDays['Понедельник'][$i]??' ',
+                "tuesday"=>$lessonsForDays['Вторник'][$i]??' ',
+                "wednesday"=>$lessonsForDays['Среда'][$i]??' ',
+                "thursday"=>$lessonsForDays['Четверг'][$i]??' ',
+                "friday"=>$lessonsForDays['Пятница'][$i]??' ',
+                "saturday"=>$lessonsForDays['Суббота'][$i]??' ',
+            ];
+            array_push($result,$lessons);
+        }
+        return ['response'=>'OK','timetable'=>$result];
+    }
+
     public function show($grade,$semester)
     {
         return DB::table('timetables')

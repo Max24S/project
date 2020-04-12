@@ -48,6 +48,12 @@
                 bordered
                 class="mb-0 table"
             >
+                <template v-slot:empty="scope">
+                    <span class="d-flex justify-content-center">Нет записей</span>
+                </template>
+                <template v-slot:emptyfiltered="scope">
+                    <span class="d-flex justify-content-center">К сожалению,совпадений не найдено</span>
+                </template>
                 <template v-slot:cell(actions)="row">
                     <a
                         class="btn btn-primary edit"

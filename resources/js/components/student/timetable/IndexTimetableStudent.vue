@@ -1,6 +1,31 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
     <div>
-        <span>Укажите класс</span>
+        <div class="container">
+            <div class="form_container mx-auto">
+                <form @submit.prevent="getTimetable">
+                    <div class="row">
+                        <div class="col-sm-4"><span class="title d-flex mb-4 justify-content-center">Укажите класс</span></div>
+                        <div class="col-sm-4">  <v-select
+                            v-model="grade.id"
+                            :options="grades"
+                            :reduce="grade => grade.id"
+                            label="name"
+                            class="mb-4"
+                        >
+                            <template v-slot:no-options="{ search, searching }">
+                                <template v-if="searching">
+                                    Совпадений не найдено
+                                </template>
+                            </template>
+                            <template v-slot:no-options>
+                                Нет элементов
+                            </template>
+                        </v-select></div>
+                        <div class="col-sm-4"> <button type="submit" class="btn btn-primary btn-block">Выбрать</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <b-container fluid>
             <b-table
                 show-empty
@@ -29,8 +54,9 @@
                     </b-tr>
                 </template>
 
+
                 <template v-slot:cell()="row">
-                    <span class="d-flex justify-content-center align-items-center">{{ row.value.lesson}}</span>
+                    <span class="d-flex justify-content-center align-items-center">{{items[row.index].lesson}}</span>
                     <span class="d-flex justify-content-center">{{row.value.subject}}</span>
                     <span class="d-flex justify-content-center"> {{ row.value.classroom}}</span>
                     <span class="d-flex justify-content-center">{{row.value.teacher}}</span>
@@ -63,8 +89,12 @@
     export default {
         name:'TableAdmin',
         // props:['routes','fields','items','action','form-create'],
+        props:['grades'],
         data() {
             return {
+                grade:{
+                    id:''
+                },
                 totalRows: 1,
                 currentPage: 1,
                 perPage: 10,
@@ -75,7 +105,7 @@
                 filter: null,
                 filterOn: ['rrrrrrrrrrrr'],
                 items:[
-                    {lesson:{lesson:1},monday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"},tuesday:{name:"life"},wednesday:"",thursday:"",friday:"",saturday:''},
+                    {lesson:{lesson:1}},
                     {lesson:{lesson:2},monday:{name:"life"},tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
                     {lesson:{lesson:3},monday:"",tuesday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"},wednesday:"",thursday:"",friday:"",saturday:''},
                     {lesson:{lesson:4},monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
@@ -101,31 +131,43 @@
         mounted() {
             console.log(this.$refs.table.items)
             this.totalRows = this.items.length
+            console.log(this.grades)
             this.getNow();
         },
         methods: {
-            showMsgBoxDelete(id, index) {
+            getTimetable() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        axios.get('/student/timetable-index/'+this.grade.id, this.grade)
+                            .then((response) => {
+                                if (response.data.response == 'OK') {
 
-                this.$bvModal.msgBoxConfirm('Вы действительно хотите удалить запись?', {
-                    size: 'sm',
-                    buttonSize: 'md',
-                    okVariant: 'danger',
-                    okTitle: 'Да',
-                    cancelTitle: 'Отмена',
-                    footerClass: 'p-2',
-                    hideHeaderClose: false,
-                    centered: true
+                                    this.items=response.data.timetable;
+                                    this.$toaster.success('Класс успешно добавлен');
+                                    // document.location.href = "/admin/super/grade"
+                                }
+                                else if (response.data.response == 'duplicate') {
 
+                                    this.$toaster.warning('Класс уже добавлен');
+                                }
+                                else {
+                                    console.log(response)
+                                    this.$toaster.error('Ошибка');
+                                }
+                                console.log(response);
+
+                            })
+                            .catch(e => {
+                                console.log(e);
+                                this.$toaster.error(e.response.data.message);
+                            })
+
+                    }
+                    else {
+
+                        this.$toaster.warning("Заполните все поля!");
+                    }
                 })
-
-                    .catch(err => {
-
-                    })
-            },
-            onFiltered(filteredItems) {
-                // Trigger pagination to update the number of buttons/pages due to filtering
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
             },
             getNow() {
                let nowDate = new Date();
@@ -147,11 +189,20 @@
 </script>
 
 <style scoped>
-    .edit {
-        padding: 4px 8px;
-        font-size: 14px;
+    .form_container {
+        padding: 25px;
+        border:1px solid grey;
+        margin-bottom:30px;
+        border-radius:10px;
+        max-width: 600px;
     }
-    .perPageSelect {
-        max-width:100px;
+    .title {
+        font-size: 20px;
+    }
+    .is-danger {
+        color: red;
+    }
+    .alert-danger{
+        border:1px solid red!important;
     }
 </style>
