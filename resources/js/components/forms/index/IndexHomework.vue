@@ -37,7 +37,7 @@
     export default {
         name: "IndexHomework"
     }
-    props:['teachers-and-subjects','params'],
+    props:['teachers-and-subjects','params']
 </script>
 
 <style scoped>

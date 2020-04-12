@@ -18,8 +18,8 @@ class HomeworkController extends Controller
      */
     public function index()
     {
-//        $grades=(new Timetable())->getGrades()->get();
-//        return view('admin.teacher.homework.index',compact('grades'));
+        $grades=(new Timetable())->getGrades()->get();
+        return view('admin.teacher.homework.index ',compact('grades'));
     }
 
     /**
