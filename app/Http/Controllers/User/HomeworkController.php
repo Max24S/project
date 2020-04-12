@@ -19,8 +19,7 @@ class HomeworkController extends Controller
     {
         $grade_id = (new Grade())->getStudentGrade();
 
-        return $subjects = (new Subject())
-            ->getSubjectsForHomework($grade_id);
+        $subjects = (new Subject())->getSubjectsForHomework($grade_id[0]->id);
 
 
         return view('student.homework.index',compact('subjects'));
@@ -28,6 +27,7 @@ class HomeworkController extends Controller
 
     public function indexHomeworkForSubject($id,$name)
     {
+        
 
         return view('student.homework.homework');
     }

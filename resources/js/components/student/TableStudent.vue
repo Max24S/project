@@ -51,7 +51,7 @@
                     <span class="d-flex justify-content-center">К сожалению,совпадений не найдено</span>
                 </template>
                 <template v-slot:cell(actions)="row">
-                    <template>
+                    <template v-if="action.route">
                         <a class="btn btn-info edit" :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
                     </template>
                 </template>

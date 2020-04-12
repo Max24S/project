@@ -6,6 +6,9 @@
     export default {
         name: "IndexHomeworkStudent",
         props:['subjects'],
+        created(){
+          console.log(this.subjects);
+        },
         data(){
             return {
                 items:[{name:'Myname'}],
