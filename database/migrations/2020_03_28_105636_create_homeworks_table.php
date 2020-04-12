@@ -19,7 +19,7 @@ class CreateHomeworksTable extends Migration
             $table->unsignedBigInteger('grade_id');
             $table->string('name');
             $table->string('description');
-            $table->enum('status',['Выдано','Проверено']);
+            $table->timestamp('deadline');
             $table->timestamps();
         });
         Schema::table('homeworks', function (Blueprint $table) {

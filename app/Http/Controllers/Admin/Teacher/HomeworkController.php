@@ -9,6 +9,7 @@ use App\Models\Timetable;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\Homework\StoreRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class HomeworkController extends Controller
@@ -42,7 +43,10 @@ class HomeworkController extends Controller
     {
         return view('admin.teacher.homework.create');
     }
-
+    public function StoreHomeWork(Request $request)
+    {
+        return (new Homework())->addHomeWork($request->all());
+    }
     /**
      * Store a newly created resource in storage.
      *

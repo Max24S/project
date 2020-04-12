@@ -37,7 +37,8 @@ Route::name('admin.')
             ->group(function () {
                 Route::view('/','admin.teacher.index');
                 Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework');
-                Route::get('/timetable/index/{grade?}/{semester?}','TimetableController@index')->name('timetable');
+                Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork');
+                Route::get('/timetable/index/{grade?}/{semester?}','HomeworkController@index')->name('timetable');
                 Route::resource('homework', 'HomeworkController');
                 Route::prefix('head-teacher')
                     ->namespace('HeadTeacher')
