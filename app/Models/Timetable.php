@@ -64,7 +64,7 @@ class Timetable extends Model
         for ($i=0;$i<=7;$i++)
         {
             $lessons=[
-                'lesson'=>$i+1,
+                'lesson'=>['Lesson'=>$i+1],
                 "monday"=>$lessonsForDays['Понедельник'][$i]??' ',
                 "tuesday"=>$lessonsForDays['Вторник'][$i]??' ',
                 "wednesday"=>$lessonsForDays['Среда'][$i]??' ',

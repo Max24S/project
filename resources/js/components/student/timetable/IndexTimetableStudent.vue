@@ -56,10 +56,10 @@
 
 
                 <template v-slot:cell()="row">
-                    <span class="d-flex justify-content-center align-items-center">{{items[row.index].lesson}}</span>
+                    <span class="d-flex justify-content-center align-items-center">{{row.value.Lesson}}</span>
                     <span class="d-flex justify-content-center">{{row.value.subject}}</span>
                     <span class="d-flex justify-content-center"> {{ row.value.classroom}}</span>
-                    <span class="d-flex justify-content-center">{{row.value.teacher}}</span>
+                    <span class="d-flex justify-content-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
                 </template>
 
                 <template v-slot:cell(actions)="row">
@@ -105,7 +105,7 @@
                 filter: null,
                 filterOn: ['rrrrrrrrrrrr'],
                 items:[
-                    {lesson:{lesson:1}},
+                    {lesson:{lesson:1},monday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"},tuesday:{name:"life"},wednesday:"",thursday:"",friday:"",saturday:''},
                     {lesson:{lesson:2},monday:{name:"life"},tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
                     {lesson:{lesson:3},monday:"",tuesday:{subject:"Математика",classroom:'2424',teacher:"Грибков Эдуард Петрович"},wednesday:"",thursday:"",friday:"",saturday:''},
                     {lesson:{lesson:4},monday:"",tuesday:"",wednesday:"",thursday:"",friday:"",saturday:''},
