@@ -180,7 +180,7 @@
 
                                                     this.duplicateTeacher['lesson'] = response.data.duplicateTeacher['lesson'+this.rec.lesson];
                                                 }
-                                                else if (Object.keys(response.data.duplicateClassroom).length > 0) {
+                                                 if (Object.keys(response.data.duplicateClassroom).length > 0) {
 
                                                     this.duplicateClassroom['lesson'] = response.data.duplicateClassroom['lesson'+this.rec.lesson];
                                                 }
