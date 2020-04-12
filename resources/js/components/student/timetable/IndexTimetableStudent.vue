@@ -54,7 +54,6 @@
                     </b-tr>
                 </template>
 
-
                 <template v-slot:cell()="row">
                     <span class="d-flex justify-content-center align-items-center">{{row.value.Lesson}}</span>
                     <span class="d-flex justify-content-center">{{row.value.subject}}</span>

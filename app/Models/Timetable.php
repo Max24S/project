@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Timetable extends Model
 {
 
-    protected $fillable = ['lesson','subject_user_id','grade_id','classroom_id','day','description','status','created_at','updated_at'];
+    protected $fillable = ['lesson','subject_user_id','grade_id','classroom_id','day','description','semester','created_at','updated_at'];
 
     public function prepareForStudent($grade_id) {
 
@@ -93,6 +93,7 @@ class Timetable extends Model
                             'grades.name as grade',
                             'classrooms.name as classroom',
                             'users.name',
+                            'users.id as user_id',
                             'users.surname',
                             'users.patronymic',
                             'subjects.name as subject',

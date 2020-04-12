@@ -55,46 +55,69 @@
                     <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'monday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                     <b-button v-if="!row.value.subject" @click="OpenModal('Понедельник',row.item.lesson,'monday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                 </div>
-                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                    <span class="d-block text-center">{{row.value.subject}}</span>
+                    <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                    <span class="d-block text-center">{{ row.value.classroom}}</span>
+                </a>
             </template>
             <template v-slot:cell(tuesday)="row">
                 <div class="d-flex justify-content-start">
                     <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'tuesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                     <b-button  v-if="!row.value.subject" @click="OpenModal('Вторник',row.item.lesson,'tuesday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                 </div>
-                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                    <span class="d-block text-center">{{row.value.subject}}</span>
+                    <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                    <span class="d-block text-center">{{ row.value.classroom}}</span>
+                </a>
             </template>
             <template v-slot:cell(wednesday)="row">
                 <div class="d-flex justify-content-start">
                     <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'wednesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                     <b-button  v-if="!row.value.subject" @click="OpenModal('Среда',row.item.lesson,'wednesday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                 </div>
-                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                    <span class="d-block text-center">{{row.value.subject}}</span>
+                    <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                    <span class="d-block text-center">{{ row.value.classroom}}</span>
+                </a>
             </template>
             <template  v-slot:cell(thursday)="row">
                 <div class="d-flex justify-content-start">
                     <b-button  variant="danger" @click="deleleteLesson(row.value.id,row.index,'thursday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                     <b-button  v-if="!row.value.subject" @click="OpenModal('Четверг',row.item.lesson,'thursday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                 </div>
-                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span>
+                    <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                    <span class="d-block text-center">{{ row.value.classroom}}</span>
+                </a>
             </template>
             <template  v-slot:cell(friday)="row">
                 <div class="d-flex justify-content-start">
                     <b-button  variant="danger"@click="deleleteLesson(row.value.id,row.index,'friday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                     <b-button v-if="!row.value.subject" @click="OpenModal('Пятница',row.item.lesson,'friday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                 </div>
-                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                    <span class="d-block text-center">{{row.value.subject}}</span>
+                    <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                   <span class="d-block text-center">{{ row.value.classroom}}</span>
+                </a>
             </template>
             <template  v-slot:cell(saturday)="row">
-                <div class="d-flex justify-content-start    ">
+                <div class="d-flex justify-content-start">
                     <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'saturday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
                     <b-button v-if="!row.value.subject" @click="OpenModal('Суббота',row.item.lesson,'saturday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                 </div>
-                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'"><span class="d-block text-center">{{row.value.subject}}</span><span class="d-block text-center">{{ row.value.classroom}}</span></a>
+                <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                    <span class="d-block text-center">{{row.value.subject}}</span>
+                    <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                    <span class="d-block text-center">{{ row.value.classroom}}</span>
+                </a>
             </template>
         </b-table>
     </b-container>
-        {{show}}
+
         <div>
             <add-lesson @hide="show=$event" :teachers-and-subjects="teachersAndSubjects"
                         :timetable="timetableData"
@@ -159,7 +182,10 @@
                 this.items[lesson.lesson-1][lesson.dayRow]={
                     'id':lesson.id,
                     'classroom':lesson.classroom,
-                    'subject':lesson.subject
+                    'subject':lesson.subject,
+                    'name':lesson.name,
+                    'surname':lesson.surname,
+                    'patronymic':lesson.patronymic
                 };
                 this.show=lesson.show;
                 this.$refs.table.refresh();

@@ -36,6 +36,8 @@ Route::name('admin.')
             ->namespace('Teacher')
             ->group(function () {
                 Route::view('/','admin.teacher.index');
+                Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework');
+                Route::get('/timetable/index/{grade?}/{semester?}','TimetableController@index')->name('timetable');
                 Route::resource('homework', 'HomeworkController');
                 Route::prefix('head-teacher')
                     ->namespace('HeadTeacher')
@@ -63,5 +65,6 @@ Route::name('student.')
     });
 
 Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');

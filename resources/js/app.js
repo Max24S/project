@@ -84,7 +84,6 @@ Vue.component('add-lesson', require('./components/forms/modal/AddLesson').defaul
 Vue.component('index-homework',require('./components/forms/index/IndexHomework').default);
 Vue.component('index-timetable-student', require('./components/student/timetable/IndexTimetableStudent').default);
 
-
 let EventBus = new Vue();
 const app = new Vue({
     el: '#app',

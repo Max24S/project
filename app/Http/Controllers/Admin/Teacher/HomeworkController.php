@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Homework\IndexRequest;
 use App\Models\Homework;
 use App\Models\Timetable;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\Homework\StoreRequest;
+use Illuminate\Support\Facades\Auth;
 
 class HomeworkController extends Controller
 {
@@ -16,10 +18,19 @@ class HomeworkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($grade=null,$semester=null)
     {
+        $initialParameters['grade']=$grade;
+        $initialParameters['semester']=$semester;
         $grades=(new Timetable())->getGrades()->get();
-        return view('admin.teacher.homework.index ',compact('grades'));
+
+        return view('admin.teacher.homework.index ',compact('grades','initialParameters'));
+    }
+    public function indexHomework(IndexRequest $request)
+    {
+        $id =Auth::id();
+        $teacher=(new Homework())->getUser($id);
+        return ['result'=>'OK','timetable'=>(new Timetable())->timetableFormation($request->grade_id,$request->semester),'teacher'=>$teacher];
     }
 
     /**

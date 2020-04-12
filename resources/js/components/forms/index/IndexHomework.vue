@@ -9,7 +9,7 @@
                                     v-validate="'required|excluded:none|integer'"
                                     :class="{'input': true, 'alert-danger':errors.has('grade')}">
                                 <option value="none">Выберите класс</option>
-                                <option v-for="grade in teachersAndSubjects['grades']" :value="grade.id">{{grade.name}}</option>
+                                <option v-for="grade in grades" :value="grade.id">{{grade.name}}</option>
                             </select>
                             <span v-if="errors.has('grade')" class="help is-danger">{{ errors.first('grade') }}</span>
                         </div>
@@ -29,17 +29,294 @@
                     </div>
                 </div>
             </form>
+
         </div>
+        <b-container fluid >
+            <b-table
+                    bordered
+                    show-empty
+                    small
+                    stacked="md"
+                    :items="items"
+                    :fields="fields"
+                    :current-page="currentPage"
+                    :per-page="perPage"
+                    :filter="filter"
+                    :filterIncludedFields="filterOn"
+                    :sort-by.sync="sortBy"
+                    :sort-desc.sync="sortDesc"
+                    :sort-direction="sortDirection"
+                    @filtered="onFiltered"
+                    ref="table">
+                <template v-slot:thead-top="data">
+                    <b-tr>
+                        <b-th></b-th>
+                        <b-th v-for="date in dateNow" :key="date.key">
+                            <span class="d-flex justify-content-center">{{date}}</span>
+                        </b-th>
+                    </b-tr>
+                </template>
+                <template v-slot:empty="scope">
+                    <span class="d-flex justify-content-center">Нет записей</span>
+                </template>
+                <template v-slot:cell(monday)="row">
+                    <div class="d-flex justify-content-start">
+                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'monday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                        <b-button v-if="!row.value.subject" @click="OpenModal('Понедельник',row.item.lesson,'monday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    </div>
+                        <div :style="{background:red['monday'+'red'+row.item.lesson]}">
+                            {{red['monday'+'red'+row.item.lesson]}}
+                            <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                                <span class="d-block text-center">{{row.value.subject}}</span>
+                                <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                                <span class="d-block text-center">{{ row.value.classroom}}</span>
+                            </a>
+                        </div>
+                </template>
+                <template v-slot:cell(tuesday)="row">
+                    <div class="d-flex justify-content-start">
+                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'tuesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                        <b-button  v-if="!row.value.subject" @click="OpenModal('Вторник',row.item.lesson,'tuesday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    </div>
+                    <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                        <span class="d-block text-center">{{row.value.subject}}</span>
+                        <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                        <span class="d-block text-center">{{ row.value.classroom}}</span>
+                    </a>
+                </template>
+                <template v-slot:cell(wednesday)="row">
+                    <div class="d-flex justify-content-start">
+                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'wednesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                        <b-button  v-if="!row.value.subject" @click="OpenModal('Среда',row.item.lesson,'wednesday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    </div>
+                    <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                        <span class="d-block text-center">{{row.value.subject}}</span>
+                        <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                        <span class="d-block text-center">{{ row.value.classroom}}</span>
+                    </a>
+                </template>
+                <template  v-slot:cell(thursday)="row">
+                    <div class="d-flex justify-content-start">
+                        <b-button  variant="danger" @click="deleleteLesson(row.value.id,row.index,'thursday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                        <b-button  v-if="!row.value.subject" @click="OpenModal('Четверг',row.item.lesson,'thursday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    </div>
+                    <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                        <span class="d-block text-center">{{row.value.subject}}</span>
+                        <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                        <span class="d-block text-center">{{ row.value.classroom}}</span>
+                    </a>
+                </template>
+                <template  v-slot:cell(friday)="row">
+                    <div class="d-flex justify-content-start">
+                        <b-button  variant="danger"@click="deleleteLesson(row.value.id,row.index,'friday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                        <b-button v-if="!row.value.subject" @click="OpenModal('Пятница',row.item.lesson,'friday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    </div>
+                    <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                        <span class="d-block text-center">{{row.value.subject}}</span>
+                        <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                        <span class="d-block text-center">{{ row.value.classroom}}</span>
+                    </a>
+                </template>
+                <template  v-slot:cell(saturday)="row">
+                    <div class="d-flex justify-content-start    ">
+                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'saturday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
+                        <b-button v-if="!row.value.subject" @click="OpenModal('Суббота',row.item.lesson,'saturday')" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    </div>
+                    <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
+                        <span class="d-block text-center">{{row.value.subject}}</span>
+                        <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
+                        <span class="d-block text-center">{{ row.value.classroom}}</span>
+                    </a>
+                </template>
+            </b-table>
+        </b-container>
     </div>
 </template>
 
 <script>
     export default {
-        name: "IndexHomework"
+    name: "IndexHomework",
+    props:['grades'],
+     data(){
+        return {
+            timetableData:
+                {   lesson:'',
+                    grade_id:'none',
+                    day:'',
+                    semester:'none',
+                    rowDay:''
+                },
+            request:{},
+            red:{
+            },
+
+            items:[],
+            lesson: {
+
+            },
+            isVisible:"",
+            fields: [
+                { key: 'lesson', label: '№ урока' ,class: 'text-center'},
+                { key: 'monday', label: 'Понедельник' ,class: 'text-center'},
+                { key: 'tuesday', label: 'Вторник' ,class: 'text-center'},
+                { key: 'wednesday', label: 'Среда' ,class: 'text-center'},
+                { key: 'thursday', label: 'Четверг' ,class: 'text-center'},
+                { key: 'friday', label: 'Пятница' ,class: 'text-center'},
+                { key: 'saturday', label: 'Суббота' ,class: 'text-center'},
+            ],
+            totalRows: 1,
+            currentPage: 1,
+            perPage: 8,
+            sortBy: '',
+            sortDesc: false,
+            sortDirection: 'asc',
+            filter: null,
+            filterOn: [],
+            infoModal: {
+                id: 'info-modal',
+                title: '',
+                content: ''
+            },
+            teacher:'',
+            show:false,
+            showCell:true,
+            lastMeaningGrade:"",
+            lastMeaningSemester:"",
+            activeBtn:false,
+            dateNow:[],
+            days:['monday','tuesday','wednesday','thursday','friday','saturday']
+        }
+     },
+        methods:{
+            info(item, index, button) {
+                this.infoModal.title = `Row index: ${index}`
+                this.infoModal.content = JSON.stringify(item, null, 2)
+                this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+            },
+            resetInfoModal() {
+                this.infoModal.title = ''
+                this.infoModal.content = ''
+            },
+            onFiltered(filteredItems) {
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
+            },
+            SendData(){
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+
+                        if(this.timetableData['grade_id']==this.lastMeaningGrade&&this.timetableData['semester']==this.lastMeaningSemester)
+                        {
+                            this.$toaster.info('Вы уже выбрали расписание для этого класса', {timeout: 5000})
+
+                        }
+                        else {
+                            this.lastMeaningGrade=this.timetableData['grade_id'];
+                            this.lastMeaningSemester=this.timetableData['semester'];
+                            axios.post('/admin/teacher/homework/indexTimetable', this.timetableData)
+                                .then((response) => {
+                                    if (response.data.result=='OK') {
+                                        this.items=response.data['timetable'];
+                                        this.teacher=response.data['teacher'];
+
+                                        for(let lesson in this.items ) {
+                                            for (let day=0;day<this.days.length;day++) {
+                                                if (this.items[lesson][this.days[day]].user_id) {
+                                                    if (this.items[lesson][this.days[day]].user_id == this.teacher[0]['id']) {
+                                                        this.red[this.days[day]+'red'+lesson] = 'red';
+                                                        console.log(this.red);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        // for (let i=0;i<this.items.length;i++)
+                                        // {
+                                        //     // console.log(this.items[i]['monday'].user_id);
+                                        //
+                                        //     if(this.items[i]['monday'].user_id==this.teacher[0]['id'])
+                                        //     {
+                                        //         this.red['red'+i]='red';
+                                        //         console.log(this.red);
+                                        //     }
+                                        // }
+                                        this.isVisible=1;
+                                    }
+                                })
+                                .catch(e => {
+                                    this.$toaster.error(e.response.data.message);
+                                })
+                        }
+                    }
+
+                    else{
+
+                        this.$toaster.warning('Будьте внимательны при заполнении полей', {timeout: 5000})
+                    }
+                })
+            },
+            getNow() {
+                let nowDate = new Date();
+                if(nowDate.getDay()){
+                    nowDate.setDate(nowDate.getDate() - nowDate.getDay());
+                }
+                for(let i=1;i<7;i++){
+                    let param =new Date(nowDate.setDate(nowDate.getDate()+1))
+
+                    let day = param.getDate()<10?'0'+param.getDate():param.getDate();
+                    let month = param.getMonth()+1<10?'0'+(param.getMonth()+1):param.getMonth()+1;
+                    let year = param.getFullYear();
+
+                    this.dateNow.push(day+"."+month+"."+year)
+                }
+            }
+        }
+        ,computed:{
+            sortOptions() {
+                return this.fields
+                    .filter(f => f.sortable)
+                    .map(f => {
+                        return { text: f.label, value: f.key }
+                    })
+            }
+        },
+        mounted() {
+            this.totalRows = this.items.length
+            console.log(this.$refs.table.items)
+            this.totalRows = this.items.length
+            console.log(this.grades)
+            this.getNow();
+        },
+        created() {
+            // this.timetableData['grade_id']=(this.params['grade'])?this.params['grade']:"none";
+            // this.timetableData['semester']=(this.params['semester'])?this.params['semester']:"none"
+            if (this.timetableData['grade_id']!='none'&&this.timetableData['semester']!='none')
+            {
+                this.SendData();
+            }
+        }
     }
-    props:['teachers-and-subjects','params']
 </script>
 
 <style scoped>
-
+    form {
+        margin-top:53px;
+    }
+    .btn .b-icon.bi{
+        font-size: 80%;
+    }
+    .active{
+        color: blue;
+    }
+    .is-danger {
+        color: #ff0000;
+    }
+    .alert-danger{
+        border:2px solid #ff0000;
+    }
+    table a{
+        text-decoration: none;
+    }
+    .form-container {
+        max-width:700px;
+    }
 </style>
