@@ -47,6 +47,9 @@
             :sort-direction="sortDirection"
             @filtered="onFiltered"
             ref="table">
+            <template v-slot:empty="scope">
+                <span class="d-flex justify-content-center">Нет записей</span>
+            </template>
             <template v-slot:cell(monday)="row">
                 <div class="d-flex justify-content-start">
                     <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'monday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>
