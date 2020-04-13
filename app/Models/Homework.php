@@ -24,6 +24,7 @@ class Homework extends Model
     public function getHomework($request)
     {
         $timetable=[];
+
         $begin=Carbon::parse($request['begin'])->format('Y-m-d');
         $end=Carbon::parse($request['end'])->format('Y-m-d');
         $dbTimetableData=(new Timetable())->show($request['grade_id'],$request['semester']);
