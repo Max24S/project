@@ -19,6 +19,7 @@ class CreateHomeworksTable extends Migration
             $table->unsignedBigInteger('grade_id');
             $table->string('name');
             $table->string('lesson');
+            $table->enum('semester',['1','2']);
             $table->string('day');
             $table->string('description');
             $table->timestamp('deadline');

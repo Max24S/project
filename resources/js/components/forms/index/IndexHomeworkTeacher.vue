@@ -87,7 +87,7 @@
                 <template v-slot:cell(wednesday)="row">
                     <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
                         <div class="d-flex justify-content-start">
-                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][2])"  href=""><b-icon-pencil-squaree></b-icon-pencil-squaree></a>
+                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][3])"  href=""><b-icon-pencil-squaree></b-icon-pencil-squaree></a>
                             <div class="ok" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][2])"><b-icon-check-circle></b-icon-check-circle></div>
                             <b-button v-if="(!row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][2])" @click="OpenModal(dateForWeek['currentWeek'][2],'Среда','wednesday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                         </div>
@@ -322,7 +322,7 @@
 
     }
     form {
-        margin-top:53px;
+        margin-top:100px;
     }
     .btn .b-icon.bi{
         font-size: 80%;
