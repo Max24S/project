@@ -5,6 +5,6 @@
 @section('form')
 
     <div id="app">
-       <index-homework :params="{{json_encode($initialParameters)}}" :grades="{{json_encode($grades)}}"></index-homework>
+       <index-homework-teacher :params="{{json_encode($initialParameters)}}" :grades="{{json_encode($grades)}}"></index-homework-teacher>
     </div>
 @endsection

@@ -260,7 +260,7 @@
                 let currentWeek=[];
                 let timestamp=[];
                 let nowDate = new Date();
-
+                nowDate.setDate(nowDate.getDate()-nowDate.getDay());
                 for(let i=1;i<7;i++){
                     let param =new Date(nowDate.setDate(nowDate.getDate()+1))
                     let day = param.getDate()<10?'0'+param.getDate():param.getDate();
