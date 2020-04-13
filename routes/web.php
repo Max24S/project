@@ -34,11 +34,11 @@ Route::name('admin.')
             ->name('teacher.')
             ->namespace('Teacher')
             ->group(function () {
-                Route::view('/','admin.teacher.index')
-//                    ->middleware(['auth','role:Учитель']);
-                Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework')->middleware(['auth','role:Учитель']);
-                Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork')->middleware(['auth','role:Учитель']);
-                Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework')->middleware(['auth','role:Учитель']);
+                Route::view('/','admin.teacher.index');
+//                    ->middleware(['auth','role:Учитель']->middleware(['auth','role:Учитель']);->middleware(['auth','role:Учитель']);
+                Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework');
+                Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork');
+                Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework');
                 Route::resource('homework', 'HomeworkController')->middleware(['auth','role:Учитель']);
                 Route::prefix('head-teacher')
                     ->namespace('HeadTeacher')
