@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/1', 'Mail\MailController@send');
-//Route::view('/', 'admin.teacher.head-teacher.index')->name('welcome');
+
 Route::name('admin.')
     ->namespace('Admin')
     ->prefix('admin')
@@ -12,7 +12,7 @@ Route::name('admin.')
         Route::prefix('super')
             ->name('super.')
             ->namespace('Super')
-            ->middleware(['auth','role:Админ'])
+//            ->middleware(['auth','role:Админ'])
             ->group(function () {
                 Route::view('/','admin.super.index');
                 Route::resource('classroom', 'ClassroomController');
@@ -34,13 +34,15 @@ Route::name('admin.')
             ->name('teacher.')
             ->namespace('Teacher')
             ->group(function () {
-                Route::view('/','admin.teacher.index')->middleware(['auth','role:Учитель']);
+                Route::view('/','admin.teacher.index')
+//                    ->middleware(['auth','role:Учитель']);
                 Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework')->middleware(['auth','role:Учитель']);
                 Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork')->middleware(['auth','role:Учитель']);
                 Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework')->middleware(['auth','role:Учитель']);
                 Route::resource('homework', 'HomeworkController')->middleware(['auth','role:Учитель']);
                 Route::prefix('head-teacher')
-                    ->namespace('HeadTeacher')->middleware(['auth','role:Завуч'])
+                    ->namespace('HeadTeacher')
+//                    ->middleware(['auth','role:Завуч'])
                     ->name('head-teacher.')
                     ->group(function () {
                         Route::view('/','admin.teacher.head-teacher.index');
