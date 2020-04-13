@@ -97,6 +97,8 @@
                         {
                             homework = {
                                 'subject_user_id':this.id[0].subject_user_id,
+                                'day':this.timetable.day,
+                                'lesson':this.timetable.lesson,
                                 'grade_id':this.timetable.grade_id,
                                 'deadline': this.timetable.date,
                                 'name': this.name,
