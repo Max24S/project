@@ -29,6 +29,7 @@ class HomeworkController extends Controller
     }
     public function indexHomework(IndexRequest $request)
     {
+        return(new Homework())->getHomework();
         $id =Auth::id();
         $teacher=(new Homework())->getUser($id);
         return ['result'=>'OK','timetable'=>(new Timetable())->timetableFormation($request->grade_id,$request->semester),'teacher'=>$teacher];
