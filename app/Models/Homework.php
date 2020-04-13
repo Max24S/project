@@ -60,9 +60,9 @@ class Homework extends Model
                             $day[$i - $j]->idHomeWork = $sortedHomeWork[$day[$i - $h]->day][$i - $h]->id;
                         }
                         else{
-                            $day[$i - $j]->description =" ";
-                            $day[$i - $j]->nameHomeWork =" ";
-                            $day[$i - $j]->idHomeWork = " ";
+                            $day[$i - $j]->description =null;
+                            $day[$i - $j]->nameHomeWork =null;
+                            $day[$i - $j]->idHomeWork = null;
                             $h++;
                         }
                         array_push($lessonsForDays[$day[$i - $j]->day], $day[$i - $j]);
