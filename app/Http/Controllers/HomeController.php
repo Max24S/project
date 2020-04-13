@@ -37,6 +37,5 @@ class HomeController extends Controller
                     return view('admin.super.index');
             }
         }
-        return view('home');
     }
 }
