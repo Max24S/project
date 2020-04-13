@@ -2,6 +2,6 @@
 
 @section("content")
     <div id="app">
-        <index-homework></index-homework>
+        <index-homework :homeworks="{{json_encode($homeworks)}}" :subject="{{json_encode($subject)}}"></index-homework>
     </div>
 @endsection

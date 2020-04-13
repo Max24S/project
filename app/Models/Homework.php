@@ -143,4 +143,12 @@ class Homework extends Model
         return ['OK',$id];
     }
 
+    public function getHomeworkForSubject($subject_id)
+    {   $grade_id = (new Grade())->getStudentGrade();
+
+        return DB::table('homeworks')->join('subject_user','subject_user.id','=','homeworks.subject_user_id')
+            ->where('homeworks.grade_id',$grade_id[0]->id)
+            ->where('subject_user.subject_id',$subject_id)
+            ->get();
+    }
 }

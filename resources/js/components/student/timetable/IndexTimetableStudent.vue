@@ -15,7 +15,7 @@
                                     name="grade"
                                     class="mb-4"
                                     v-validate="'required'"
-                                    :class="{'input': true, 'alert-danger':errors.has('grade')}"
+                                    :class="{'input': true, 'alert-danger':errors.has('name')}"
                                 >
                                     <template v-slot:no-options="{ search, searching }">
                                         <template v-if="searching">
@@ -68,8 +68,6 @@
                 stacked="lg"
                 :items="items"
                 :fields="fields"
-                :current-page="currentPage"
-                :per-page="perPage"
                 ref="table"
                 bordered
                 class="mb-0 table"
@@ -82,6 +80,7 @@
                         </b-th>
                     </b-tr>
                 </template>
+
 
                 <template v-slot:cell()="row">
                     <span class="d-flex justify-content-center align-items-center">{{row.value.Lesson}}</span>
@@ -186,7 +185,7 @@
             getNow() {
                 let currentWeek=[];
                 let nowDate = new Date();
-
+                nowDate.setDate(nowDate.getDate()-nowDate.getDay());
                 for(let i=1;i<7;i++){
                     let param =new Date(nowDate.setDate(nowDate.getDate()+1))
                     let day = param.getDate()<10?'0'+param.getDate():param.getDate();

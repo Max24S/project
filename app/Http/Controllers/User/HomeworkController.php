@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
+use App\Models\Homework;
 use App\Models\Subject;
 use App\Models\Timetable;
 use Illuminate\Http\Request;
@@ -25,11 +26,12 @@ class HomeworkController extends Controller
         return view('student.homework.index',compact('subjects'));
     }
 
-    public function indexHomeworkForSubject($id,$name)
+    public function indexHomeworkForSubject($id,$subject)
     {
-        
+        $homeworks=(new Homework())->getHomeworkForSubject($id);
 
-        return view('student.homework.homework');
+
+        return view('student.homework.homework',compact('homeworks','subject'));
     }
     /**
      * Show the form for creating a new resource.
