@@ -95,7 +95,7 @@ class UserController extends Controller
             ]);
 
 
-        if(isset($data['password']))
+        if(isset($data['password'])&&$data['password'])
         {
             $data['password']=bcrypt($data['password']);
         }

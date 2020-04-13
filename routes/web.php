@@ -59,7 +59,7 @@ Route::name('student.')
     ->prefix('student')
     ->group(function () {
 
-        Route::view('/','student.index');
+        Route::view('/','student.index')->name('home');
         Route::resource('timetable', 'TimetableController');
         Route::resource('homework', 'HomeworkController');
         Route::get("timetable-index/{id}/{semester}",'TimetableController@getTimetable');
