@@ -62,7 +62,7 @@
                 <template v-slot:cell(monday)="row">
                     <div class="d-flex justify-content-start">
 <!--                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'monday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>-->
-                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][0])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][0],'monday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][0])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][0],'Понедельник','monday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                     </div>
                         <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
 
@@ -76,7 +76,7 @@
                 <template v-slot:cell(tuesday)="row">
                     <div class="d-flex justify-content-start">
 <!--                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'tuesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>-->
-                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][1])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][1],'tuesday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][1])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][1],'Вторник','tuesday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                     </div>
                     <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
                         <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
@@ -89,7 +89,7 @@
                 <template v-slot:cell(wednesday)="row">
                     <div class="d-flex justify-content-start">
 <!--                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'wednesday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>-->
-                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][2])?true:false"  v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][2],'wednesday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][2])?true:false"  v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][2],'Среда','wednesday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                     </div>
                     <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
                         <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
@@ -102,7 +102,7 @@
                 <template  v-slot:cell(thursday)="row">
                     <div class="d-flex justify-content-start">
 <!--                        <b-button  variant="danger" @click="deleleteLesson(row.value.id,row.index,'thursday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>-->
-                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][3])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][3],'thursday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][3])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][3],'Четверг','thursday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                     </div>
                     <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
                         <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
@@ -115,7 +115,7 @@
                 <template  v-slot:cell(friday)="row">
                     <div class="d-flex justify-content-start">
 <!--                        <b-button  variant="danger"@click="deleleteLesson(row.value.id,row.index,'friday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>-->
-                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][4])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][4],'friday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][4])?true:false" v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][4],'Пятница','friday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                     </div>
                     <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
                         <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
@@ -128,7 +128,7 @@
                 <template  v-slot:cell(saturday)="row">
                     <div class="d-flex justify-content-start">
 <!--                        <b-button variant="danger" @click="deleleteLesson(row.value.id,row.index,'saturday')" v-if="row.value.subject" class="mr-3"><b-icon-trash-fill></b-icon-trash-fill></b-button>-->
-                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][5])?true:false"  v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][5],'saturday',row.item.lessonph)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                        <b-button :disabled="(dateNow>dateForWeek['timestamp'][5])?true:false"  v-if="row.value.subject" @click="OpenModal(dateForWeek['currentWeek'][5],'Суббота','saturday',row.item.lessonph)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
                     </div>
                     <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
                         <a :href="'/admin/teacher/head-teacher/timetable/'+row.value.id+'/edit'">
@@ -161,7 +161,8 @@
                 {   lesson:'',
                     grade_id:'none',
                     semester:'none',
-                    rowDay:''
+                    rowDay:'',
+                    day:''
                 },
             request:{},
 
@@ -218,8 +219,9 @@
                 this.totalRows = filteredItems.length
                 this.currentPage = 1
             },
-            OpenModal: function (date,rowDay,number) {
+            OpenModal: function (date,day,rowDay,number) {
                 this.timetableData.rowDay=rowDay;
+                this.timetableData.day=day;
                 this.timetableData.date=date;
                 this.timetableData.lesson=number;
                 this.show=true;
@@ -258,7 +260,7 @@
                 let currentWeek=[];
                 let timestamp=[];
                 let nowDate = new Date();
-
+                nowDate.setDate(nowDate.getDate()-nowDate.getDay());
                 for(let i=1;i<7;i++){
                     let param =new Date(nowDate.setDate(nowDate.getDate()+1))
                     let day = param.getDate()<10?'0'+param.getDate():param.getDate();

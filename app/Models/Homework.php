@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Homework extends Model
 {
-    protected $fillable = ['subject_user_id','grade_id','name','description','deadline'];
+    protected $fillable = ['subject_user_id','day','lesson','grade_id','name','description','deadline'];
 
     public function getUser($id){
 
@@ -74,9 +74,9 @@ class Homework extends Model
     public function getHomework()
     {
         $dbTimetableData=(new Timetable())->show(1,1);
-        $Sorted=$dbTimetableData->sortBy('lesson')->groupBy('day')->toArray();
+        $sortedTimetable=$dbTimetableData->sortBy('lesson')->groupBy('day')->toArray();
         $homeworks=DB::table('homeworks')->get();
-         $sorted=$homeworks->sortBy('lesson')->groupBy('day')->toArray();
+        $sortedHomeWork=$homeworks->sortBy('lesson')->groupBy('day')->toArray();
 
         $lessonsForDays['Понедельник']=[];
         $lessonsForDays['Вторник']=[];
@@ -91,16 +91,16 @@ class Homework extends Model
         $description['4']=[];
         $description['5']=[];
 
-        foreach ($Sorted as $day) {
+        foreach ($sortedTimetable as $day) {
             $j=0;
             for ($i = 0; $i <= 7; $i++) {
 
                 if ( $day[$i-$j]??"") {
 
                     if ($day[$i-$j]->lesson == $i+1) {
-                        $day[$i-$j]->description=$sorted[$day[$i-$j]->day][$i-$j]->description??'';
-                        $day[$i-$j]->nameHomeWork=$sorted[$day[$i-$j]->day][$i-$j]->name??'';
-                        $day[$i-$j]->nameHomeWork=$sorted[$day[$i-$j]->day][$i-$j]->id??'';
+                        $day[$i-$j]->description=$sortedHomeWork[$day[$i-$j]->day][$i-$j]->description??'';
+                        $day[$i-$j]->nameHomeWork=$sortedHomeWork[$day[$i-$j]->day][$i-$j]->name??'';
+                        $day[$i-$j]->idHomeWork=$sortedHomeWork[$day[$i-$j]->day][$i-$j]->id->id??'';
                         array_push($lessonsForDays[$day[$i-$j]->day], $day[$i-$j] );
                     }
                     else {
@@ -114,50 +114,7 @@ class Homework extends Model
                 }
             }
         }
-//        foreach ($Sorted as $day) {
-//            $j=0;
-//            for ($i = 0; $i <= 7; $i++) {
-//
-//                if ( $day[$i-$j]??"") {
-//
-//                    if ($day[$i-$j]->lesson == $i+1) {
-//                        $day[$i-$j]->f='fd';
-//                        array_push($lessonsForDays[$day[$i-$j]->day], $day[$i-$j] );
-//                    }
-//                    else {
-//                        array_push($lessonsForDays[$day[$i-$j]->day] , null);
-//                        $j++;
-//                    }
-//                }
-//                else
-//                {
-//                    break;
-//                }
-//            }
-//        }
 
-//        for ($d=0;$d<=5;$d++) {
-//            $j=0;
-//            for ($i = 0; $i <= 7; $i++) {
-//
-//                if ( $sorted[$d[$i-$j]]??"") {
-//
-//                    if ($sorted[$d[$i-$j]]->lesson == $i+1) {
-//                        $sorted[$d[$i-$j]]->f='fd';
-//                        array_push($lessonsForDays[$sorted[$d[$i-$j]]->day], $sorted[$d[$i-$j]] );
-//                    }
-//                    else {
-//                        array_push($lessonsForDays[$sorted[$d[$i-$j]]->day] , null);
-//                        $j++;
-//                    }
-//                }
-//                else
-//                {
-//                    break;
-//                }
-//            }
-//        }
-//            $lessonsForDays['Понедельник'][0]->ffff='f';
              return $lessonsForDays;
 
 //        for ($i=0;$i<=7;$i++)
