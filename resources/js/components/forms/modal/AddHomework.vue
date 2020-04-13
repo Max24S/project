@@ -80,8 +80,8 @@
             DateForDb(date){
 
             },
-            SendLessonForTable(lesson){
-                this.$emit('lesson', lesson);
+            SendHomeForTable(homeWork){
+                this.$emit('homeWork', homeWork);
             },
             Refresh()
             {
@@ -101,6 +101,7 @@
                                 'lesson':this.timetable.lesson,
                                 'grade_id':this.timetable.grade_id,
                                 'deadline': this.timetable.date,
+                                'semester':this.timetable.semester,
                                 'name': this.name,
                                 'description':this.description,
                             }
@@ -109,19 +110,14 @@
                             .then((response) => {
                                 if (response.data[0]=='OK') {
                                     this.$toaster.success('Расписание успешно добавленно');
-                                    // let cell = {
-                                    //     'dayRow': this.timetable.rowDay,
-                                    //     'day': this.timetable.day,
-                                    //     'lesson': this.timetable.lesson,
-                                    //     'id': response.data[1],
-                                    //     'subject': this.currentSubject.name,
-                                    //     'surname':this.currentTeacher.surname,
-                                    //     'name':this.currentTeacher.name,
-                                    //     'patronymic':this.currentTeacher.patronymic,
-                                    //     'classroom': this.classroom_id.name,
-                                    // }
-                                    //
-                                    // this.SendLessonForTable(cell);
+                                    let homeWork = {
+                                        'id':response.data[1],
+                                        'lesson':this.timetable.lesson,
+                                        'dayRow': this.timetable.rowDay,
+                                        'description':this.description,
+                                    }
+
+                                    this.SendHomeForTable(homeWork);
                                     this.Cancel();
                                 }
                                 else {
@@ -143,7 +139,6 @@
             }
         },
         updated(){
-            console.log(this.timetable)
         }
     }
 </script>

@@ -18,6 +18,8 @@ class CreateHomeworksTable extends Migration
             $table->unsignedBigInteger('subject_user_id');
             $table->unsignedBigInteger('grade_id');
             $table->string('name');
+            $table->string('lesson');
+            $table->string('day');
             $table->string('description');
             $table->timestamp('deadline');
             $table->timestamps();

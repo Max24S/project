@@ -29,9 +29,9 @@ class HomeController extends Controller
             switch ($user->role) {
                 case'Ученик':
                     return view('student.index');
-                case'Учитель':
-                    return view('admin.teacher.head-teacher.index');
                 case'Завуч':
+                    return view('admin.teacher.head-teacher.index');
+                case'Учитель':
                     return view('admin.teacher.index');
                 case'Админ':
                     return view('admin.super.index');

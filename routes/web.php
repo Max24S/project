@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/1', 'Mail\MailController@send');
-Route::view('/', 'admin.teacher.head-teacher.index')->name('welcome');
+//Route::view('/', 'admin.teacher.head-teacher.index')->name('welcome');
 Route::name('admin.')
     ->namespace('Admin')
     ->prefix('admin')
@@ -12,7 +12,7 @@ Route::name('admin.')
         Route::prefix('super')
             ->name('super.')
             ->namespace('Super')
-//            ->middleware(['auth','role:Админ'])
+            ->middleware(['auth','role:Админ'])
             ->group(function () {
                 Route::view('/','admin.super.index');
                 Route::resource('classroom', 'ClassroomController');
@@ -29,19 +29,18 @@ Route::name('admin.')
                 Route::put("classroom/{classroom} ",'ClassroomController@update');
                 Route::get("subject-user/create/{id}/{name} ",'SubjectUserController@createForm');
                 Route::get("student/create/{id}/{name} ",'StudentController@createForm');
-
             });
         Route::prefix('teacher')
             ->name('teacher.')
             ->namespace('Teacher')
             ->group(function () {
-                Route::view('/','admin.teacher.index');
-                Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework');
-                Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork');
-                Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework');
-                Route::resource('homework', 'HomeworkController');
+                Route::view('/','admin.teacher.index')->middleware(['auth','role:Учитель']);
+                Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework')->middleware(['auth','role:Учитель']);
+                Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork')->middleware(['auth','role:Учитель']);
+                Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework')->middleware(['auth','role:Учитель']);
+                Route::resource('homework', 'HomeworkController')->middleware(['auth','role:Учитель']);
                 Route::prefix('head-teacher')
-                    ->namespace('HeadTeacher')
+                    ->namespace('HeadTeacher')->middleware(['auth','role:Завуч'])
                     ->name('head-teacher.')
                     ->group(function () {
                         Route::view('/','admin.teacher.head-teacher.index');
@@ -69,4 +68,4 @@ Route::name('student.')
 Auth::routes();
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
