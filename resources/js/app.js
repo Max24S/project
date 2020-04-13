@@ -36,6 +36,7 @@ Vue.use(VeeValidate, {
         ru: {
             attributes:{
                 surname:" ",
+                description:' ',
                 name:" ",
                 patronymic:" ",
                 email:' ',
