@@ -270,8 +270,8 @@
         created(){
 
             this.editUser=this.user;
-            this.editUser.grade_id=this.studentData.grade[0].name;
-            console.log(this.studentData);
+            // this.editUser.password="";
+
         },
         methods:{
             showPassword(){
@@ -294,19 +294,15 @@
                 this.confirmPassword = password;
             },
         sendUser(){
-            console.log(this.user);
+            console.log(this.editUser);
             this.$validator.validateAll().then((result) => {
                 if (result) {
-                    let check = this.editUser;
-                    delete check.password;
-                    console.log(check)
-                    console.log(this.user)
                         axios.put('/admin/super/user/' + this.user.id, this.editUser)
                             .then((response) => {
                                 if (response.data.response == 'updated') {
 
                                     this.$toaster.success('Данные успешно отредактированы');
-                                    document.location.href = "/admin/super/subject"
+                                    document.location.href = "/admin/super/user"
                                 }
                                 else if (response.data.response == 'emailDuplicate') {
 

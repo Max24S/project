@@ -15,7 +15,7 @@
                                     name="grade"
                                     class="mb-4"
                                     v-validate="'required'"
-                                    :class="{'input': true, 'alert-danger':errors.has('name')}"
+                                    :class="{'input': true, 'alert-danger':errors.has('grade')}"
                                 >
                                     <template v-slot:no-options="{ search, searching }">
                                         <template v-if="searching">

@@ -14,14 +14,14 @@ class CheckRole
      * @return mixed
      */
 
-    public function handle($request, Closure $next,$role)
+    public function handle($request, Closure $next,$roles)
     {
-        if (Auth::check()) {
-            if ($request->user()->role != $role)
-            {
-                return redirect()->route('home');
-            }
+        $user = Auth::user();
+        $rolesArray = explode(';', $roles);
+        if(in_array($user->role, $rolesArray)){
             return $next($request);
+        }else{
+            return response()->view('errors.503', [], 503);
         }
     }
 }

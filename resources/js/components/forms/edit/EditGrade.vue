@@ -36,7 +36,7 @@
                                 <template v-if="searching">
                                     Совпадений не найдено
                                 </template>
-                                <em style="opacity: 0.5;" v-else>Start typing to search for a country.</em>
+                                <em style="opacity: 0.5;" v-else>Нет элементов</em>
                             </template>
                         </v-select>
                     </div>
@@ -58,7 +58,7 @@
                                 <template v-if="searching">
                                     Совпадений не найдено
                                 </template>
-                                <em style="opacity: 0.5;" v-else>Start typing to search for a country.</em>
+                                <em style="opacity: 0.5;" v-else>Нет элементов</em>
                             </template>
                         </v-select>
                     </div>
