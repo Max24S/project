@@ -14,13 +14,27 @@
             z-index: 100;
             top: 0;
         }
-        body {
-               padding-top: 70px;
-           }
         .formContainer {
             max-width: 500px;
             margin: 0 auto;
         }
+
+        body {
+            padding-top: 70px;
+            height: 100%;
+           }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+        main {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex: 0 0 auto;
+        }
+
     </style>
 </head>
 <body>
@@ -28,16 +42,20 @@
         @include('admin.super.layouts.blocks.nav.index')
     </header>
     <div id="app">
-    <div class="container">
-        <div class="formContainer">
-            @yield('form')
+        <div class="wrapper">
+            <main>
+                <div class="container">
+                    <div class="formContainer">
+                        @yield('form')
+                    </div>
+                </div>
+                @yield('table')
+            </main>
+            <footer>
+                <footer-component></footer-component>
+            </footer>
         </div>
     </div>
-
-        @yield('table')
-        <footer-component></footer-component>
-    </div>
-
 <script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

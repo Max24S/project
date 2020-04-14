@@ -81,9 +81,6 @@
         },
         data(){
             return {
-                routes:{
-                    gradeStore: window.routes['admin.super.grade.store']
-                },
                 grade:{
                     name:'',
                     user_id:'',
@@ -96,7 +93,7 @@
                 console.log(this.grade);
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        axios.post(this.routes.gradeStore, this.grade)
+                        axios.post('/admin/super/grade', this.grade)
                             .then((response) => {
                                 if (response.data.response == 'created') {
 

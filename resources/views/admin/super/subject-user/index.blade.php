@@ -1,9 +1,6 @@
 @extends('admin.super.layouts.admin')
 
 @section('table')
-
-    <div id="app">
        <index-subject-user :teachers="{{json_encode($teachers)}}" :subject="{{json_encode($subject)}}"></index-subject-user>
-    </div>
-
 @endsection
+<style></style>
