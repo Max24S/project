@@ -17,7 +17,7 @@ class MailController extends Controller
         $objDemo->sender = 'SenderUserName';
         $objDemo->receiver = 'ReceiverUserName';
 
-        Mail::to("lolmaksimlol@mail.ru")->send(new DemoEmail($objDemo));
+        Mail::to("ivan.polokh.98@gmail.com")->send(new DemoEmail($objDemo));
     }
 
 }

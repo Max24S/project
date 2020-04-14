@@ -4,7 +4,7 @@ Hello <i>{{ $demo->receiver }}</i>,
 <p><u>Demo object values:</u></p>
 
 <div>
-    <p><b>Demo One:</b>&nbsp;{{ $demo->name }}</p>
+    <p><b>Demo One:</b>&nbsp;{{ $demo->login }}</p>
     <p><b>Demo Two:</b>&nbsp;{{ $demo->password }}</p>
 </div>
 

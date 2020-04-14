@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Mail\DemoEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use stdClass;
 
 class User extends Authenticatable
 {
@@ -40,14 +43,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function send($name,$email,$password)
+    {
+        $objDemo = new stdClass();
+        $objDemo->login = $email;
+        $objDemo->password = $password;
+        $objDemo->sender = 'LaravelIt';
+        $objDemo->receiver = $name;
+
+        Mail::to($email)->send(new DemoEmail($objDemo));
+    }
+
     public function  prepareFromCreate($user)
 
     {
         if($this->uniqueEmail($user['email']))
         {
+            $password = $user['password'];
             $user['password'] = bcrypt($user['password']);
 
-            User::create($user);
+
+            $user=User::create($user);
+            $fullName = $user->surname.' '.$user->name.' '.$user->patronymic;
+            $this->send($fullName,$user->email,$password);
 
             return ['response'=>'created'];
         }
