@@ -361,9 +361,6 @@
     .disabled{
 
     }
-    form {
-        margin-top:100px;
-    }
     .btn .b-icon.bi{
         font-size: 80%;
     }

@@ -291,9 +291,7 @@
 </script>
 
 <style scoped>
-    form {
-        margin-top:53px;
-    }
+
     .is-danger {
         color: red;
     }

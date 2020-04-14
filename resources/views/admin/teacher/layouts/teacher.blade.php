@@ -12,16 +12,40 @@
     body{
         margin-top:80px;
     }
+    body {
+        height: 100%;
+    }
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+    main {
+        flex: 1 0 auto;
+    }
+    footer {
+        flex: 0 0 auto;
+    }
+    main {
+        margin-top: 80px;
+    }
 </style>
 <body>
-<header>
-    <div class="container">
-       @include('admin.teacher.layouts.blocks.nav.index')
+    <header>
+        <div class="container">
+           @include('admin.teacher.layouts.blocks.nav.index')
+        </div>
+    </header>
+    <div id="app">
+        <div class="wrapper">
+            <main>
+                @yield('form')
+            </main>
+            <footer>
+                <footer-component></footer-component>
+            </footer>
+        </div>
     </div>
-</header>
-<main role="main">
-    @yield('form')
-</main>
 <script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

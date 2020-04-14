@@ -40,13 +40,20 @@ class HomeController extends Controller
 
                     return view('student.homework.index',compact('subjects'));
                 case'Завуч':
+                    $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
+                        "subjects"=>(new Timetable())->getSubjects()->get(),
+                        "grades"=>(new Timetable())->getGrades()->get(),
+                        'classrooms'=>(new Timetable())->getClassrooms()->get()]);
 
+                    return view('admin.teacher.head-teacher.timetable.index',compact('teachersAndThemSubjects','initialParameters'));
+
+                    case'Учитель':
                     $initialParameters['grade']=null;
                     $initialParameters['semester']=null;
                     $grades=(new Timetable())->getGrades()->get();
-                    return view('admin.teacher.homework.index',compact('grades','initialParameters'));;
-                case'Учитель':
-                    return view('admin.teacher.index');
+
+                    return view('admin.teacher.homework.index',compact('grades','initialParameters'));
+
                 case'Админ':
                     $users = (new User())
                         ->getAll()
