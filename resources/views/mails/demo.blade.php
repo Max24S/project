@@ -4,8 +4,8 @@ Hello <i>{{ $demo->receiver }}</i>,
 <p><u>Demo object values:</u></p>
 
 <div>
-    <p><b>Demo One:</b>&nbsp;{{ $demo->demo_one }}</p>
-    <p><b>Demo Two:</b>&nbsp;{{ $demo->demo_two }}</p>
+    <p><b>Demo One:</b>&nbsp;{{ $demo->name }}</p>
+    <p><b>Demo Two:</b>&nbsp;{{ $demo->password }}</p>
 </div>
 
 <p><u>Values passed by With method:</u></p>

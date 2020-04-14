@@ -17,7 +17,7 @@ class SubjectUserController extends Controller
      */
     public function index()
     {
-
+        redirect()->back();
     }
 
     public function teachersForSubject($id,$name)

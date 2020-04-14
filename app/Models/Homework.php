@@ -119,7 +119,14 @@ class Homework extends Model
             ->join('users','users.id','=','subject_user.user_id')
             ->where('homeworks.grade_id',$grade_id[0]->id)
             ->where('subject_user.subject_id',$subject_id)
-            ->get();
+            ->get([
+                'homeworks.name as homework',
+                'homeworks.description',
+                'homeworks.deadline',
+                'users.name',
+                'users.patronymic',
+                'users.surname'
+            ]);
 
         for($i=0;$i<count($homeworks);$i++){
 
