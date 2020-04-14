@@ -168,7 +168,4 @@
         max-width: 750px;
         margin: 0 auto;
     }
-    form{
-        margin-top:55px;
-    }
 </style>

@@ -258,9 +258,7 @@
 </script>
 
 <style scoped>
-    form {
-        margin-top:53px;
-    }
+
     .btn .b-icon.bi{
         font-size: 80%;
     }
