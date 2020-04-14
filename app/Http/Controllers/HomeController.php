@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Timetable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,11 @@ class HomeController extends Controller
                 case'Ученик':
                     return view('student.index');
                 case'Завуч':
-                    return view('admin.teacher.head-teacher.index');
+
+                    $initialParameters['grade']=null;
+                    $initialParameters['semester']=null;
+                    $grades=(new Timetable())->getGrades()->get();
+                    return view('admin.teacher.homework.index',compact('grades','initialParameters'));;
                 case'Учитель':
                     return view('admin.teacher.index');
                 case'Админ':
