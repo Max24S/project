@@ -15,11 +15,19 @@
             top: 0;
         }
         body {
-            padding-top: 75px;
+            padding-top: 70px;
+            height: 100%;
         }
-        .formContainer {
-            max-width: 500px;
-            margin: 0 auto;
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+        main {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex: 0 0 auto;
         }
     </style>
 </head>
@@ -28,9 +36,16 @@
         @include('student.layouts.blocks.nav.index')
     </header>
     <div id="app">
-        @yield('content')
-        <footer-component></footer-component>
+        <div class="wrapper">
+            <main>
+                @yield('content')
+            </main>
+            <footer>
+                <footer-component></footer-component>
+            </footer>
+        </div>
     </div>
+
     <script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

@@ -250,9 +250,6 @@
         name: "CreateUser",
         data(){
             return {
-                routes:{
-                    userStore: window.routes['admin.super.user.store']
-                },
                 user:{
                     name:'',
                     surname:'',
@@ -297,7 +294,7 @@
                 console.log(this.user);
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        axios.post(this.routes.userStore,this.user)
+                        axios.post('/admin/super/user',this.user)
                             .then((response)=>{
                                 if(response.data.response == 'created'){
 

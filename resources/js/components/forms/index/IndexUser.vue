@@ -1,7 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/html">
-
     <table-admin :items="users" :fields="fields" :routes="routes"></table-admin>
-
 </template>
 
 <script>
