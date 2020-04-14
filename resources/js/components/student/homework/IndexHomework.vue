@@ -20,7 +20,7 @@
                 // items:[{fullName:'Myname',name:"123",description:"hwdada awf awfhajfahwfba fhafvahfbaf afhjwfhabf" }],
                 fields:[
                     {key:'fullName',label:'Преподаватель',class:'text-center'},
-                    {key:'name',label:'Задание',class:'text-center'},
+                    {key:'homework',label:'Задание',class:'text-center'},
                     {key:'description',label:'Описание',class:'text-center'},
                     // { key: 'actions', label: 'Действия'}
                 ],
