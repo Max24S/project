@@ -29,7 +29,13 @@ class HomeController extends Controller
         if(isset($user->role)) {
             switch ($user->role) {
                 case'Ученик':
-                    return view('student.index');
+                    $grade_id = (new Grade())->getStudentGrade();
+                    $subjects=[];
+                    if(isset($grade_id[0]->id)){
+                        $subjects = (new Subject())->getSubjectsForHomework($grade_id[0]->id);
+                    }
+
+                    return view('student.homework.index',compact('subjects'));
                 case'Завуч':
 
                     $initialParameters['grade']=null;
@@ -39,7 +45,11 @@ class HomeController extends Controller
                 case'Учитель':
                     return view('admin.teacher.index');
                 case'Админ':
-                    return view('admin.super.index');
+                    $users = (new User())
+                        ->getAll()
+                        ->get();
+
+                    return view('admin.super.user.index',compact('users'));
             }
         }
     }
