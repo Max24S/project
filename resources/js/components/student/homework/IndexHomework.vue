@@ -3,7 +3,7 @@
         <div class="container-fluid">
         <span class="title d-block mb-3">Домашнее задание по предмету: {{subject}}</span>
     </div>
-        <table-student :items="items" :fields="fields" :action="action"></table-student>
+        <table-student :items="homeworks" :fields="fields" :action="action"></table-student>
     </div>
 </template>
 
@@ -17,7 +17,7 @@
         },
         data(){
             return {
-                items:[{fullName:'Myname',name:"123",description:"hwdada awf awfhajfahwfba fhafvahfbaf afhjwfhabf" }],
+                // items:[{fullName:'Myname',name:"123",description:"hwdada awf awfhajfahwfba fhafvahfbaf afhjwfhabf" }],
                 fields:[
                     {key:'fullName',label:'Преподаватель',class:'text-center'},
                     {key:'name',label:'Задание',class:'text-center'},

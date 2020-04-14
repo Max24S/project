@@ -15,7 +15,7 @@
             top: 0;
         }
         body {
-            padding-top: 70px;
+            padding-top: 75px;
         }
         .formContainer {
             max-width: 500px;
@@ -27,7 +27,10 @@
     <header class="bg-dark">
         @include('student.layouts.blocks.nav.index')
     </header>
-    @yield('content')
+    <div id="app">
+        @yield('content')
+        <footer-component></footer-component>
+    </div>
     <script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

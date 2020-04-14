@@ -11,10 +11,9 @@
         },
         data(){
             return {
-                items:[{name:'Myname'}],
                 fields:[
                     {key:'name',label:'Предмет'},
-                    { key: 'actions', label: 'Действия'}
+                    {key: 'actions', label: 'Действия'}
                 ],
                 action:{
                     route:'/student/homework-index/',

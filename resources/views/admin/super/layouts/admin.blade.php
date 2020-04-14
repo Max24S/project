@@ -27,13 +27,17 @@
     <header class="bg-dark">
         @include('admin.super.layouts.blocks.nav.index')
     </header>
+    <div id="app">
     <div class="container">
         <div class="formContainer">
             @yield('form')
         </div>
     </div>
 
-    @yield('table')
+        @yield('table')
+        <footer-component></footer-component>
+    </div>
+
 <script src="{{mix('js/app.js')}}"></script>
 </body>
 </html>

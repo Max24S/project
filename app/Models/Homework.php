@@ -24,6 +24,7 @@ class Homework extends Model
     public function getHomework($request)
     {
         $timetable=[];
+
         $begin=Carbon::parse($request['begin'])->format('Y-m-d');
         $end=Carbon::parse($request['end'])->format('Y-m-d');
         $dbTimetableData=(new Timetable())->show($request['grade_id'],$request['semester']);
@@ -117,9 +118,18 @@ class Homework extends Model
     public function getHomeworkForSubject($subject_id)
     {   $grade_id = (new Grade())->getStudentGrade();
 
-        return DB::table('homeworks')->join('subject_user','subject_user.id','=','homeworks.subject_user_id')
+        $homeworks = DB::table('homeworks')
+            ->join('subject_user','subject_user.id','=','homeworks.subject_user_id')
+            ->join('users','users.id','=','subject_user.user_id')
             ->where('homeworks.grade_id',$grade_id[0]->id)
             ->where('subject_user.subject_id',$subject_id)
             ->get();
+
+        for($i=0;$i<count($homeworks);$i++){
+
+            $homeworks[$i]->fullName = $homeworks[$i]->surname.' '.$homeworks[$i]->name." ".$homeworks[$i]->patronymic;
+        }
+
+        return $homeworks;
     }
 }
