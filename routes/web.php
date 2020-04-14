@@ -38,6 +38,7 @@ Route::name('admin.')
 //                    ->middleware(['auth','role:Учитель']->middleware(['auth','role:Учитель']);->middleware(['auth','role:Учитель']);
                 Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework');
                 Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork');
+                Route::put('/homework/{homework}','HomeworkController@update');
                 Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework');
                 Route::resource('homework', 'HomeworkController');
                 Route::prefix('head-teacher')

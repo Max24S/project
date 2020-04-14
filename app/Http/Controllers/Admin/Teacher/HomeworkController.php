@@ -25,13 +25,16 @@ class HomeworkController extends Controller
         $initialParameters['semester']=$semester;
         $grades=(new Timetable())->getGrades()->get();
 
-        return view('admin.teacher.homework.index ',compact('grades','initialParameters'));
+        return view('admin.teacher.homework.index',compact('grades','initialParameters'));
     }
     public function indexHomework(IndexRequest $request)
     {
 //        return (new Homework())->getHomework($request->all());
         $id =Auth::id();
-        $teacher=(new Homework())->getUser($id);
+       $teacher=(new Homework())->getUser($id)->toArray();
+
+        $teacher =array_column($teacher,'subject_user_id');
+
         return ['result'=>'OK','timetable'=>(new Homework())->getHomework($request->all()),'teacher'=>$teacher];
     }
 
@@ -57,8 +60,8 @@ class HomeworkController extends Controller
     public function store(StoreRequest $request)
     {
 
-        Homework::create($request->all());
-        return redirect()->route('admin.teacher.');
+//        Homework::create($request->all());
+//        return redirect()->route('admin.teacher.');
     }
 
     /**
@@ -80,7 +83,8 @@ class HomeworkController extends Controller
      */
     public function edit(Homework $homework)
     {
-        //
+
+        return view('admin.teacher.homework.edit',compact('homework'));
     }
 
     /**
@@ -92,7 +96,11 @@ class HomeworkController extends Controller
      */
     public function update(Request $request, Homework $homework)
     {
-        //
+        $data = $request->only(['name','description']);
+
+        $homework->update($data);
+
+        return ['response'=>'updated'];
     }
 
     /**
@@ -103,6 +111,7 @@ class HomeworkController extends Controller
      */
     public function destroy(Homework $homework)
     {
-        //
+        $homework->delete();
+        return ['response'=>'deleted'];
     }
 }

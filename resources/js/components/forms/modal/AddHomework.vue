@@ -9,7 +9,7 @@
         <b-container fluid>
             {{Show}}
             <div class="form-group row mb-1">
-                <label for="name_id" class="col-sm-4 col-form-label">Предмет</label>
+                <label for="name_id" class="col-sm-4 col-form-label">Тема</label>
                 <div class="col-sm-8">
                     <input :class="{'input': true, 'alert-danger':errors.has('name')}"
                            class="form-control"
@@ -93,10 +93,9 @@
                 this.$validator.validateAll().then((result) => {
                     if (result) {
                         let homework={};
-                        if(this.timetable['currentSubject']!='-')
-                        {
+
                             homework = {
-                                'subject_user_id':this.id[0].subject_user_id,
+                                'subject_user_id':this.timetable.id,
                                 'day':this.timetable.day,
                                 'lesson':this.timetable.lesson,
                                 'grade_id':this.timetable.grade_id,
@@ -105,9 +104,9 @@
                                 'name': this.name,
                                 'description':this.description,
                             }
-                        }
                         axios.post('/admin/teacher/homework/StoreHomeWork', homework)
                             .then((response) => {
+
                                 if (response.data[0]=='OK') {
                                     this.$toaster.success('Расписание успешно добавленно');
                                     let homeWork = {
@@ -116,7 +115,6 @@
                                         'dayRow': this.timetable.rowDay,
                                         'description':this.description,
                                     }
-
                                     this.SendHomeForTable(homeWork);
                                     this.Cancel();
                                 }

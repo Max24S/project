@@ -39,14 +39,6 @@
                     stacked="md"
                     :items="items"
                     :fields="fields"
-                    :current-page="currentPage"
-                    :per-page="perPage"
-                    :filter="filter"
-                    :filterIncludedFields="filterOn"
-                    :sort-by.sync="sortBy"
-                    :sort-desc.sync="sortDesc"
-                    :sort-direction="sortDirection"
-                    @filtered="onFiltered"
                     ref="table">
                 <template v-slot:thead-top="data">
                     <b-tr>
@@ -60,12 +52,24 @@
                     <span class="d-flex justify-content-center">Нет записей</span>
                 </template>
                 <template v-slot:cell(monday)="row">
-                    <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
-                        <div class="d-flex justify-content-start">
-<!--                            <a variant="danger" @click="deleleteLesson(row.value.id,row.index,'monday')" v-if="row.value.subject" class="mr-3"><b-icon-check-circle></b-icon-check-circle></a>-->
-                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][0])"  href=""><b-icon-pencil-square></b-icon-pencil-square></a>
-
-                            <b-button  v-if="(!row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][0])"  @click="OpenModal(dateForWeek['currentWeek'][0],'Понедельник','monday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    <div  :class="(teacher.includes(row.value.subject_user_id) && dateNow<dateForWeek['timestamp'][0])?'lesson':''">
+                        <div class="d-flex row">
+                            <div class="col-6 ">
+                                <b-button  v-if="(!row.value.description&&teacher.includes(row.value.subject_user_id))
+                                     && (dateNow<dateForWeek['timestamp'][0])"
+                                           @click="OpenModal(dateForWeek['currentWeek'][0],'Понедельник','monday',row.item.lesson,row.value.subject_user_id)"
+                                           variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill>
+                                </b-button>
+                                <div class="d-flex ">
+                                    <a class="edit" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][0])"
+                                       :href="'/admin/teacher/homework/'+row.value.idHomeWork+'/edit'">
+                                        <b-icon-pencil-square></b-icon-pencil-square>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end ">
+                                <div class="ok" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][0])"><b-icon-check-circle></b-icon-check-circle></div>
+                            </div>
                         </div>
                         <span class="d-block text-center">{{row.value.subject}}</span>
                         <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
@@ -73,11 +77,24 @@
                     </div>
                 </template>
                 <template v-slot:cell(tuesday)="row">
-                    <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
-                        <div class="d-flex justify-content-start">
-                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][1])"  href=""><b-icon-pencil-square></b-icon-pencil-square></a>
-                            <div class="ok" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][1])"><b-icon-check-circle></b-icon-check-circle></div>
-                            <b-button v-if="(!row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][1])" @click="OpenModal(dateForWeek['currentWeek'][1],'Вторник','tuesday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    <div  :class="(teacher[0].id==row.value.user_id && dateNow<dateForWeek['timestamp'][1])?'lesson':''">
+                        <div class="d-flex row">
+                            <div class="col-6 ">
+                                <b-button  v-if="(!row.value.description&&teacher.includes(row.value.subject_user_id))
+                                     && (dateNow<dateForWeek['timestamp'][1])"
+                                           @click="OpenModal(dateForWeek['currentWeek'][1],'Вторник','tuesday',row.item.lesson,row.value.subject_user_id)"
+                                           variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill>
+                                </b-button>
+                                <div class="d-flex ">
+                                    <a class="edit" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][1])"
+                                       :href="'/admin/teacher/homework/'+row.value.idHomeWork+'/edit'">
+                                        <b-icon-pencil-square></b-icon-pencil-square>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end ">
+                                <div class="ok" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][1])"><b-icon-check-circle></b-icon-check-circle></div>
+                            </div>
                         </div>
                         <span class="d-block text-center">{{row.value.subject}}</span>
                         <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
@@ -85,23 +102,49 @@
                     </div>
                 </template>
                 <template v-slot:cell(wednesday)="row">
-                    <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
-                        <div class="d-flex justify-content-start">
-                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][3])"  href=""><b-icon-pencil-squaree></b-icon-pencil-squaree></a>
-                            <div class="ok" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][2])"><b-icon-check-circle></b-icon-check-circle></div>
-                            <b-button v-if="(!row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][2])" @click="OpenModal(dateForWeek['currentWeek'][2],'Среда','wednesday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    <div  :class="(teacher.includes(row.value.subject_user_id) && dateNow<dateForWeek['timestamp'][2])?'lesson':''">
+                        <div class="d-flex row">
+                            <div class="col-6 ">
+                                <b-button  v-if="(!row.value.description&&teacher.includes(row.value.subject_user_id))
+                                     && (dateNow<dateForWeek['timestamp'][2])"
+                                           @click="OpenModal(dateForWeek['currentWeek'][2],'Среда','wednesday',row.item.lesson,row.value.subject_user_id)"
+                                           variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill>
+                                </b-button>
+                                <div class="d-flex ">
+                                    <a class="edit" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][2])"
+                                       :href="'/admin/teacher/homework/'+row.value.idHomeWork+'/edit'">
+                                        <b-icon-pencil-square></b-icon-pencil-square>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end ">
+                                <div class="ok" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][2])"><b-icon-check-circle></b-icon-check-circle></div>
+                            </div>
                         </div>
                         <span class="d-block text-center">{{row.value.subject}}</span>
                         <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
                         <span class="d-block text-center">{{ row.value.classroom}}</span>
                     </div>
-                </template>
+                 </template>
                 <template  v-slot:cell(thursday)="row">
-                    <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
-                        <div class="d-flex justify-content-start">
-                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][3])"  href=""><b-icon-pencil-square></b-icon-pencil-square></a>
-                            <div class="ok" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][3])"><b-icon-check-circle></b-icon-check-circle></div>
-                            <b-button v-if="(!row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][3])" @click="OpenModal(dateForWeek['currentWeek'][3],'Четверг','thursday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    <div  :class="(teacher.includes(row.value.subject_user_id) && dateNow<dateForWeek['timestamp'][3])?'lesson':''">
+                        <div class="d-flex row">
+                            <div class="col-6 ">
+                                <b-button  v-if="(!row.value.description&&teacher.includes(row.value.subject_user_id))
+                                     && (dateNow<dateForWeek['timestamp'][3])"
+                                           @click="OpenModal(dateForWeek['currentWeek'][3],'Четверг','thursday',row.item.lesson,row.value.subject_user_id)"
+                                           variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill>
+                                </b-button>
+                                <div class="d-flex ">
+                                    <a class="edit" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][3])"
+                                       :href="'/admin/teacher/homework/'+row.value.idHomeWork+'/edit'">
+                                        <b-icon-pencil-square></b-icon-pencil-square>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end ">
+                                <div class="ok" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][3])"><b-icon-check-circle></b-icon-check-circle></div>
+                            </div>
                         </div>
                         <span class="d-block text-center">{{row.value.subject}}</span>
                         <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
@@ -109,11 +152,25 @@
                     </div>
                 </template>
                 <template  v-slot:cell(friday)="row">
-                    <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
-                        <div class="d-flex justify-content-start">
-                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][4])"  href=""><b-icon-pencil-square></b-icon-pencil-square></a>
-                            <div class="ok" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][4])"><b-icon-check-circle></b-icon-check-circle></div>
-                            <b-button  v-if="(!row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][4])"  @click="OpenModal(dateForWeek['currentWeek'][4],'Пятница','friday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    <div  :class="(teacher.includes(row.value.subject_user_id)&& dateNow<dateForWeek['timestamp'][4])?'lesson':''">
+                        <div class="d-flex row">
+                            <div class="col-6 ">
+                                <b-button  v-if="(!row.value.description&&teacher.includes(row.value.subject_user_id))
+                                     && (dateNow<dateForWeek['timestamp'][4])"
+                                           @click="OpenModal(dateForWeek['currentWeek'][4],'Пятница','friday',row.item.lesson,row.value.subject_user_id)"
+                                           variant="primary">
+                                    <b-icon-plus-square-fill></b-icon-plus-square-fill>
+                                </b-button>
+                                <div class="d-flex ">
+                                    <a class="edit" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][4])"
+                                       :href="'/admin/teacher/homework/'+row.value.idHomeWork+'/edit'">
+                                        <b-icon-pencil-square></b-icon-pencil-square>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end ">
+                                <div class="ok" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][4])"><b-icon-check-circle></b-icon-check-circle></div>
+                            </div>
                         </div>
                         <span class="d-block text-center">{{row.value.subject}}</span>
                         <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
@@ -121,11 +178,25 @@
                     </div>
                 </template>
                 <template  v-slot:cell(saturday)="row">
-                    <div :class="(teacher[0].id==row.value.user_id)?'lesson':''">
-                        <div class="d-flex justify-content-start">
-                            <a class="edit" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][5])"  href=""><b-icon-pencil-square></b-icon-pencil-square></a>
-                            <div class="ok" v-if="(row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][5])"><b-icon-check-circle></b-icon-check-circle></div>
-                            <b-button v-if="(!row.value.description&&teacher[0].id==row.value.user_id) && (dateNow<dateForWeek['timestamp'][5])"  @click="OpenModal(dateForWeek['currentWeek'][5],'Суббота','saturday',row.item.lesson)" variant="primary"><b-icon-plus-square-fill></b-icon-plus-square-fill></b-button>
+                    <div  :class="(teacher.includes(row.value.subject_user_id) && dateNow<dateForWeek['timestamp'][5])?'lesson':''">
+                        <div class="d-flex row">
+                            <div class="col-6 ">
+                                <b-button  v-if="(!row.value.description&&teacher.includes(row.value.subject_user_id))
+                                     && (dateNow<dateForWeek['timestamp'][5])"
+                                           @click="OpenModal(dateForWeek['currentWeek'][5],'Суббота','saturday',row.item.lesson,row.value.subject_user_id)"
+                                           variant="primary">
+                                    <b-icon-plus-square-fill></b-icon-plus-square-fill>
+                                </b-button>
+                                <div class="d-flex ">
+                                    <a class="edit" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][5])"
+                                       :href="'/admin/teacher/homework/'+row.value.idHomeWork+'/edit'">
+                                        <b-icon-pencil-square></b-icon-pencil-square>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex justify-content-end ">
+                                <div class="ok" v-if="(row.value.description&&teacher.includes(row.value.subject_user_id)) && (dateNow<dateForWeek['timestamp'][5])"><b-icon-check-circle></b-icon-check-circle></div>
+                            </div>
                         </div>
                         <span class="d-block text-center">{{row.value.subject}}</span>
                         <span class="d-block text-center">{{row.value.surname}} {{row.value.name}} {{row.value.patronymic}}</span>
@@ -149,7 +220,7 @@
 <script>
     export default {
     name: "IndexHomework",
-    props:['grades'],
+    props:['grades','params'],
      data(){
         return {
             timetableData:
@@ -159,7 +230,8 @@
                     rowDay:'',
                     day:'',
                     beginWeek:'',
-                    endWeek:""
+                    endWeek:"",
+                    id:''
 
                 },
             request:{},
@@ -179,25 +251,9 @@
                 { key: 'saturday', label: 'Суббота' ,class: 'text-center'},
             ],
             totalRows: 1,
-            currentPage: 1,
-            perPage: 8,
-            sortBy: '',
-            sortDesc: false,
-            sortDirection: 'asc',
-            filter: null,
-            filterOn: [],
-            infoModal: {
-                id: 'info-modal',
-                title: '',
-                content: ''
-            },
-
             teacher:'',
             show:false,
             showCell:true,
-            lastMeaningGrade:"",
-            lastMeaningSemester:"",
-            activeBtn:false,
             dateNow:'',
             dateForWeek:{},
             days:['monday','tuesday','wednesday','thursday','friday','saturday']
@@ -206,28 +262,16 @@
         methods:{
             RefreshTimetable(homework)
             {
-                this.items[homework.lesson-1][homework.dayRow].idHomeWork=homework.id
-                this.items[homework.lesson-1][homework.dayRow].description=homework.description
+                this.items[homework.lesson-1][homework.dayRow].idHomeWork=homework.id;
+                this.items[homework.lesson-1][homework.dayRow].description=homework.description;
                 this.$refs.table.refresh();
             },
-            info(item, index, button) {
-                this.infoModal.title = `Row index: ${index}`
-                this.infoModal.content = JSON.stringify(item, null, 2)
-                this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-            },
-            resetInfoModal() {
-                this.infoModal.title = ''
-                this.infoModal.content = ''
-            },
-            onFiltered(filteredItems) {
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
-            },
-            OpenModal: function (date,day,rowDay,number) {
+            OpenModal: function (date,day,rowDay,number,id) {
                 this.timetableData.rowDay=rowDay;
                 this.timetableData.day=day;
                 this.timetableData.date=date;
                 this.timetableData.lesson=number;
+                this.timetableData.id=id;
                 this.show=true;
             },
             SendData(){
@@ -239,16 +283,16 @@
                             this.$toaster.info('Вы уже выбрали расписание для этого класса', {timeout: 5000})
                         }
                         else {
-                            let getHomeWorks={};
+                            let getHomeWork={};
                             this.lastMeaningGrade=this.timetableData['grade_id'];
                             this.lastMeaningSemester=this.timetableData['semester'];
-                            getHomeWorks={
+                            getHomeWork={
                                 'grade_id': this.timetableData.grade_id,
                                 'semester':this.timetableData.semester,
                                 'begin':this.timetableData.beginWeek,
                                 'end':this.timetableData.endWeek
                             }
-                            axios.post('/admin/teacher/homework/indexTimetable', getHomeWorks)
+                            axios.post('/admin/teacher/homework/indexTimetable', getHomeWork)
                                 .then((response) => {
                                     if (response.data.result=='OK') {
                                         this.items=response.data['timetable'];
@@ -284,13 +328,7 @@
                 }
         }
         ,computed:{
-            sortOptions() {
-                return this.fields
-                    .filter(f => f.sortable)
-                    .map(f => {
-                        return { text: f.label, value: f.key }
-                    })
-            }
+
         },
         mounted() {
             this.totalRows = this.items.length
@@ -306,12 +344,14 @@
             this.timetableData.beginWeek=this.dateForWeek['currentWeek'][0];
             this.timetableData.endWeek=this.dateForWeek['currentWeek'][5];
 
-            // this.timetableData['grade_id']=(this.params['grade'])?this.params['grade']:"none";
-            // this.timetableData['semester']=(this.params['semester'])?this.params['semester']:"none"
+            this.timetableData['grade_id']=(this.params['grade'])?this.params['grade']:"none";
+            this.timetableData['semester']=(this.params['semester'])?this.params['semester']:"none"
             if (this.timetableData['grade_id']!='none'&&this.timetableData['semester']!='none')
             {
                 this.SendData();
             }
+            // console.log(this.timetableData['grade_id'])
+            // console.log(this.timetableData['semester'])
 
         }
     }
@@ -333,6 +373,12 @@
     .ok{
        color:#228B22;
         font-size:24px;
+        padding-right: 5px;
+    }
+    .edit
+    {
+        font-size:24px;
+        padding-left: 5px;
     }
     .is-danger {
         color: #ff0000;

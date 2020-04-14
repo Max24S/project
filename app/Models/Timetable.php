@@ -93,6 +93,7 @@ class Timetable extends Model
                             'timetables.lesson',
                             'grades.name as grade',
                             'classrooms.name as classroom',
+                            'subject_user.id as subject_user_id',
                             'users.name',
                             'users.id as user_id',
                             'users.surname',

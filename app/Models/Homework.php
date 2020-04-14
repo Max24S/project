@@ -37,7 +37,6 @@ class Homework extends Model
 
         $sortedTimetable=$dbTimetableData->sortBy('lesson')->groupBy('day')->toArray();
         $sortedHomeWork=$homeworks->sortBy('lesson')->groupBy('day')->toArray();
-
         $lessonsForDays['Понедельник']=[];
         $lessonsForDays['Вторник']=[];
         $lessonsForDays['Среда']=[];
@@ -54,21 +53,32 @@ class Homework extends Model
 
                     if ($day[$i-$j]->lesson == $i+1) {
                         if (($sortedHomeWork[$day[$i - $j]->day][$i - $h]->description ?? '')&& $sortedHomeWork[$day[$i - $h]->day][$i - $h]->lesson==$i+1) {
+//                            if($i==4 && $day[$i - $j]->day=='Пятница')
+//                            {
+//                                return $h;
+//                            }
                             $day[$i - $j]->description = $sortedHomeWork[$day[$i - $h]->day][$i - $h]->description;
                             $day[$i - $j]->nameHomeWork = $sortedHomeWork[$day[$i - $h]->day][$i - $h]->name ;
                             $day[$i - $j]->idHomeWork = $sortedHomeWork[$day[$i - $h]->day][$i - $h]->id;
                         }
                         else{
+
                             $day[$i - $j]->description =null;
                             $day[$i - $j]->nameHomeWork =null;
                             $day[$i - $j]->idHomeWork = null;
                             $h++;
+                            if($i>4 && $day[$i - $j]->day=='Пятница')
+                            {
+                                return $h;
+                            }
                         }
                         array_push($lessonsForDays[$day[$i - $j]->day], $day[$i - $j]);
                     }
                     else {
                         array_push($lessonsForDays[$day[$i-$j]->day] , null);
                         $j++;
+                        $h++;
+
                     }
                 }
                 else
@@ -77,7 +87,7 @@ class Homework extends Model
                 }
             }
         }
-
+        $lessonsForDays;
         for ($i=0;$i<=7;$i++)
         {
             $lessons=[
