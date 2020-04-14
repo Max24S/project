@@ -45,9 +45,6 @@
                 </span>
                         @endguest
                     </div>
-                    <div class="avatar">
-
-                    </div>
                 </div>
             </div>
         </div>
