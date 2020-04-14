@@ -38,14 +38,6 @@
             stacked="md"
             :items="items"
             :fields="fields"
-            :current-page="currentPage"
-            :per-page="perPage"
-            :filter="filter"
-            :filterIncludedFields="filterOn"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            @filtered="onFiltered"
             ref="table">
             <template v-slot:empty="scope">
                 <span class="d-flex justify-content-center">Нет записей</span>
@@ -159,21 +151,7 @@
                 totalRows: 1,
                 currentPage: 1,
                 perPage: 8,
-                sortBy: '',
-                sortDesc: false,
-                sortDirection: 'asc',
-                filter: null,
-                filterOn: [],
-                infoModal: {
-                    id: 'info-modal',
-                    title: '',
-                    content: ''
-                },
                 show:false,
-                showCell:true,
-                lastMeaningGrade:"",
-                lastMeaningSemester:"",
-                activeBtn:false
             }
         },
         methods:{
@@ -261,29 +239,8 @@
                 this.timetableData.lesson=number;
                 this.show=true;
             },
-            info(item, index, button) {
-                this.infoModal.title = `Row index: ${index}`
-                this.infoModal.content = JSON.stringify(item, null, 2)
-                this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-            },
-            resetInfoModal() {
-                this.infoModal.title = ''
-                this.infoModal.content = ''
-            },
-            onFiltered(filteredItems) {
-                this.totalRows = filteredItems.length
-                this.currentPage = 1
-            },
-
         },
         computed: {
-            sortOptions() {
-                return this.fields
-                    .filter(f => f.sortable)
-                    .map(f => {
-                        return { text: f.label, value: f.key }
-                    })
-            }
         },
         mounted() {
             this.totalRows = this.items.length

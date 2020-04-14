@@ -207,11 +207,13 @@
                             .then((response) => {
                                 if (response.data.result=='OK') {
                                     this.$toaster.success('Расписание успешно добавленно');
+
+                                    document.location.href = "/admin/teacher/head-teacher/timetable/index/"+this.timetableData['grade_id']+"/"+this.timetableData['semester'];
                                 }
                                 else {
                                     if (response.data.result == 'isset') {
 
-                                        this.$toaster.info('Расписание на этот день для этого класса уже есть,перейдите в раздел редактирования', {timeout: 5000})
+                                        this.Redirect();
                                     }
                                     else {
                                         if (Object.keys(response.data.duplicateTeacher).length > 0) {
@@ -237,6 +239,21 @@
                 })
             }
             ,
+            Redirect(){
+                this.$bvModal.msgBoxConfirm('Расписание на этот день для этого класса уже есть,перейдите в раздел редактирования?', {
+                    size: 'sm',
+                    buttonSize: 'md',
+                    okVariant: 'danger',
+                    okTitle: 'Да',
+                    cancelTitle: 'Отмена',
+                    footerClass: 'p-2',
+                    hideHeaderClose: false,
+                    centered: true
+                })
+                    .then(value => {
+                        document.location.href = "/admin/teacher/head-teacher/timetable/index/"+this.timetableData['grade_id']+"/"+this.timetableData['semester'];
+                    });
+            },
             AddLesson() {
                 this.counter++;
                let item=this.counter;
@@ -265,8 +282,7 @@
                                 this.counter--;
                             }
                         });
-
-            }
+                 }
         },
         created() {
 

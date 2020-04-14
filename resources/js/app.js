@@ -88,13 +88,11 @@ Vue.component('add-homework', require('./components/forms/modal/AddHomework').de
 Vue.component('index-homework-teacher',require('./components/forms/index/IndexHomeworkTeacher').default);
 Vue.component('index-timetable-student', require('./components/student/timetable/IndexTimetableStudent').default);
 Vue.component('index-homework', require('./components/student/homework/IndexHomework').default);
-<<<<<<< HEAD
+
 Vue.component('edit-homework', require('./components/forms/edit/EditHomework').default);
-=======
+
 Vue.component('footer-component', require('./components/blocks/footer/FooterComponent').default);
 
-
->>>>>>> dae324030c7b934fd8c29790cb02b1d603f474c0
 let EventBus = new Vue();
 const app = new Vue({
     el: '#app',

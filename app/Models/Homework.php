@@ -54,10 +54,6 @@ class Homework extends Model
 
                     if ($day[$i-$j]->lesson == $i+1) {
                         if (($sortedHomeWork[$day[$i - $j]->day][$i - $h]->description ?? '')&& $sortedHomeWork[$day[$i - $h]->day][$i - $h]->lesson==$i+1) {
-//                            if($i==4 && $day[$i - $j]->day=='Пятница')
-//                            {
-//                                return $h;
-//                            }
                             $day[$i - $j]->description = $sortedHomeWork[$day[$i - $h]->day][$i - $h]->description;
                             $day[$i - $j]->nameHomeWork = $sortedHomeWork[$day[$i - $h]->day][$i - $h]->name ;
                             $day[$i - $j]->idHomeWork = $sortedHomeWork[$day[$i - $h]->day][$i - $h]->id;

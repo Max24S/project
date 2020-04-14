@@ -292,12 +292,7 @@
                                 'begin':this.timetableData.beginWeek,
                                 'end':this.timetableData.endWeek
                             }
-<<<<<<< HEAD
                             axios.post('/admin/teacher/homework/indexTimetable', getHomeWork)
-=======
-                            console.log(getHomeWorks);
-                            axios.post('/admin/teacher/homework/indexTimetable', getHomeWorks)
->>>>>>> dae324030c7b934fd8c29790cb02b1d603f474c0
                                 .then((response) => {
                                     if (response.data.result=='OK') {
                                         this.items=response.data['timetable'];
