@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
+use App\Models\Subject;
 use App\Models\Timetable;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

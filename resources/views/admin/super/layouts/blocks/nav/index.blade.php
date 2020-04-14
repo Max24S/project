@@ -1,5 +1,10 @@
+<style>
+     a {
+        color: #fff;
+    }
+</style>
 <div class="">
-    <nav class="navbar navbar-expand-md navbar-dark w-100" >
+    <nav class="navbar navbar-expand-md w-100" >
         <div class="row w-100">
             <div class="col-8">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">

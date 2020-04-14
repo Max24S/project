@@ -13,6 +13,7 @@
             width: 100%;
             z-index: 100;
             top: 0;
+            background-color: #051d2c;
         }
         .formContainer {
             max-width: 500px;
@@ -38,7 +39,7 @@
     </style>
 </head>
 <body>
-    <header class="bg-dark">
+    <header>
         @include('admin.super.layouts.blocks.nav.index')
     </header>
     <div id="app">
