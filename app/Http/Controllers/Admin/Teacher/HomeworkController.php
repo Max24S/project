@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Grade\UpdateRequest;
 use App\Http\Requests\Homework\IndexRequest;
 use App\Models\Homework;
 use App\Models\Timetable;
@@ -47,7 +48,7 @@ class HomeworkController extends Controller
     {
         return view('admin.teacher.homework.create');
     }
-    public function StoreHomeWork(Request $request)
+    public function StoreHomeWork(StoreRequest $request)
     {
         return (new Homework())->addHomeWork($request->all());
     }
@@ -94,7 +95,7 @@ class HomeworkController extends Controller
      * @param  \App\Models\Homework  $homework
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Homework $homework)
+    public function update(UpdateRequest $request, Homework $homework)
     {
         $data = $request->only(['name','description']);
 
