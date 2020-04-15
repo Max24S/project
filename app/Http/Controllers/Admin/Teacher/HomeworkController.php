@@ -99,15 +99,15 @@ class HomeworkController extends Controller
      * @param  \App\Models\Homework  $homework
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Homework $homework)
+    public function update(\App\Http\Requests\Homework\UpdateRequest $request, Homework $homework)
     {
+
         $data = $request->only(['name','description']);
 
         $homework->update($data);
 
         return ['response'=>'updated'];
     }
-
     /**
      * Remove the specified resource from storage.
      *
