@@ -31,12 +31,16 @@ class HomeworkController extends Controller
     public function indexHomework(IndexRequest $request)
     {
 //        return (new Homework())->getHomework($request->all());
-        $id =Auth::id();
+
+            $id =Auth::id();
+
        $teacher=(new Homework())->getUser($id)->toArray();
+       if (isset($teacher)) {
 
-        $teacher =array_column($teacher,'subject_user_id');
+           $teacher = array_column($teacher, 'subject_user_id');
 
-        return ['result'=>'OK','timetable'=>(new Homework())->getHomework($request->all()),'teacher'=>$teacher];
+           return ['result' => 'OK', 'timetable' => (new Homework())->getHomework($request->all()), 'teacher' => $teacher];
+       }
     }
 
     /**

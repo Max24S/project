@@ -77,7 +77,7 @@
                     </div>
                 </template>
                 <template v-slot:cell(tuesday)="row">
-                    <div  :class="(teacher[0].id==row.value.user_id && dateNow<dateForWeek['timestamp'][1])?'lesson':''">
+                    <div  :class="(teacher.includes(row.value.subject_user_id) && dateNow<dateForWeek['timestamp'][1])?'lesson':''">
                         <div class="d-flex row">
                             <div class="col-6 ">
                                 <b-button  v-if="(!row.value.description&&teacher.includes(row.value.subject_user_id))
@@ -261,8 +261,8 @@
         methods:{
             RefreshTimetable(homework)
             {
-                this.items[homework.lesson-1][homework.dayRow].idHomeWork=homework.id;
-                this.items[homework.lesson-1][homework.dayRow].description=homework.description;
+                this.items[homework.lesson-1][homework.dayRow].idHomeWork=(homework.id)?homework.id:0;
+                this.items[homework.lesson-1][homework.dayRow].description=(homework.description)?homework.description:'';
                 this.$refs.table.refresh();
             },
             OpenModal: function (date,day,rowDay,number,id) {

@@ -40,6 +40,8 @@ class HomeController extends Controller
 
                     return view('student.homework.index',compact('subjects'));
                 case'Завуч':
+                    $initialParameters['grade']=null;
+                    $initialParameters['semester']=null;
                     $teachersAndThemSubjects=collect(["teachers"=>(new Timetable())->getTeachers(),
                         "subjects"=>(new Timetable())->getSubjects()->get(),
                         "grades"=>(new Timetable())->getGrades()->get(),
