@@ -205,7 +205,6 @@
                 </template>
             </b-table>
         </b-container>
-        {{show}}
         <div>
             <add-homework @hide="show=$event"
                 :timetable="timetableData"

@@ -1,34 +1,38 @@
 <template>
     <div class="container">
         <div class="containerForm">
-            <form @submit.prevent="SendData" class="">
-                <div class="form-group row mb-1">
-                    <label for="name_id" class="col-sm-4 col-form-label">Тема</label>
-                    <div class="col-sm-8">
-                        <input :class="{'input': true, 'alert-danger':errors.has('name')}"
-                               class="form-control"
-                               v-validate="'required|alpha_num'" v-model="homeWork.name" id="name_id" :name="'name'"
-                               placeholder="Название домашней работы..."
-                               type="text">
-                        <div v-if="errors.has('name')" class="help is-danger ">{{ errors.first('name') }}</div>
+            <div class="border-form">
+                <form @submit.prevent="SendData" class="">
+                    <div class="form-group row mb-1">
+                        <label for="name_id" class="col-sm-4 col-form-label">Тема</label>
+                        <div class="col-sm-8">
+                            <input :class="{'input': true, 'alert-danger':errors.has('name')}"
+                                   class="form-control"
+                                   v-validate="'required|alpha_num'" v-model="homeWork.name" id="name_id" :name="'name'"
+                                   placeholder="Название домашней работы..."
+                                   type="text">
+                            <div v-if="errors.has('name')" class="help is-danger ">{{ errors.first('name') }}</div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row mb-1">
-                    <label for="description_id" class="col-sm-4 col-form-label">Описание</label>
-                    <div class="col-sm-8">
-                    <textarea :class="{'input': true, 'alert-danger':errors.has('description')}"
-                              class="form-control"
-                              v-validate="'required'"
-                              v-model="homeWork.description" id="description_id" :name="'description'"
-                              placeholder="Описание домашней работы..."
-                              type="text">
-                    </textarea>
-                        <div v-if="errors.has('description')" class="help is-danger ">{{ errors.first('description') }}</div>
+                    <div class="form-group row mb-2">
+                        <label for="description_id" class="col-sm-4 col-form-label">Описание</label>
+                        <div class="col-sm-8">
+                        <textarea :class="{'input': true, 'alert-danger':errors.has('description')}"
+                                  class="form-control"
+                                  v-validate="'required'"
+                                  v-model="homeWork.description" id="description_id" :name="'description'"
+                                  placeholder="Описание домашней работы..."
+                                  type="text">
+                        </textarea>
+                            <div v-if="errors.has('description')" class="help is-danger ">{{ errors.first('description') }}</div>
+                        </div>
                     </div>
-                </div>
-                <button type="button" @click="deleleteHomeWork">Удалить</button>
-                <button type="submit"  class=" btn btn-danger ok ">Редактировать</button>
-            </form>
+                    <div class="row">
+                        <div class="col-6 col-md-8"><button type="submit"  class="btn btn-info">Редактировать</button></div>
+                        <div class="col-6 col-md-4"><button type="button" class="btn btn-danger" @click="deleleteHomeWork">Удалить</button></div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -121,10 +125,16 @@
         color: red;
     }
     .containerForm {
-        max-width: 750px;
+        max-width: 500px;
         margin: 0 auto;
+    }
+    .border-form {
+        max-width: 450px;
+        padding:25px;
+        border: 1px dashed black;
     }
     form{
         margin-top:55px;
+
     }
 </style>

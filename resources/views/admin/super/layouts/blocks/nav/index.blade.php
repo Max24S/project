@@ -31,7 +31,7 @@
                             <a class="nav-link" href="{{route('admin.super.classroom.index')}}"   aria-haspopup="true" aria-expanded="false">Кабинеты</a>
                         </li>
                     </ul>
-                </div>
+
             </div>
             <div class="col-4">
                 <div class="user_cabinet d-flex justify-content-end position-relative">
