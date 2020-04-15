@@ -123,6 +123,7 @@ class Homework extends Model
                 'homeworks.name as homework',
                 'homeworks.description',
                 'homeworks.deadline',
+                'homeworks.lesson',
                 'users.name',
                 'users.patronymic',
                 'users.surname'

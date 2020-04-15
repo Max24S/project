@@ -28,7 +28,7 @@
                     <div class="col-sm-8">
                         <v-select
                             v-model="editGrade.user_id"
-                            :options="this.teachersClassrooms.users"
+                            :options="teachersClassrooms.users"
                             :reduce="teacher => teacher.id"
                             label="fullName"
                         >
@@ -80,6 +80,8 @@
         },
         created() {
             this.editGrade = this.grade;
+            this.editGrade.classroom_id="";
+            this.editGrade.user_id="";
         },
         methods: {
             updateGrade() {

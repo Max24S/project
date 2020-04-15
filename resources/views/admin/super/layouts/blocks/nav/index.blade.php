@@ -5,27 +5,29 @@
     a:hover {
         color: #fff;
     }
-     
+     .dropdown-menu {
+         left: -35px;
+     }
 </style>
 <div class="">
     <nav class="navbar navbar-expand-md w-100" >
         <div class="row w-100">
             <div class="col-8">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarsExample04">
-                    <ul class="navbar-nav mr-auto d-flex justify-content-around w-100">
-                        <li class="nav-item ">
+                    <ul class="navbar-nav mr-auto d-flex w-100">
+                        <li class="nav-item mr-5">
                             <a class="nav-link" href="{{route('admin.super.user.index')}}" >Пользователи</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item mr-5">
                             <a class="nav-link" href="{{route('admin.super.subject.index')}}"  aria-haspopup="true" aria-expanded="false">Предметы</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item mr-5">
                             <a class="nav-link" href="{{route('admin.super.grade.index')}}"  aria-haspopup="true" aria-expanded="false">Классы</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item mr-5">
                             <a class="nav-link" href="{{route('admin.super.classroom.index')}}"   aria-haspopup="true" aria-expanded="false">Кабинеты</a>
                         </li>
                     </ul>
@@ -60,11 +62,4 @@
     </nav>
 </div>
 
-<style>
-    .avatar {
-        width: 35px;
-        height: 35px;
-        border: 1px solid gray;
-    }
-</style>
 

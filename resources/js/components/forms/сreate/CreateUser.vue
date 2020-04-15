@@ -126,7 +126,7 @@
                             <b-icon-eye-fill v-if="!visibleConfirmPassword"></b-icon-eye-fill>
                             <b-icon-eye-slash-fill v-if="visibleConfirmPassword" ></b-icon-eye-slash-fill>
                         </div>
-                        <span v-show="errors.has('confirm-password')" class="help is-danger">{{ errors.first('confirm-password') }}</span>
+                        <span v-show="errors.has('confirm-password')" class="help is-danger">Пароли не совпадают</span>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
                             >
                             Мужской
                         </label>
-                        <span v-show="errors.has('address')" class="help is-danger">{{ errors.first('sex') }}</span>
+                        <span v-show="errors.has('address')" class="help is-danger d-block">{{ errors.first('sex') }}</span>
                     </div>
                 </div>
             </div>

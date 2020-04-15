@@ -34,6 +34,9 @@ Vue.use(VeeValidate, {
     locale: 'ru',
     dictionary: {
         ru: {
+            messages:{
+                confirmed: 'Пароли не совдают'
+            },
             attributes:{
                 surname:" ",
                 description:' ',

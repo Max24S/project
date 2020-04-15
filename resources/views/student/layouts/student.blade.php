@@ -13,6 +13,7 @@
             width: 100%;
             z-index: 100;
             top: 0;
+            background-color: #051d2c;
         }
         body {
             padding-top: 70px;
@@ -29,10 +30,11 @@
         footer {
             flex: 0 0 auto;
         }
+
     </style>
 </head>
 <body>
-    <header class="bg-dark">
+    <header>
         @include('student.layouts.blocks.nav.index')
     </header>
     <div id="app">

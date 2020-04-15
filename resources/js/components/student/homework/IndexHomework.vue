@@ -20,8 +20,10 @@
                 // items:[{fullName:'Myname',name:"123",description:"hwdada awf awfhajfahwfba fhafvahfbaf afhjwfhabf" }],
                 fields:[
                     {key:'fullName',label:'Преподаватель',class:'text-center'},
+                    {key:'lesson',label:'№ Урока',class:'text-center'},
                     {key:'homework',label:'Задание',class:'text-center'},
                     {key:'description',label:'Описание',class:'text-center'},
+                    {key:'deadline',label:'Дата',class:'text-center'},
                     // { key: 'actions', label: 'Действия'}
                 ],
                 action:{
