@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav mr-auto d-flex">
                     <li class="nav-item mr-4">
-                        <a class="{{ (Route::currentRouteName() == 'admin.teacher.homework')||( Route::currentRouteName() == 'home')?'active':'' }} nav-link link-menu" href="{{route('admin.teacher.homework')}}" >Домашнее задание</a>
+                        <a class="{{ (Route::currentRouteName() == 'admin.teacher.homework')?'active':'' }} nav-link link-menu" href="{{route('admin.teacher.homework')}}" >Домашнее задание</a>
                     </li>
                     @if( Auth::user()->role=='Завуч')
                     <li class="nav-item">
