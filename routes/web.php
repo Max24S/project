@@ -62,11 +62,10 @@ Route::name('student.')
     ->prefix('student')
     ->group(function () {
 
-        Route::view('/','student.index')->name('home');
         Route::resource('timetable', 'TimetableController');
         Route::resource('homework', 'HomeworkController');
         Route::get("timetable-index/{id}/{semester}",'TimetableController@getTimetable');
-        Route::get("homework-index/{id}/{subject}",'HomeworkController@indexHomeworkForSubject');
+        Route::get("homework-index/{id}/{subject}",'HomeworkController@indexHomeworkForSubject')->name('homework');
     });
 
 Auth::routes();

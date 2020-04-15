@@ -8,6 +8,10 @@
     .dropdown-menu {
         left: -35px;
     }
+    .active
+    {
+        color: goldenrod!important;
+    }
 </style>
 <div class="">
     <nav class="navbar navbar-expand-md w-100" >
@@ -19,10 +23,10 @@
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav mr-auto d-flex w-100">
                         <li class="nav-item mr-5">
-                            <a class="nav-link" href="{{route('student.homework.index')}}" >Домашнее задание</a>
+                            <a class="nav-link {{(Route::currentRouteName() == 'student.homework.index')||(Route::currentRouteName() == 'home')?'active':''}}" href="{{route('student.homework.index')}}" >Домашнее задание</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('student.timetable.index')}}"  aria-haspopup="true" aria-expanded="false">Расписание</a>
+                            <a class="nav-link {{Route::currentRouteName() == 'student.timetable.index'?'active':''}}" href="{{route('student.timetable.index')}}"  aria-haspopup="true" aria-expanded="false">Расписание</a>
                         </li>
                     </ul>
 

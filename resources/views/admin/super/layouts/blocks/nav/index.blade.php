@@ -8,6 +8,11 @@
      .dropdown-menu {
          left: -35px;
      }
+
+     .active
+     {
+         color: goldenrod!important;
+     }
 </style>
 <div class="">
     <nav class="navbar navbar-expand-md w-100" >
@@ -19,19 +24,20 @@
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                     <ul class="navbar-nav mr-auto d-flex w-100">
                         <li class="nav-item mr-5">
-                            <a class="nav-link" href="{{route('admin.super.user.index')}}" >Пользователи</a>
+                            <a class="nav-link {{(Route::currentRouteName() == 'admin.super.user.index')||(Route::currentRouteName() == 'home')?'active':''}}" href="{{route('admin.super.user.index')}}" >Пользователи</a>
                         </li>
                         <li class="nav-item mr-5">
-                            <a class="nav-link" href="{{route('admin.super.subject.index')}}"  aria-haspopup="true" aria-expanded="false">Предметы</a>
+                            <a class="nav-link {{Route::currentRouteName() == 'admin.super.subject.index'?'active':''}}" href="{{route('admin.super.subject.index')}}"  aria-haspopup="true" aria-expanded="false">Предметы</a>
                         </li>
                         <li class="nav-item mr-5">
-                            <a class="nav-link" href="{{route('admin.super.grade.index')}}"  aria-haspopup="true" aria-expanded="false">Классы</a>
+                            <a class="nav-link {{Route::currentRouteName() == 'admin.super.grade.index'?'active':''}}" href="{{route('admin.super.grade.index')}}"  aria-haspopup="true" aria-expanded="false">Классы</a>
                         </li>
                         <li class="nav-item mr-5">
-                            <a class="nav-link" href="{{route('admin.super.classroom.index')}}"   aria-haspopup="true" aria-expanded="false">Кабинеты</a>
+                            <a class="nav-link {{Route::currentRouteName() == 'admin.super.classroom.index'?'active':''}}" href="{{route('admin.super.classroom.index')}}"   aria-haspopup="true" aria-expanded="false">Кабинеты</a>
                         </li>
                     </ul>
 
+            </div>
             </div>
             <div class="col-4">
                 <div class="user_cabinet d-flex justify-content-end position-relative">
