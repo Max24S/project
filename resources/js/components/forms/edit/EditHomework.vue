@@ -8,7 +8,7 @@
                         <div class="col-sm-8">
                             <input :class="{'input': true, 'alert-danger':errors.has('name')}"
                                    class="form-control"
-                                   v-validate="'required|alpha_num'" v-model="homeWork.name" id="name_id" :name="'name'"
+                                   v-validate="'required'" v-model="homeWork.name" id="name_id" :name="'name'"
                                    placeholder="Название домашней работы..."
                                    type="text">
                             <div v-if="errors.has('name')" class="help is-danger ">{{ errors.first('name') }}</div>
