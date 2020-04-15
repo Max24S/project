@@ -17,7 +17,7 @@
             return {
                 routes:{
                     Create:'/admin/super/subject-user/create/'+this.subject.id+'/'+this.subject.name,
-                    Edit:'',
+                    Edit:'/admin/super/user/',
                     Delete:'/admin/super/subject-user/'
                 },
                 fields: [
@@ -26,7 +26,11 @@
                     { key: 'surname', label: 'фамилия', sortable: true, sortDirection: 'desc' ,class: 'text-center'},
                     { key: 'patronymic', label: 'Отчество', sortable: true, sortDirection: 'desc',class: 'text-center' },
                     { key: 'actions', label: 'Действия' }
-                ]
+                ],
+                action: {
+                    route:'',
+                    content:'Преподаватели'
+                }
             }
         }
     }

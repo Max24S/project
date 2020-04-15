@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/1', 'Mail\MailController@send');
 
 Route::name('admin.')
     ->namespace('Admin')
@@ -12,7 +11,7 @@ Route::name('admin.')
         Route::prefix('super')
             ->name('super.')
             ->namespace('Super')
-            ->middleware(['auth','role:Админ'])
+//            ->middleware(['auth','role:Админ'])
             ->group(function () {
                 Route::view('/','admin.super.index');
                 Route::resource('classroom', 'ClassroomController');
@@ -55,6 +54,7 @@ Route::name('admin.')
                     });
             });
     });
+
 
 Route::name('student.')
     ->namespace('User')

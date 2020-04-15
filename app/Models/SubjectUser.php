@@ -42,6 +42,6 @@ class SubjectUser extends Model
             ->join('users','users.id','=','subject_user.user_id')
             ->join('subjects','subjects.id','=','subject_user.subject_id')
             ->where('subjects.id',$subject_id)
-            ->get(['subject_user.id','users.surname','users.name','users.patronymic']);
+            ->get(['subject_user.id','users.surname','users.name','users.patronymic','subject_user.user_id']);
     }
 }

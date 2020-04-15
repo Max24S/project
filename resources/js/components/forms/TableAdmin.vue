@@ -60,12 +60,12 @@
                     <a
                         class="btn btn-primary edit"
                         v-if="routes.Edit"
-                        :href="routes.Edit+row.item.id+'/edit'"
+                        :href="routes.Edit+row.item.user_id+'/edit'"
                     >
                         Редактировать
                     </a>
                     <template v-if="action">
-                        <a class="btn btn-info edit" :href="action.route+row.item.id+'/'+row.item.name">{{action.content}}</a>
+                        <a class="btn btn-info edit" :href="action.route+row.item.user_id+'/'+row.item.name">{{action.content}}</a>
                     </template>
                     <b-button
                         @click="showMsgBoxDelete(row.item.id,row.index)"
