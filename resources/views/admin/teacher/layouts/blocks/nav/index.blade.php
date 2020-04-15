@@ -9,26 +9,23 @@
             <div class="collapse navbar-collapse" id="navbarsExample04">
                 <ul class="navbar-nav mr-auto d-flex">
                     <li class="nav-item mr-4">
-                        <a class="nav-link link-menu" href="{{route('admin.teacher.homework')}}" >Домашнее задание</a>
+                        <a class="{{ (Route::currentRouteName() == 'admin.teacher.homework')||( Route::currentRouteName() == 'home')?'active':'' }} nav-link link-menu" href="{{route('admin.teacher.homework')}}" >Домашнее задание</a>
                     </li>
-            @guest
-            @else
-                @if( Auth::user()->role=='Завуч')
+                    @if( Auth::user()->role=='Завуч')
                     <li class="nav-item">
                         <div class="dropdown">
-                            <span class="nav-link link-menu  d-block dropdown-toggle" data-toggle="dropdown" >
+                            <span class=" {{ (Route::currentRouteName() == 'admin.teacher.head-teacher.timetable')||(Route::currentRouteName() == 'admin.teacher.head-teacher.timetable.create')?'active':'' }} nav-link link-menu  d-block dropdown-toggle" data-toggle="dropdown" >
                                 Расписание
                             </span>
                             <div class="dropdown-menu">
-                                <a class=" drop dropdown-item" href="{{route('admin.teacher.head-teacher.timetable.create')}}">Создать</a>
-                                <a class=" drop dropdown-item" href="{{route('admin.teacher.head-teacher.timetable')}}">Просмотреть</a>
+                                <a class=" {{ Route::currentRouteName() == 'admin.teacher.head-teacher.timetable.create'?'active':'' }} drop dropdown-item" href="{{route('admin.teacher.head-teacher.timetable.create')}}">Создать</a>
+                                <a class=" {{ Route::currentRouteName() == 'admin.teacher.head-teacher.timetable'?'active':'' }} drop dropdown-item" href="{{route('admin.teacher.head-teacher.timetable')}}">Просмотреть</a>
                             </div>
                         </div>
                     </li>
                 </ul>
+                    @endif
             </div>
-                @endif
-            @endguest
         </div>
         <div class="col-4">
             <div class="justify-content-end d-flex">
@@ -66,7 +63,16 @@
         text-decoration: none;
     }
     .dropdown-menu .drop{
-        color:#051d2c
+        color: goldenrod!important;
+        color:#051d2c!important;
+    }
+    .dropdown-item.active{
+        color: goldenrod!important;
+        background-color:#051d2c!important;
+    }
+    .active
+    {
+        color: goldenrod!important;
     }
     .custom-toggler.navbar-toggler {
         border-color: rgb(255,102,203);

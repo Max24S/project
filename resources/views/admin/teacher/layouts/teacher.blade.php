@@ -32,9 +32,7 @@
 </style>
 <body>
     <header>
-        <div class="container">
-           @include('admin.teacher.layouts.blocks.nav.index')
-        </div>
+       @include('admin.teacher.layouts.blocks.nav.index')
     </header>
     <div id="app">
         <div class="wrapper">
