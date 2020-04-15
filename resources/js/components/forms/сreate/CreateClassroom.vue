@@ -31,7 +31,7 @@
         data(){
             return {
                 routes:{
-                    classroomStore: window.routes['admin.super.classroom.store']
+                    classroomStore: '/admin/super/classroom'
                 },
                 classroom:{
                     name:''

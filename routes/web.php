@@ -21,8 +21,7 @@ Route::name('admin.')
                 Route::resource('user', 'UserController');
                 Route::resource('student', 'StudentController');
                 Route::resource('subject-user', 'SubjectUserController');
-                Route::get("
-                -user/index/{id}/{name}",'SubjectUserController@teachersForSubject');
+                Route::get("subject-user/index/{id}/{name}",'SubjectUserController@teachersForSubject');
                 Route::get("student/index/{id}/{name}",'StudentController@studentsForGrade');
                 Route::put("user/{user} ",'UserController@update');
                 Route::put("subject/{subject} ",'SubjectController@update');
