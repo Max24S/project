@@ -99,7 +99,8 @@ class User extends Authenticatable
     public function getAllTeachers() {
 
         return DB::table('users')
-            ->where('users.role','<>','Ученик');
+            ->where('users.role','<>','Ученик')
+            ->where('users.role','<>','Админ');
     }
 
     public function getStudents() {
