@@ -13,7 +13,7 @@
                 <div class="col-sm-8">
                     <input :class="{'input': true, 'alert-danger':errors.has('name')}"
                            class="form-control"
-                           v-validate="reactiveRules?'required|alpha_num':''" v-model="name" id="name_id" :name="'name'"
+                           v-validate="reactiveRules?'required':''" v-model="name" id="name_id" :name="'name'"
                            placeholder="Название домашней работы..."
                            type="text">
                     <div v-if="errors.has('name')" class="help is-danger ">{{ errors.first('name') }}</div>
