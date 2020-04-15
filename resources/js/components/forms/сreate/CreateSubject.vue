@@ -32,9 +32,6 @@
         props:['teachers'],
         data(){
             return {
-                routes:{
-                    subjectStore: '/admin/super/subject'
-                },
                subject:{
                    name:'',
                },
@@ -50,7 +47,7 @@
                 console.log(this.subject);
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        axios.post(this.routes.subjectStore, this.subject)
+                        axios.post('/admin/super/subject', this.subject)
                             .then((response) => {
                                 if (response.data.response == 'created') {
 

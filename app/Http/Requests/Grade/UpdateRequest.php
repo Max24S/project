@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Grade;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateRequest extends FormRequest
 {
@@ -13,7 +14,13 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $user = Auth::user();
+        if($user->role=='Админ')
+        {
+            return true;
+        }
+
+        return false;
     }
 
     /**
