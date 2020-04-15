@@ -59,6 +59,7 @@ Route::name('admin.')
 Route::name('student.')
     ->namespace('User')
     ->prefix('student')
+    ->middleware(['auth','role:Ученик'])
     ->group(function () {
 
         Route::resource('timetable', 'TimetableController');

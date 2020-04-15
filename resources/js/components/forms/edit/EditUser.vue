@@ -228,7 +228,6 @@
                             v-model="editUser.role"
                         >
                             <option selected value="none">Укажите роль</option>
-                            <option>Директор</option>
                             <option>Завуч</option>
                             <option>Учитель</option>
                             <option>Ученик</option>
