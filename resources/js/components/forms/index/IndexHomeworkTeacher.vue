@@ -341,6 +341,8 @@
             this.getNow();
         },
         created() {
+            console.log(this.params);
+            console.log(this.grades)
 
             this.dateNow=+new Date()+60000;
             this.dateForWeek=this.getNow();
