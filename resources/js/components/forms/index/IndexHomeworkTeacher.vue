@@ -297,6 +297,7 @@
                                         this.items=response.data['timetable'];
                                         this.teacher=response.data['teacher'];
                                         this.isVisible=1;
+                                        console.log(this.teacher);
                                     }
                                 })
                                 .catch(e => {
