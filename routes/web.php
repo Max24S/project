@@ -12,7 +12,7 @@ Route::name('admin.')
         Route::prefix('super')
             ->name('super.')
             ->namespace('Super')
-//            ->middleware(['auth','role:Админ'])
+            ->middleware(['auth','role:Админ'])
             ->group(function () {
                 Route::view('/','admin.super.index');
                 Route::resource('classroom', 'ClassroomController');
@@ -36,14 +36,14 @@ Route::name('admin.')
             ->group(function () {
                 Route::view('/','admin.teacher.index');
 //                    ->middleware(['auth','role:Учитель']->middleware(['auth','role:Учитель']);->middleware(['auth','role:Учитель']);
-                Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework');
-                Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork');
-                Route::put('/homework/{homework}','HomeworkController@update');
-                Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework');
+                Route::post('/homework/indexTimetable','HomeworkController@indexHomework')->name('timetable.indexHomework')->middleware(['auth','role:Учитель;Завуч']);
+                Route::post('/homework/StoreHomeWork','HomeworkController@StoreHomeWork')->name('timetable.StoreHomeWork')->middleware(['auth','role:Учитель;Завуч']);;
+                Route::put('/homework/{homework}','HomeworkController@update')->middleware(['auth','role:Учитель;Завуч']);;
+                Route::get('/homework/index/{grade?}/{semester?}','HomeworkController@index')->name('homework')->middleware(['auth','role:Учитель;Завуч']);;
                 Route::resource('homework', 'HomeworkController');
                 Route::prefix('head-teacher')
                     ->namespace('HeadTeacher')
-//                    ->middleware(['auth','role:Завуч'])
+                    ->middleware(['auth','role:Завуч'])
                     ->name('head-teacher.')
                     ->group(function () {
                         Route::view('/','admin.teacher.head-teacher.index');
