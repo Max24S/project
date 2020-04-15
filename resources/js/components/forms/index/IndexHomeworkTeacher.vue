@@ -291,12 +291,16 @@
                                 'begin':this.timetableData.beginWeek,
                                 'end':this.timetableData.endWeek
                             }
+                            console.log(getHomeWork);
                             axios.post('/admin/teacher/homework/indexTimetable', getHomeWork)
                                 .then((response) => {
+
                                     if (response.data.result=='OK') {
+                                        console.log(response.data);
                                         this.items=response.data['timetable'];
                                         this.teacher=response.data['teacher'];
                                         this.isVisible=1;
+                                        console.log(this.teacher);
                                     }
                                 })
                                 .catch(e => {
@@ -337,6 +341,8 @@
             this.getNow();
         },
         created() {
+            console.log(this.params);
+            console.log(this.grades)
 
             this.dateNow=+new Date()+60000;
             this.dateForWeek=this.getNow();
