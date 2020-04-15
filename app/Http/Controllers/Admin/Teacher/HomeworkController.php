@@ -34,7 +34,7 @@ class HomeworkController extends Controller
 
             $id =Auth::id();
 
-       $teacher=(new Homework())->getUser($id)->toArray();
+        $teacher=(new Homework())->getUser($id)->toArray();
        if (isset($teacher)) {
 
            $teacher = array_column($teacher, 'subject_user_id');

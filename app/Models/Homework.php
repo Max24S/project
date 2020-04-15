@@ -36,8 +36,9 @@ class Homework extends Model
          ->where('deadline','<=',$end)
          ->get();
 
-        $sortedTimetable=$dbTimetableData->sortBy('lesson')->groupBy('day')->toArray();
-        $sortedHomeWork=$homeworks->sortBy('lesson')->groupBy('day')->toArray();
+         $sortedTimetable=$dbTimetableData->sortBy('lesson')->groupBy('day')->toArray();
+
+          $sortedHomeWork=$homeworks->sortBy('lesson')->groupBy('day')->toArray();
         $lessonsForDays['Понедельник']=[];
         $lessonsForDays['Вторник']=[];
         $lessonsForDays['Среда']=[];
@@ -64,10 +65,6 @@ class Homework extends Model
                             $day[$i - $j]->nameHomeWork =null;
                             $day[$i - $j]->idHomeWork = null;
                             $h++;
-                            if($i>4 && $day[$i - $j]->day=='Пятница')
-                            {
-                                return $h;
-                            }
                         }
                         array_push($lessonsForDays[$day[$i - $j]->day], $day[$i - $j]);
                     }
@@ -98,6 +95,11 @@ class Homework extends Model
             ];
             array_push($timetable,$lessons);
         }
+//        if(!$sortedHomeWork)
+//        {
+//            $timetable=null;
+//            $timetable=
+//        }
         return $timetable;
 
     }
