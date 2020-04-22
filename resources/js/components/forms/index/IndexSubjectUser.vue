@@ -17,7 +17,7 @@
             return {
                 routes:{
                     Create:'/admin/super/subject-user/create/'+this.subject.id+'/'+this.subject.name,
-                    Edit:'/admin/super/user/',
+                    Edit:'',
                     Delete:'/admin/super/subject-user/'
                 },
                 fields: [

@@ -9,8 +9,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use stdClass;
+use Symfony\Component\Console\Input\Input;
 
 class User extends Authenticatable
 {
@@ -61,6 +63,8 @@ class User extends Authenticatable
         {
             $password = $user['password'];
             $user['password'] = bcrypt($user['password']);
+
+//            Storage::disk('local')->put('file.txt', 'Contents');
 
 
             $user=User::create($user);

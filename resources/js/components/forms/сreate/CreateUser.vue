@@ -1,7 +1,7 @@
 <template>
     <div>
     <div class="form_container">
-        <form class="form-horizontal" role="form" id="form" @submit.prevent="sendUser" method="post">
+        <form class="form-horizontal" role="form" id="form" @submit.prevent="sendUser">
             <span class="d-block mb-4 title">Добавление пользователя</span>
             <div class="form-group">
                 <div class="row">
@@ -238,7 +238,7 @@
                 </div>
             </div>
             </div>
-            <input type="file" name="image">
+            <!--<input type="file" name="image" v-model="user.file">-->
             <button type="submit" class="btn btn-primary btn-block">Добавить</button>
         </form> <!-- /form -->
 
@@ -262,7 +262,8 @@
                     address:'',
                     sex:'',
                     role:'none',
-                    password:''
+                    password:'',
+                    file:''
                 },
                 visibleConfirmPassword:false,
                 visiblePassword:false,
@@ -292,6 +293,7 @@
                 this.confirmPassword =password;
             },
             sendUser(){
+                // const config = { 'content-type': 'multipart/form-data' }
                 this.emailErr="";
                 console.log(this.user);
                 this.$validator.validateAll().then((result) => {
